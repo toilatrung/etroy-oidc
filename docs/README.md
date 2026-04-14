@@ -91,6 +91,7 @@ Load in this sequence:
 - `srs-v1.md` -> requirements contract
 - `master-execution-plan.md` -> execution control model
 - `phase-01-environment-bootstrap.md` -> current phase breakdown
+- `phase-01-sprint-01-report.md` -> sprint execution report
 - governance documents -> repository control and merge discipline
 
 ## VI. Maintenance Rules
