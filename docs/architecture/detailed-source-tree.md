@@ -153,21 +153,23 @@ scripts/
 
 ```text
 docs/
-├─ architecture/
-│  ├─ system-overview.md
-│  ├─ module-boundaries.md
-│  ├─ source-tree.md
-│  └─ detailed-source-tree.md
-├─ requirements/
-│  └─ srs-v1.md
-├─ planning/
-│  ├─ master-execution-plan.md
-│  └─ phases/
-│     └─ phase-01-environment-bootstrap.md
-└─ governance/
-   ├─ git-rules.md
-   ├─ pr-template.md
-   └─ review-checklist.md
+|- architecture/
+|  |- system-overview.md
+|  |- module-boundaries.md
+|  |- source-tree.md
+|  \- detailed-source-tree.md
+|- requirements/
+|  \- srs-v1.md
+|- planning/
+|  |- master-execution-plan.md
+|  |- phases/
+|  |  \- phase-01-environment-bootstrap.md
+|  \- reports/
+|     \- phase-01-sprint-01-report.md
+\- governance/
+   |- git-rules.md
+   |- pr-template.md
+   \- review-checklist.md
 ```
 
 ---
@@ -219,3 +221,4 @@ Use this document to:
 - verify repository-level physical layout details
 
 Do not use this document to override `source-tree.md`.
+
