@@ -23,6 +23,7 @@ etroy-oidc/
 ├─ keys/
 ├─ scripts/
 ├─ docs/
+├─ .github/
 ├─ agent/
 ├─ .env
 ├─ .env.example
@@ -31,6 +32,19 @@ etroy-oidc/
 ├─ tsconfig.json
 └─ README.md
 ```
+
+`.github/` is an approved root-level governance and automation area (non-runtime).
+
+```text
+.github/
+|- pull_request_template.md
+\\- workflows/
+```
+
+Rules:
+
+- `.github/` supports repository governance and automation only
+- `.github/` must not contain business logic or runtime source code
 
 ---
 
