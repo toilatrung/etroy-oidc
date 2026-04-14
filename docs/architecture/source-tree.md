@@ -66,6 +66,8 @@ If any conflict exists, `source-tree.md` takes precedence.
 
 The eTroy OIDC repository must have the following root structure:
 
+Approved root-level areas include `.github/` as a governance and automation directory.
+
 ```text
 etroy-oidc/
 ├─ src/
@@ -73,6 +75,7 @@ etroy-oidc/
 ├─ keys/
 ├─ scripts/
 ├─ docs/
+├─ .github/
 ├─ .env
 ├─ .env.example
 ├─ .gitignore
@@ -159,7 +162,23 @@ It includes:
 
 Official project documents must live here rather than being scattered across the repository.
 
-### 6. Root configuration files
+### 6. `.github/`
+
+`.github/` stores repository governance and automation assets.
+
+It may contain:
+
+- pull request templates
+- GitHub Actions workflows
+- repository-level automation metadata
+
+Rules:
+
+- `.github/` is not a runtime source area
+- `.github/` must not contain business logic
+- automation and workflow files must support governance and quality control
+
+### 7. Root configuration files
 
 #### `.env`
 
@@ -391,14 +410,14 @@ It must not become a place for business logic.
 
 ## XIV. Approved Root-level Product Areas
 
-At contract level, the repository is divided into five main product areas:
+At contract level, the repository is divided into six main product areas:
 
-1. `src/` — runtime source
-2. `docs/` — official documentation
-3. `scripts/` — operational scripts
-4. `keys/` — cryptographic materials
-5. `agent/` — lightweight AI context support
-
+1. `src/` - runtime source
+2. `docs/` - official documentation
+3. `.github/` - repository governance and automation
+4. `scripts/` - operational scripts
+5. `keys/` - cryptographic materials
+6. `agent/` - lightweight AI context support
 These areas must remain clearly separated.
 
 ---
