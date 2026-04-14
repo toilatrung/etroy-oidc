@@ -8,19 +8,15 @@ It summarizes approved state and next actions without redefining architecture.
 ## II. Current Project State
 
 - Documentation authority model is established and active.
-- Architecture, requirements, planning, and governance documents are present in `docs/`.
-- Phase 01 / Sprint 01 bootstrap baseline is implemented and validation-ready:
-  - ESM + TypeScript strict baseline present
-  - ESLint + Prettier baseline configured
-  - required root and `src` skeleton verified
-  - baseline lint/typecheck/format checks passing
+- Phase 01 / Sprint 01 bootstrap baseline implementation is present and validated (`lint`, `typecheck`, `format:check` passed).
+- Sprint 01 closure review is completed in report-only mode with verified evidence.
 
 ## III. Active Source of Truth
 
 Authoritative layer: `docs/`
 Operational support layer: `agent/` (non-authoritative)
 
-Primary references for all implementation and review decisions:
+Primary references:
 
 - `docs/source-of-truth-index.md`
 - `docs/README.md`
@@ -33,36 +29,50 @@ Primary references for all implementation and review decisions:
 
 - Current phase: Phase 01 - Environment and Infrastructure Foundation
 - Current sprint focus: Sprint 01 - Environment Bootstrap
-- Sprint 01 status: bootstrap baseline implementation completed in-session; ready for review/handoff
+- Closure status: pending governance/merge confirmation
 
 ## V. Current Priorities
 
-- maintain strict source-of-truth governance
-- preserve boundary-safe bootstrap baseline
-- keep changes traceable to phase/sprint/task contracts
-- prepare transition to Sprint 02 (Config Distribution) under approved plan
+- resolve Sprint 01 closure blockers
+- preserve strict source-of-truth and boundary governance
+- maintain traceability in PR workflow
 
-## VI. Recent Approved Decisions
+## VI. Recent Verified Findings
 
-- `docs/` confirmed as the authoritative documentation layer.
-- `agent/` confirmed as operational support only.
-- `source-tree.md` confirmed as primary over `detailed-source-tree.md`.
-- contract-first and architecture enforcement rules remain mandatory.
+- Branch `feature/governance-sprint01-closure` is clean and tracks remote.
+- Branch has zero diff vs `origin/main` (`0 0`), treated as PR traceability caveat.
+- GitHub plugin query found no PR for `head:feature/governance-sprint01-closure`.
+- Locked blocker: `.github/` root-directory mismatch against `source-tree.md`.
 
 ## VII. Deferred or Pending Items
 
-- advanced features outside current scope (social login, MFA, external federation) remain deferred per SRS.
-- post-Sprint-01 progression remains controlled by phase planning and governance review.
+- Governance decision/action for `.github/` contract mismatch.
+- PR traceability closure record for Sprint 01 branch.
 
 ## VIII. Immediate Next Actions
 
-1. prepare Sprint 01 PR package with contract traceability and validation evidence
-2. keep scope locked while transitioning to Sprint 02 planning
-3. maintain governance checklist enforcement at review time
-4. record subsequent transitions in `agent/session-history.md`
+1. Resolve/record root contract mismatch (`.github/`) per governance process.
+2. Ensure Sprint 01 closure has explicit PR traceability thread.
+3. Re-run closure self-review after blocker resolution.
 
-## IX. Notes for the Next Session
+## IX. Notes for Next Session
 
-- Continue using source-of-truth reading order.
-- Treat undocumented structural or architectural changes as invalid until approved.
-- In this environment, prefer `npm.cmd` over `npm` due PowerShell policy restrictions.
+- Keep closure work within Phase 01 / Sprint 01 / Tasks 01-04.
+- Do not treat zero diff as completion proof.
+- Keep statuses locked until blockers are cleared.
+
+## Governance Closure Update (Sprint 01)
+
+- Sprint 01 `.github/` structural governance blocker has been resolved and committed.
+- Commit: `7217a47` on `feature/governance-sprint01-closure`
+- Contracts updated:
+  - `docs/architecture/source-tree.md`
+  - `docs/architecture/detailed-source-tree.md`
+- `.github/` is now explicitly approved as root-level governance/automation area (non-runtime, no business logic).
+- Branch push status: synchronized with `origin/feature/governance-sprint01-closure`.
+- Relation to main: branch is 1 commit ahead (`origin/main...HEAD = 0 1`).
+- Zero-diff interpretation remains historical bootstrap traceability caveat, not implementation defect.
+- Current status:
+  - Governance / PR readiness: Ready
+  - Merge readiness: Not yet confirmed
+

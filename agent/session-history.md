@@ -52,3 +52,41 @@ It records meaningful state transitions and approved outcomes only.
   - prepare PR traceability package
   - confirm git workflow context (workspace currently not detected as a git repo)
 
+  ### 2026-04-14 / PHASE01-SPRINT01-CLOSURE-001
+
+- Completed: report-only Sprint 01 closure verification against governance and architecture contracts.
+- Verified:
+- git workspace valid, branch `feature/governance-sprint01-closure`, clean working tree
+- branch tracks remote; local diff vs `origin/main` is `0 0`
+- baseline checks passed: `npm.cmd run lint`, `npm.cmd run typecheck`, `npm.cmd run format:check`
+- required root/src Sprint 01 structure present
+- no `process.env` usage detected in `src`
+- GitHub plugin branch lookup: branch exists
+- GitHub plugin PR lookup: no PR found for closure branch
+- Blockers:
+- `.github/` root-directory mismatch vs `docs/architecture/source-tree.md` (locked merge blocker)
+- governance traceability caveat due zero-diff branch and missing PR record
+- Final status:
+- Governance / PR readiness: Pending
+- Merge readiness: Not yet confirmed
+
+### 2026-04-14 / SPRINT01-CLOSURE-COMPLETE-001
+
+- Completed:
+- staged only governance contract files for `.github/` structural legalization
+- committed `docs(architecture): formalize .github as approved root governance area` (`7217a47`)
+- pushed `feature/governance-sprint01-closure` to origin successfully
+- Files committed:
+- `docs/architecture/source-tree.md`
+- `docs/architecture/detailed-source-tree.md`
+- Scope control:
+- no runtime/business/domain code changes
+- no scope expansion beyond Sprint 01 closure governance fix
+- Notes:
+- local unexpected changes existed in `agent/current-context.md` and `agent/session-history.md`; intentionally excluded from commit
+- zero-diff baseline condition treated as bootstrap traceability caveat only
+- Status:
+- Governance / PR readiness: Ready
+- Merge readiness: Not yet confirmed
+
+
