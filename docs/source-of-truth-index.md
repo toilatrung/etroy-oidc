@@ -36,6 +36,7 @@ It exists to prevent ambiguity, enforce contract-first execution, and stop archi
 - `docs/governance/git-rules.md`
 - `docs/governance/pr-template.md`
 - `docs/governance/review-checklist.md`
+- `docs/governance/anti-patterns.md`
 
 ## IV. Reading Order
 
@@ -53,6 +54,7 @@ Recommended reading order for humans and AI agents:
 10. `docs/governance/git-rules.md`
 11. `docs/governance/pr-template.md`
 12. `docs/governance/review-checklist.md`
+13. `docs/governance/anti-patterns.md`
 
 ## V. Conflict Resolution Rules
 

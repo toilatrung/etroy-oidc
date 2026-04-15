@@ -61,6 +61,7 @@ Read:
 2. `docs/governance/git-rules.md`
 3. `docs/governance/pr-template.md`
 4. `docs/governance/review-checklist.md`
+5. `docs/governance/anti-patterns.md`
 
 ### 4. For AI agent loading
 
@@ -93,6 +94,7 @@ Load in this sequence:
 - `phase-01-environment-bootstrap.md` -> current phase breakdown
 - `phase-01-sprint-01-report.md` -> sprint execution report
 - governance documents -> repository control and merge discipline
+- `anti-patterns.md` -> merge-blocking anti-pattern reference aligned with architecture and governance
 
 ## VI. Maintenance Rules
 
