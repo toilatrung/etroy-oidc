@@ -39,6 +39,7 @@ Every PR must be reviewed across these categories:
 - [ ] Phase / sprint / task is identified
 - [ ] Relevant source documents are referenced
 - [ ] Contract basis is stated
+- [ ] PR template mandatory traceability inputs are fully filled (no placeholders)
 
 If traceability is missing, block merge.
 
@@ -96,6 +97,8 @@ If any critical violation exists, reject PR.
 - [ ] Provided evidence is credible
 - [ ] Typecheck/build/test status is consistent with claimed results
 - [ ] Reviewer can reproduce or trust the stated verification basis
+- [ ] Evidence includes exact commands plus explicit PASS/FAIL outcomes
+- [ ] Validation section is not left with template placeholder text
 
 If validation evidence is missing for a risky change, block merge.
 
@@ -144,6 +147,7 @@ Merge must be blocked if any of the following occurs:
 
 - missing contract reference
 - missing source-of-truth alignment
+- placeholder or empty mandatory PR template sections
 - boundary violation
 - forbidden dependency
 - duplicate identity logic
@@ -152,6 +156,7 @@ Merge must be blocked if any of the following occurs:
 - oidc directly querying user ownership data
 - unreviewed architecture change
 - missing validation for meaningful implementation
+- non-reproducible or placeholder-only validation evidence
 - unresolved critical review comments
 
 ---

@@ -4,6 +4,8 @@
 
 ## I. Pull Request Information
 
+> Merge-blocking rule: PRs with placeholder or empty mandatory sections are non-compliant (AP-22/AP-24) and must not be approved.
+
 ### Title
 
 <!-- Recommended format:
@@ -56,6 +58,13 @@ Describe the intended outcome of this PR.
 
 ## III. Source of Truth References
 
+### Mandatory Traceability Inputs (must not be empty)
+
+- Phase / Sprint / Task: `...`
+- Exact source-of-truth docs used: `...`
+- Contract clauses implemented: `...`
+- Why these references are sufficient for this change: `...`
+
 ### Relevant Documents
 
 List all relevant documents used as implementation source:
@@ -71,6 +80,8 @@ List all relevant documents used as implementation source:
 ### Contract Reference
 
 Describe the contract or design basis for this change.
+
+Do not leave this section blank. Generic statements like "aligned with docs" are non-compliant.
 
 ---
 
@@ -144,6 +155,14 @@ Example:
 - local build passed
 - manual route check passed
 
+Minimum required evidence format:
+
+- command: `<exact command>`
+- result: `PASS` or `FAIL`
+- scope checked: `<what this command validated>`
+
+If evidence is omitted, non-reproducible, or contradictory, the PR is merge-blocked.
+
 ---
 
 ## VIII. Risk Assessment
@@ -184,3 +203,4 @@ By opening this PR, the author confirms:
 - [ ] The change stays within declared scope
 - [ ] The change respects architecture and source of truth
 - [ ] The validation evidence provided is accurate
+- [ ] Mandatory traceability and evidence sections are fully completed (no placeholders, no empty required fields)

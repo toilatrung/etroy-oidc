@@ -6,6 +6,9 @@
     "rootDir": ".",
     "outDir": "dist",
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noUncheckedIndexedAccess": true,
