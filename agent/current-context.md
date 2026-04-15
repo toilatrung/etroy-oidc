@@ -7,10 +7,14 @@ It summarizes approved state and next actions without redefining architecture.
 
 ## II. Current Project State
 
-- Documentation authority model is established and active.
-- Phase 01 / Sprint 01 bootstrap baseline is complete and governance-closed.
-- Phase 01 / Sprint 02 config baseline has been corrected to approved flat config contract.
-- Governance anti-pattern reference has been synchronized with current source-of-truth contracts.
+- Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
+- Remote baseline synchronized and verified against `origin/main` (`851a4ec`) on 2026-04-15.
+- Phase 01 / Sprint 02 is closed.
+- Sprint 02 closure artifacts are completed:
+  - runtime startup config validation wiring in `src/index.ts`
+  - test-layer package/workflow cleanup verified locally
+  - governance hardening applied for PR traceability/evidence enforcement
+  - unified authoritative Sprint 02 report finalized
 
 ## III. Active Source of Truth
 
@@ -29,41 +33,34 @@ Primary references:
 ## IV. Current Phase and Sprint
 
 - Current phase: Phase 01 - Environment and Infrastructure Foundation
-- Current sprint focus: Sprint 02 - Config Distribution Standard
-- Sprint 02 status: implementation complete, validation evidence captured locally
+- Sprint 02: CLOSED
+- Sprint 03: ACTIVE - Infrastructure Layer
 
-## V. Current Priorities
+## V. Verified Baseline (2026-04-15)
 
-- preserve strict config boundary (`process.env` encapsulated in `src/config` only)
-- enforce anti-pattern checks during review to prevent structural and boundary drift
-- keep validation evidence aligned with Sprint 02 acceptance criteria
-- maintain traceability in PR workflow
+- Config contract is active and flat in `src/config/`: `schema.ts`, `env.ts`, `config.ts`.
+- Startup bootstrap now triggers config validation through `src/index.ts` config import.
+- No direct `process.env` usage was found outside `src/config/`.
+- `tsconfig.json` includes Sprint 02 alias baseline (`baseUrl` + `@/*` path mapping).
+- `.github/workflows/quality-gate.yml` contains only `lint`, `format`, `typecheck`, `build` and no test commands.
+- `package.json` and `package-lock.json` contain no `vitest` or `@vitest` references and no `test` script.
+- Local quality checks passed: `npm.cmd run lint`, `npm.cmd run typecheck`, `npm.cmd run format:check`, `npm.cmd run build`.
 
-## VI. Recent Verified Findings
+## VI. PR / Branch Traceability (Verified)
 
-- Branch: `feature/config-sprint02-distribution`.
-- `src/config` active contract is flat and approved: `schema.ts`, `env.ts`, `config.ts`.
-- Runtime config validation is fail-fast with actionable errors.
-- `docs/governance/anti-patterns.md` now defines merge-blocking drift patterns aligned with architecture and governance.
-- Static checks passed: `lint`, `typecheck`, `format:check`.
-- Runtime evidence captured:
-  - valid config import succeeds
-  - malformed env value causes immediate `ConfigValidationError`
+- PR #4 `Feature/config sprint02 distribution`: closed, merged.
+- PR #5 `chore: remove test layer (vitest + test script)`: closed, merged.
+- PR #6 `fix(ci): clean workflow test references and fix formatting baseline`: closed, merged.
+- PR #7 `fix(ci): remove unit-test and integration-test jobs from quality gate`: closed, merged.
 
-## VII. Deferred or Pending Items
+## VII. Immediate Next Actions
 
-- integrate config import into broader app bootstrap once delivery layer wiring begins
-- prepare Sprint 02 PR narrative and review package
+1. Start Sprint 03 implementation planning and contract check for Infrastructure Layer tasks.
+2. Keep all environment consumption routed through `src/config/config.ts` exported `config` surface.
+3. Apply strengthened PR template/checklist requirements in all subsequent PRs.
 
-## VIII. Immediate Next Actions
+## VIII. Notes for Next Session
 
-1. Keep all new runtime consumers on `src/config/config.ts` exported `config` surface.
-2. Apply anti-pattern checklist in PR review alongside governance checklist.
-3. Carry Sprint 02 output into PR template with evidence.
-
-## IX. Notes for Next Session
-
-- Scope lock remains Phase 01 / Sprint 02 / Tasks 05-08.
-- Do not reintroduce direct `process.env` reads outside `src/config`.
-- Keep documentation contracts synchronized if config structure changes again.
-
+- Do not let `agent/` context override `docs/` contracts.
+- `source-tree.md` remains the primary repository structure contract.
+- Sprint 03 work must preserve Sprint 02 config boundary and governance controls.
