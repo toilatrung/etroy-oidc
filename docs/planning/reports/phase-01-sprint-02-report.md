@@ -1,143 +1,121 @@
-# Phase 01 – Sprint 02 Status Report (Config Distribution)
+# Phase 01 - Sprint 02 - Report
 
-> Report date (local): 2026-04-15 (Asia/Saigon)
+## I. Sprint Identity
 
-## 1. Sprint Identity
+- Phase: Phase 01 - Environment and Infrastructure Foundation
+- Sprint: Sprint 02 - Config Distribution Standard
+- Objective: Establish a production-ready configuration boundary with typed schema, centralized env loading, fail-fast startup validation, normalized config export, and path alias baseline.
+- Date: 2026-04-15
 
-- **Phase:** Phase 01 – Environment and Infrastructure Foundation
-- **Sprint:** Sprint 02 – Config Distribution Standard
-- **Objective (contract):** Establish a production-ready configuration boundary with typed schema, centralized env loading, fail-fast validation, normalized config export, and a path-alias baseline (`docs/planning/assignments/phase-01-sprint-02.md`).
+## II. Source-of-Truth Used
 
-## 2. Source-of-Truth Alignment
+- `docs/source-of-truth-index.md`
+- `docs/README.md`
+- `docs/architecture/system-overview.md`
+- `docs/architecture/module-boundaries.md`
+- `docs/architecture/source-tree.md`
+- `docs/architecture/detailed-source-tree.md`
+- `docs/requirements/srs-v1.md`
+- `docs/planning/master-execution-plan.md`
+- `docs/planning/phases/phase-01-environment-bootstrap.md`
+- `docs/planning/assignments/phase-01-sprint-02.md`
+- `docs/governance/git-rules.md`
+- `docs/governance/pr-template.md`
+- `docs/governance/review-checklist.md`
+- `docs/governance/anti-patterns.md`
 
-### Documents used (authority order respected)
+## III. Work Completed
 
-1. `docs/source-of-truth-index.md`
-2. `docs/README.md`
-3. Architecture:
-   - `docs/architecture/system-overview.md`
-   - `docs/architecture/module-boundaries.md`
-   - `docs/architecture/source-tree.md`
-   - `docs/architecture/detailed-source-tree.md`
-4. Requirements:
-   - `docs/requirements/srs-v1.md`
-5. Planning:
-   - `docs/planning/master-execution-plan.md`
-   - `docs/planning/phases/phase-01-environment-bootstrap.md`
-   - `docs/planning/assignments/phase-01-sprint-02.md`
-6. Governance:
-   - `docs/governance/git-rules.md`
-   - `docs/governance/pr-template.md`
-   - `docs/governance/review-checklist.md`
-   - `docs/governance/anti-patterns.md`
-7. Operational context (non-authoritative; used only for status signals):
-   - `agent/current-context.md`
-   - `agent/session-history.md`
+### Files Updated
 
-### Contract compliance statement
-
-- No `agent/` file was used to override any `docs/` contract.
-- Deviations/missing items are called out explicitly in Sections 3, 6, 8, and 9.
-
-## 3. Implementation State
-
-### 3.1 Config Layer
-
-**Required structure (present):**
 - `src/config/schema.ts`
 - `src/config/env.ts`
 - `src/config/config.ts`
+- `src/index.ts`
+- `tsconfig.json`
+- `docs/governance/pr-template.md`
+- `docs/governance/review-checklist.md`
+- `package.json`
+- `package-lock.json`
+- `.github/workflows/quality-gate.yml`
 
-**`process.env` boundary (enforced):**
-- `rg -n "process\\.env" src --glob "!src/config/**"` → **NO_MATCHES**
+### Main Changes
 
-**Fail-fast validation behavior (present in config module):**
-- `src/config/env.ts` loads env via `dotenv.config()`, validates via Zod (`safeParse`), and throws `ConfigValidationError` on invalid/missing values.
-- Validation currently happens at module import time via `export const validatedEnv = Object.freeze(parseValidatedEnv());`.
+- Implemented Sprint 02 configuration boundary with typed schema, centralized env loading, fail-fast validation, and normalized config export in `src/config/*`.
+- Enforced runtime startup validation by importing `config` in `src/index.ts` (`import { config } from './config/config.js';` and `void config;`).
+- Added Sprint 02 path alias baseline in `tsconfig.json` with `baseUrl` and `paths` (`@/*` to `src/*`).
+- Synchronized repository state to latest `origin/main` and confirmed merged Sprint 02 cleanup state.
+- Cleaned test-layer and CI references: removed `vitest`/`@vitest`, removed `test` script, and kept quality-gate jobs to `lint`, `format`, `typecheck`, `build` only.
+- Hardened governance controls in PR template and review checklist to prevent AP-22/AP-24 recurrence.
 
-**Startup wiring note (gap vs “startup validation” wording):**
-- `src/index.ts` is currently `export {};` and does not import `config` or `validatedEnv`, so validation is not automatically exercised by `npm run dev` in the current entrypoint.
+## IV. Validation Evidence
 
-### 3.2 CI / Workflow
+### Commands Run
 
-**Quality gate only (confirmed):**
-- `.github/workflows/quality-gate.yml` defines jobs: `lint`, `format`, `typecheck`, `build` only.
-- `rg -n "npm run test|vitest|unit-test|integration-test" .github/workflows` → **NO_MATCHES**
+- `npm.cmd run lint`
+- `npm.cmd run typecheck`
+- `npm.cmd run format:check`
+- `npm.cmd run build`
+- `rg -n "process\.env" src --glob "!src/config/**"`
+- `rg -n "vitest|@vitest" package.json package-lock.json`
+- `rg -n '"test"\s*:' package.json`
+- `rg -n "npm run test|vitest|unit-test|integration-test" .github/workflows`
 
-### 3.3 Test Layer Cleanup
+### Results
 
-**Local workspace checkout (this environment): partially removed / not removed**
-- `package.json` still contains `"test": "vitest run"` and `vitest` in `devDependencies`.
-- `package-lock.json` still contains `vitest` and `@vitest/*` entries.
+- `npm.cmd run lint` passed.
+- `npm.cmd run typecheck` passed.
+- `npm.cmd run format:check` passed.
+- `npm.cmd run build` passed.
+- `process.env` usage outside `src/config/`: no matches.
+- `vitest` / `@vitest` references in package files: no matches.
+- `test` script in `package.json`: no matches.
+- CI test job/command references in workflows: no matches.
 
-**GitHub PR state (source-of-truth for merge status): fully removed on `main`**
-- PR `#5` (“chore: remove test layer (vitest + test script)”) is **closed/merged** (merged_at: `2026-04-15T10:54:53Z`).
-- Direct git fetch to reconcile local refs failed in this environment (`git fetch` could not connect to GitHub), so local `origin/main` content here may be stale vs GitHub `main`.
+## V. Scope Control
 
-## 4. Validation Evidence (Command-Based)
+### Included
 
-> Note: PowerShell execution policy blocks `npm` (`npm.ps1`). Validation used `npm.cmd`.
+- Sprint 02 config distribution implementation in approved flat config files.
+- Runtime startup validation enforcement through entrypoint import.
+- Path alias baseline setup in `tsconfig.json`.
+- Repository consistency sync and closure-state validation.
+- Governance hardening for PR traceability and validation evidence quality.
 
-- **lint:** `npm.cmd run lint` → **PASS**
-- **typecheck:** `npm.cmd run typecheck` → **PASS**
-- **format:check:** `npm.cmd run format:check` → **PASS**
-- **build:** `npm.cmd run build` → **PASS**
-- **grep process.env (outside config):** `rg -n "process\\.env" src --glob "!src/config/**"` → **PASS** (NO_MATCHES)
-- **grep test references (package layer):** `rg -n "vitest" package.json package-lock.json` → **FAIL** (matches present in this checkout)
-- **grep test references (CI/workflow):** `rg -n "npm run test|vitest|unit-test|integration-test" .github/workflows` → **PASS** (NO_MATCHES)
+### Not Done Intentionally
 
-## 5. PR / Governance State
+- No architecture redesign beyond Sprint 02 contract.
+- No feature/domain business implementation beyond configuration/governance closure scope.
 
-### Relevant PRs (GitHub-verified)
+### Scope Result
 
-- **#4** `Feature/config sprint02 distribution` → **merged**
-- **#5** `chore: remove test layer (vitest + test script)` → **merged**
-- **#6** `fix(ci): clean workflow test references and fix formatting baseline` → **merged**
-- **#7** `fix(ci): remove unit-test and integration-test jobs from quality gate` → **merged**
+- Within scope. Sprint 02 closure work completed according to contract, and closure governance controls were strengthened to protect future sprint quality.
 
-### Observations
+## VI. Risks / Notes
 
-- **Redundancy:** PR **#6** and PR **#7** target the same workflow cleanup outcome (removing test jobs from `quality-gate.yml`).
-- **Local branch state:** current HEAD is `fix/baseline-quality-gate-and-format` at `3ebd90d` (matches PR #6 head SHA).
+- Historical issue: runtime startup validation wiring was previously missing in entrypoint. Status: FIXED via `src/index.ts` config import.
+- Historical issue: governance traceability/evidence gaps (AP-22/AP-24) were previously observed. Status: FIXED via merge-blocking hardening in PR template and review checklist.
+- Historical issue: package/workflow test artifacts were previously present in prior local state. Status: FIXED and verified with no matches.
 
-## 6. Anti-pattern Check
+## VII. Current Status
 
-- **AP-07 (config boundary):** **NOT VIOLATED** (no `process.env` outside `src/config/` by grep)
-- **AP-10 (config structure):** **NOT VIOLATED** (flat Sprint 02 contract files exist)
-- **AP-22 (PR traceability):** **VIOLATED** (PR #7 merged with PR template sections left effectively empty: missing explicit contract/source-of-truth references)
-- **AP-24 (validation evidence):** **VIOLATED** (PR #7 body lacks credible command-based evidence; validation evidence exists elsewhere but not in that PR)
+- Implementation: Complete
+- PR Readiness: Complete
+- Merge Readiness: Confirmed
 
-## 7. Scope Control
+## VIII. Next Action
 
-### In scope (Sprint 02 contract focus)
+- Proceed to Sprint 03.
 
-- Centralized config contract: schema + env loader + validated env + normalized config export (`src/config/*`).
-- CI quality gate cleanup to “quality only” jobs (lint/format/typecheck/build).
-- Test-layer removal is aligned with the requested Sprint 02 status checks (Section 3.3) and is merged on GitHub `main` (PR #5).
+## IX. Handoff
 
-### Scope expansion (observed)
+### Completed:
 
-- PR #4 includes governance additions (e.g., `docs/governance/anti-patterns.md`) and updates to `agent/*` operational files. These are outside the strict Tasks 05–08 implementation-only scope, even if they support governance and traceability.
+- Config system finalized
+- Runtime validation enforced
+- CI cleaned
+- Governance hardened
 
-## 8. Final Status (CRITICAL)
+### Remaining:
 
-**IN PROGRESS**
-
-Justification against the required decision factors:
-
-- **Config state:** core config boundary exists and validates fail-fast on import, but `src/index.ts` does not currently wire startup-time validation.
-- **CI state:** quality gate is clean (quality-only jobs; no test jobs/commands).
-- **Test-layer state:** GitHub `main` indicates removal is merged (PR #5), but this local checkout still contains Vitest artifacts (cannot be reconciled here due to blocked `git fetch`).
-- **PR hygiene:** redundant workflow PRs merged (#6/#7), and PR #7 violates AP-22/AP-24 traceability/evidence expectations.
-
-## 9. Blocking Issues
-
-1. **Git fetch blocked in this environment** → cannot reconcile local refs to match GitHub `main` for package-layer cleanup verification (`git fetch` fails to connect).
-2. **Governance debt:** PR #7 merged without completed traceability/evidence fields (AP-22/AP-24).
-
-## 10. Next Required Action
-
-1. Reconcile local repository to GitHub `main` when network permits (or via an alternative allowed sync path) and re-run the “grep test references” check on the updated checkout.
-2. Add Sprint 02 “startup validation” wiring in `src/index.ts` (import `config`/`validatedEnv` in the entrypoint) if Sprint 02 is expected to enforce validation at runtime bootstrap.
-3. Add/confirm the Sprint 02 “path alias baseline” in `tsconfig.json` (and document/validate the intended alias scheme) if the assignment contract requirement is still active.
-4. Record/mitigate the PR #7 traceability gap (e.g., follow-up governance note or policy to block merges when PR template sections are left empty).
+- Start Sprint 03

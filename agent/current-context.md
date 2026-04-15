@@ -14,7 +14,7 @@ It summarizes approved state and next actions without redefining architecture.
   - runtime startup config validation wiring in `src/index.ts`
   - test-layer package/workflow cleanup verified locally
   - governance hardening applied for PR traceability/evidence enforcement
-  - final closure report created
+  - unified authoritative Sprint 02 report finalized
 
 ## III. Active Source of Truth
 
@@ -33,8 +33,8 @@ Primary references:
 ## IV. Current Phase and Sprint
 
 - Current phase: Phase 01 - Environment and Infrastructure Foundation
-- Sprint status: Sprint 02 - CLOSED
-- Next sprint: Sprint 03 - Infrastructure Layer
+- Sprint 02: CLOSED
+- Sprint 03: ACTIVE - Infrastructure Layer
 
 ## V. Verified Baseline (2026-04-15)
 
