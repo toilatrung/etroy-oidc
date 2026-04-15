@@ -8,8 +8,9 @@ It summarizes approved state and next actions without redefining architecture.
 ## II. Current Project State
 
 - Documentation authority model is established and active.
-- Phase 01 / Sprint 01 bootstrap baseline implementation is present and validated (`lint`, `typecheck`, `format:check` passed).
-- Sprint 01 closure review is completed in report-only mode with verified evidence.
+- Phase 01 / Sprint 01 bootstrap baseline is complete and governance-closed.
+- Phase 01 / Sprint 02 config baseline has been corrected to approved flat config contract.
+- Governance anti-pattern reference has been synchronized with current source-of-truth contracts.
 
 ## III. Active Source of Truth
 
@@ -28,51 +29,41 @@ Primary references:
 ## IV. Current Phase and Sprint
 
 - Current phase: Phase 01 - Environment and Infrastructure Foundation
-- Current sprint focus: Sprint 01 - Environment Bootstrap
-- Closure status: pending governance/merge confirmation
+- Current sprint focus: Sprint 02 - Config Distribution Standard
+- Sprint 02 status: implementation complete, validation evidence captured locally
 
 ## V. Current Priorities
 
-- resolve Sprint 01 closure blockers
-- preserve strict source-of-truth and boundary governance
+- preserve strict config boundary (`process.env` encapsulated in `src/config` only)
+- enforce anti-pattern checks during review to prevent structural and boundary drift
+- keep validation evidence aligned with Sprint 02 acceptance criteria
 - maintain traceability in PR workflow
 
 ## VI. Recent Verified Findings
 
-- Branch `feature/governance-sprint01-closure` is clean and tracks remote.
-- Branch has zero diff vs `origin/main` (`0 0`), treated as PR traceability caveat.
-- GitHub plugin query found no PR for `head:feature/governance-sprint01-closure`.
-- Locked blocker: `.github/` root-directory mismatch against `source-tree.md`.
+- Branch: `feature/config-sprint02-distribution`.
+- `src/config` active contract is flat and approved: `schema.ts`, `env.ts`, `config.ts`.
+- Runtime config validation is fail-fast with actionable errors.
+- `docs/governance/anti-patterns.md` now defines merge-blocking drift patterns aligned with architecture and governance.
+- Static checks passed: `lint`, `typecheck`, `format:check`.
+- Runtime evidence captured:
+  - valid config import succeeds
+  - malformed env value causes immediate `ConfigValidationError`
 
 ## VII. Deferred or Pending Items
 
-- Governance decision/action for `.github/` contract mismatch.
-- PR traceability closure record for Sprint 01 branch.
+- integrate config import into broader app bootstrap once delivery layer wiring begins
+- prepare Sprint 02 PR narrative and review package
 
 ## VIII. Immediate Next Actions
 
-1. Resolve/record root contract mismatch (`.github/`) per governance process.
-2. Ensure Sprint 01 closure has explicit PR traceability thread.
-3. Re-run closure self-review after blocker resolution.
+1. Keep all new runtime consumers on `src/config/config.ts` exported `config` surface.
+2. Apply anti-pattern checklist in PR review alongside governance checklist.
+3. Carry Sprint 02 output into PR template with evidence.
 
 ## IX. Notes for Next Session
 
-- Keep closure work within Phase 01 / Sprint 01 / Tasks 01-04.
-- Do not treat zero diff as completion proof.
-- Keep statuses locked until blockers are cleared.
-
-## Governance Closure Update (Sprint 01)
-
-- Sprint 01 `.github/` structural governance blocker has been resolved and committed.
-- Commit: `7217a47` on `feature/governance-sprint01-closure`
-- Contracts updated:
-  - `docs/architecture/source-tree.md`
-  - `docs/architecture/detailed-source-tree.md`
-- `.github/` is now explicitly approved as root-level governance/automation area (non-runtime, no business logic).
-- Branch push status: synchronized with `origin/feature/governance-sprint01-closure`.
-- Relation to main: branch is 1 commit ahead (`origin/main...HEAD = 0 1`).
-- Zero-diff interpretation remains historical bootstrap traceability caveat, not implementation defect.
-- Current status:
-  - Governance / PR readiness: Ready
-  - Merge readiness: Not yet confirmed
+- Scope lock remains Phase 01 / Sprint 02 / Tasks 05-08.
+- Do not reintroduce direct `process.env` reads outside `src/config`.
+- Keep documentation contracts synchronized if config structure changes again.
 
