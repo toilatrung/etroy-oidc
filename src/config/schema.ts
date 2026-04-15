@@ -1,1 +1,41 @@
-export {};
+import { z } from 'zod';
+
+const hasAllowedProtocol = (value: string, protocols: readonly string[]): boolean => {
+  try {
+    const parsed = new URL(value);
+    return protocols.includes(parsed.protocol);
+  } catch {
+    return false;
+  }
+};
+
+export const envSchema = z.object({
+  NODE_ENV: z.enum(['development', 'test', 'production'], {
+    message: 'NODE_ENV must be one of: development, test, production.',
+  }),
+  PORT: z.coerce
+    .number({
+      message: 'PORT must be a valid number.',
+    })
+    .int('PORT must be an integer.')
+    .min(1, 'PORT must be between 1 and 65535.')
+    .max(65535, 'PORT must be between 1 and 65535.'),
+  MONGO_URI: z
+    .string()
+    .trim()
+    .min(1, 'MONGO_URI is required.')
+    .refine(
+      (value) => hasAllowedProtocol(value, ['mongodb:', 'mongodb+srv:']),
+      'MONGO_URI must start with mongodb:// or mongodb+srv://.',
+    ),
+  REDIS_URL: z
+    .string()
+    .trim()
+    .min(1, 'REDIS_URL is required.')
+    .refine(
+      (value) => hasAllowedProtocol(value, ['redis:', 'rediss:']),
+      'REDIS_URL must start with redis:// or rediss://.',
+    ),
+});
+
+export type EnvSchema = z.infer<typeof envSchema>;
