@@ -188,8 +188,6 @@ It records meaningful state transitions and approved outcomes only.
 - close/reconcile redundant open PR #6 after merged equivalent PR #7
 - after PR hygiene, finalize Sprint 02 closure state and next sprint kickoff
 
-
-
 ### 2026-04-15 / PHASE01-SPRINT02-CLOSURE-003
 
 - Completed:
@@ -229,3 +227,41 @@ It records meaningful state transitions and approved outcomes only.
 - action: Sprint 02 report merge
 - result: unified report
 - impact: removed duplicate source of truth
+
+### 2026-04-20 / PHASE01-SPRINT03-INFRA-005
+
+- Completed:
+- reconciled supporting docs for Sprint 03 alignment:
+  - `docs/planning/phases/phase-01-environment-bootstrap.md`
+  - `docs/architecture/detailed-source-tree.md`
+- implemented Sprint 03 Tasks 09-14 infrastructure baseline:
+  - `database`: `connection.ts`, `index.ts`
+  - `redis`: `client.ts`, `index.ts`
+  - `logger`: `logger.ts`, `index.ts` + `pino` dependency
+  - `crypto`: `keys.ts`, `jwks.ts`, `hash.ts`, `index.ts`
+  - `mail`: `mail.service.ts`, `index.ts`
+  - `metrics`: `metrics.ts`
+  - `shared/errors`: `base.error.ts`, `index.ts`
+- Validation evidence:
+- task-level checks passed during execution:
+  - Task 09: `TASK09_VALID_URI_CONNECT=PASS`, `TASK09_INVALID_URI_FAILFAST=PASS`, `TASK09_SINGLETON=PASS`
+  - Task 10: `TASK10_VALID_CONFIG_PING=PASS`, `TASK10_INVALID_CONFIG_FAILFAST=PASS`, `TASK10_SINGLETON_SHARED_INSTANCE=PASS`
+  - Task 11: `TASK11_STRUCTURED_OUTPUT=PASS`, `TASK11_LEVEL_DEV=PASS`, `TASK11_LEVEL_PROD=PASS`
+  - Task 12: `TASK12_KEYS_LOAD=PASS`, `TASK12_JWKS_FORMAT=PASS`, `TASK12_HASH_VERIFY=PASS`
+  - Task 13: `TASK13_PLACEHOLDER_SEND=PASS`, `TASK13_PROVIDER_SWAP=PASS`
+  - Task 14: `TASK14_METRICS_HOOKS=PASS`, `TASK14_BASE_ERROR_SHAPE=PASS`
+- final Sprint 03 validation chain passed:
+  - `npm.cmd run lint`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run build`
+  - `rg -n "process\.env" src --glob "!src/config/**"` -> no matches
+  - `rg -n "console\.log" src` -> no matches
+- Source-of-truth documents changed:
+  - `docs/planning/phases/phase-01-environment-bootstrap.md`
+  - `docs/architecture/detailed-source-tree.md`
+- Agent files changed:
+  - `agent/current-context.md`
+  - `agent/session-history.md`
+- Open items:
+  - prepare Sprint 03 final PR with contract references and validation evidence
+  - start Sprint 04 handoff (Phase 02 `users` module baseline)

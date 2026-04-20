@@ -22,11 +22,11 @@ Establish the eTroy OIDC technical baseline:
 
 ## II. Sprint Breakdown
 
-| Sprint | Scope |
-|---|---|
+| Sprint    | Scope                 |
+| --------- | --------------------- |
 | Sprint 01 | Environment Bootstrap |
-| Sprint 02 | Config Distribution |
-| Sprint 03 | Infrastructure Layer |
+| Sprint 02 | Config Distribution   |
+| Sprint 03 | Infrastructure Layer  |
 
 ---
 
@@ -129,7 +129,7 @@ Establish a production-oriented configuration boundary.
 #### Implementation
 
 ```ts
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
 dotenv.config();
 ```
@@ -147,7 +147,7 @@ dotenv.config();
 
 ```ts
 export const config = {
-  port: process.env.PORT
+  port: process.env.PORT,
 };
 ```
 
@@ -166,17 +166,14 @@ Abstract infrastructure dependencies behind approved boundaries.
 #### Contract
 
 - no raw driver ownership leakage to domain modules
-- centralized connection management
+- centralized MongoDB connection management
+- use `config` from `src/config/config.ts`
+- fail fast on connection failure
 
-#### Implementation
+#### Deliverables
 
-```ts
-import mongoose from "mongoose";
-
-export const connectDB = async () => {
-  await mongoose.connect(process.env.MONGO_URI!);
-};
-```
+- `src/infrastructure/database/connection.ts`
+- `src/infrastructure/database/index.ts`
 
 ### Task 10 - Redis Module
 
@@ -184,6 +181,13 @@ export const connectDB = async () => {
 
 - centralized connection setup
 - no ad-hoc direct Redis coupling in domain modules
+- use `config` from `src/config/config.ts`
+- single shared client instance
+
+#### Deliverables
+
+- `src/infrastructure/redis/client.ts`
+- `src/infrastructure/redis/index.ts`
 
 ### Task 11 - Logger Module
 
@@ -191,13 +195,28 @@ export const connectDB = async () => {
 
 - structured logging baseline
 - avoid uncontrolled `console.log` usage in runtime paths
+- environment-based log level via config
 
-### Task 12 - Base Error Handling
+#### Deliverables
+
+- `src/infrastructure/logger/logger.ts`
+- `src/infrastructure/logger/index.ts`
+
+### Task 12 - Crypto + JWKS / RSA
 
 #### Contract
 
-- centralized error shape
-- avoid unstructured raw error output
+- RSA private/public key loading from `keys/`
+- JWKS generation from public key material
+- hashing utilities for later refresh-token lifecycle use
+- no token signing logic in this task
+
+#### Deliverables
+
+- `src/infrastructure/crypto/keys.ts`
+- `src/infrastructure/crypto/jwks.ts`
+- `src/infrastructure/crypto/hash.ts`
+- `src/infrastructure/crypto/index.ts`
 
 ### Task 13 - Mail Service
 
@@ -205,13 +224,26 @@ export const connectDB = async () => {
 
 - interface-based service design
 - no vendor lock-in in module-level contracts
+- no business workflow ownership (verification/reset)
 
-### Task 14 - Metrics (Lightweight)
+#### Deliverables
+
+- `src/infrastructure/mail/mail.service.ts`
+- `src/infrastructure/mail/index.ts`
+
+### Task 14 - Metrics + Base Error Handling
 
 #### Contract
 
 - basic metrics hooks available
+- reusable base error shape in shared layer
 - advanced monitoring stack can be deferred
+
+#### Deliverables
+
+- `src/infrastructure/metrics/metrics.ts`
+- `src/shared/errors/base.error.ts`
+- `src/shared/errors/index.ts`
 
 ---
 

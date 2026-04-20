@@ -10,11 +10,13 @@ It summarizes approved state and next actions without redefining architecture.
 - Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
 - Remote baseline synchronized and verified against `origin/main` (`851a4ec`) on 2026-04-15.
 - Phase 01 / Sprint 02 is closed.
-- Sprint 02 closure artifacts are completed:
-  - runtime startup config validation wiring in `src/index.ts`
-  - test-layer package/workflow cleanup verified locally
-  - governance hardening applied for PR traceability/evidence enforcement
-  - unified authoritative Sprint 02 report finalized
+- Phase 01 / Sprint 03 is completed (Infrastructure Layer):
+  - Task 09: centralized MongoDB connection singleton with fail-fast behavior
+  - Task 10: centralized Redis client singleton with fail-fast behavior
+  - Task 11: structured logger baseline (`pino`) with config-driven log level
+  - Task 12: RSA key loading, JWKS generation, and hash/verify infrastructure utilities
+  - Task 13: interface-based swappable mail abstraction with placeholder provider
+  - Task 14: lightweight metrics hooks and reusable base error surface
 
 ## III. Active Source of Truth
 
@@ -34,17 +36,20 @@ Primary references:
 
 - Current phase: Phase 01 - Environment and Infrastructure Foundation
 - Sprint 02: CLOSED
-- Sprint 03: ACTIVE - Infrastructure Layer
+- Sprint 03: CLOSED - Infrastructure Layer
 
-## V. Verified Baseline (2026-04-15)
+## V. Verified Baseline (2026-04-20)
 
 - Config contract is active and flat in `src/config/`: `schema.ts`, `env.ts`, `config.ts`.
-- Startup bootstrap now triggers config validation through `src/index.ts` config import.
+- Sprint 03 infrastructure files for Tasks 09-14 are present in `src/infrastructure/*` and `src/shared/errors/*`.
+- Logger dependency baseline includes `pino` in package manifests.
 - No direct `process.env` usage was found outside `src/config/`.
-- `tsconfig.json` includes Sprint 02 alias baseline (`baseUrl` + `@/*` path mapping).
-- `.github/workflows/quality-gate.yml` contains only `lint`, `format`, `typecheck`, `build` and no test commands.
-- `package.json` and `package-lock.json` contain no `vitest` or `@vitest` references and no `test` script.
-- Local quality checks passed: `npm.cmd run lint`, `npm.cmd run typecheck`, `npm.cmd run format:check`, `npm.cmd run build`.
+- Final Sprint 03 validation chain passed:
+  - `npm.cmd run lint`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run build`
+  - `rg -n "process\\.env" src --glob "!src/config/**"` -> no matches
+  - `rg -n "console\\.log" src` -> no matches
 
 ## VI. PR / Branch Traceability (Verified)
 
@@ -55,12 +60,13 @@ Primary references:
 
 ## VII. Immediate Next Actions
 
-1. Start Sprint 03 implementation planning and contract check for Infrastructure Layer tasks.
-2. Keep all environment consumption routed through `src/config/config.ts` exported `config` surface.
-3. Apply strengthened PR template/checklist requirements in all subsequent PRs.
+1. Prepare Sprint 03 final PR package with task-to-contract traceability and validation evidence.
+2. Maintain config boundary discipline (`src/config/config.ts`) across subsequent sprints.
+3. Start Sprint 04 planning/execution handoff for Phase 02 (`users` module baseline) per master execution plan.
 
 ## VIII. Notes for Next Session
 
 - Do not let `agent/` context override `docs/` contracts.
 - `source-tree.md` remains the primary repository structure contract.
-- Sprint 03 work must preserve Sprint 02 config boundary and governance controls.
+- Keep infrastructure adapters free of business workflow logic.
+- Keep shared error primitives generic/cross-cutting and module-agnostic.

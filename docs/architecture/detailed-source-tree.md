@@ -52,72 +52,78 @@ Rules:
 
 ```text
 src/
-├─ app/
-│  ├─ controllers/
-│  ├─ middlewares/
-│  ├─ routes/
-│  └─ server.ts
-├─ config/
-│  ├─ env.ts
-│  ├─ config.ts
-│  └─ schema.ts
-├─ infrastructure/
-│  ├─ database/
-│  │  └─ mongo.ts
-│  ├─ redis/
-│  │  └─ redis.ts
-│  ├─ mail/
-│  │  ├─ mail.service.ts
-│  │  └─ mail.interface.ts
-│  ├─ logger/
-│  │  └─ logger.ts
-│  ├─ metrics/
-│  │  └─ metrics.ts
-│  └─ crypto/
-│     └─ rsa.ts
-├─ modules/
-│  ├─ users/
-│  │  ├─ user.model.ts
-│  │  ├─ user.repository.ts
-│  │  ├─ user.service.ts
-│  │  └─ user.controller.ts
-│  ├─ auth/
-│  │  ├─ auth.service.ts
-│  │  ├─ auth.controller.ts
-│  │  └─ auth.validator.ts
-│  ├─ verification/
-│  │  ├─ verification.service.ts
-│  │  └─ verification.model.ts
-│  ├─ password-reset/
-│  │  ├─ password-reset.service.ts
-│  │  └─ password-reset.model.ts
-│  ├─ oidc/
-│  │  ├─ oidc.service.ts
-│  │  ├─ oidc.controller.ts
-│  │  ├─ oidc.provider.ts
-│  │  └─ claims.mapper.ts
-│  ├─ admin/
-│  │  └─ admin.service.ts
-│  ├─ audit/
-│  │  └─ audit.service.ts
-│  └─ health/
-│     └─ health.controller.ts
-├─ shared/
-│  ├─ constants/
-│  ├─ errors/
-│  ├─ types/
-│  ├─ utils/
-│  └─ validators/
-├─ jobs/
-│  ├─ key-rotation.job.ts
-│  └─ cleanup.job.ts
-├─ tests/
-│  ├─ unit/
-│  ├─ integration/
-│  ├─ e2e/
-│  ├─ fixtures/
-│  └─ helpers/
-└─ index.ts
+|- app/
+|  |- controllers/
+|  |- middlewares/
+|  |- routes/
+|  \- server.ts
+|- config/
+|  |- env.ts
+|  |- config.ts
+|  \- schema.ts
+|- infrastructure/
+|  |- database/
+|  |  |- connection.ts
+|  |  \- index.ts
+|  |- redis/
+|  |  |- client.ts
+|  |  \- index.ts
+|  |- mail/
+|  |  |- mail.service.ts
+|  |  \- index.ts
+|  |- logger/
+|  |  |- logger.ts
+|  |  \- index.ts
+|  |- metrics/
+|  |  \- metrics.ts
+|  \- crypto/
+|     |- keys.ts
+|     |- jwks.ts
+|     |- hash.ts
+|     \- index.ts
+|- modules/
+|  |- users/
+|  |  |- user.model.ts
+|  |  |- user.repository.ts
+|  |  |- user.service.ts
+|  |  \- user.controller.ts
+|  |- auth/
+|  |  |- auth.service.ts
+|  |  |- auth.controller.ts
+|  |  \- auth.validator.ts
+|  |- verification/
+|  |  |- verification.service.ts
+|  |  \- verification.model.ts
+|  |- password-reset/
+|  |  |- password-reset.service.ts
+|  |  \- password-reset.model.ts
+|  |- oidc/
+|  |  |- oidc.service.ts
+|  |  |- oidc.controller.ts
+|  |  |- oidc.provider.ts
+|  |  \- claims.mapper.ts
+|  |- admin/
+|  |  \- admin.service.ts
+|  |- audit/
+|  |  \- audit.service.ts
+|  \- health/
+|     \- health.controller.ts
+|- shared/
+|  |- constants/
+|  |- errors/
+|  |- types/
+|  |- utils/
+|  \- validators/
+|- jobs/
+|  |- key-rotation.job.ts
+|  \- cleanup.job.ts
+|- tests/
+|  |- unit/
+|  |- integration/
+|  |- e2e/
+|  |- fixtures/
+|  \- helpers/
+\- index.ts
 ```
 
 ---
@@ -221,4 +227,3 @@ Use this document to:
 - verify repository-level physical layout details
 
 Do not use this document to override `source-tree.md`.
-
