@@ -91,8 +91,10 @@ Load in this sequence:
 - `detailed-source-tree.md` -> supporting file-level detail reference
 - `srs-v1.md` -> requirements contract
 - `master-execution-plan.md` -> execution control model
-- `phase-01-environment-bootstrap.md` -> current phase breakdown
-- `phase-01-sprint-01-report.md` -> sprint execution report
+- `phase-01-environment-bootstrap.md` -> completed foundation phase breakdown
+- `phase-02-identity-core.md` -> current phase breakdown
+- `phase-02-sprint-04.md` -> current sprint assignment
+- sprint reports under `docs/planning/reports/` -> sprint execution evidence
 - governance documents -> repository control and merge discipline
 - `anti-patterns.md` -> merge-blocking anti-pattern reference aligned with architecture and governance
 

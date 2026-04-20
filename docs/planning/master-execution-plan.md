@@ -365,6 +365,9 @@ It is the operational control layer that keeps implementation aligned with appro
 - Architecture: completed
 - Requirements: completed
 - Execution Plan: active and controlling
+- Phase 01 - Environment and Infrastructure Foundation: completed
+- Active phase: Phase 02 - Identity Core
+- Active sprint: Sprint 04 - User Module
 
 ---
 
@@ -372,6 +375,7 @@ It is the operational control layer that keeps implementation aligned with appro
 
 Proceed with:
 
-- `docs/planning/phases/phase-01-environment-bootstrap.md`
+- `docs/planning/phases/phase-02-identity-core.md`
+- `docs/planning/assignments/phase-02-sprint-04.md`
 
-Start task-level breakdown and controlled implementation for the phase.
+Start controlled Sprint 04 implementation for the `users` module while preserving Phase 01 runtime, configuration, and infrastructure boundaries.
