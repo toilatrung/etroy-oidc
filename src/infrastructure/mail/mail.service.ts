@@ -49,7 +49,8 @@ export class MailService {
   }
 }
 
-export const createMailService = (provider: MailProvider = new PlaceholderMailProvider()): MailService =>
-  new MailService(provider);
+export const createMailService = (
+  provider: MailProvider = new PlaceholderMailProvider(),
+): MailService => new MailService(provider);
 
 export const mailService = createMailService();

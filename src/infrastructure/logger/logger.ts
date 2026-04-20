@@ -14,8 +14,7 @@ const LOG_LEVEL_BY_ENVIRONMENT: Readonly<Record<typeof config.app.environment, L
     production: 'info',
   });
 
-const resolveLogLevel = (): LevelWithSilent =>
-  LOG_LEVEL_BY_ENVIRONMENT[config.app.environment];
+const resolveLogLevel = (): LevelWithSilent => LOG_LEVEL_BY_ENVIRONMENT[config.app.environment];
 
 const BASE_LOGGER_OPTIONS: Readonly<LoggerOptions> = Object.freeze({
   timestamp: pino.stdTimeFunctions.isoTime,

@@ -13,7 +13,10 @@ export interface TimerMetric {
 }
 
 const counterStore = new Map<string, number>();
-const timerStore = new Map<string, { count: number; totalMs: number; minMs: number; maxMs: number }>();
+const timerStore = new Map<
+  string,
+  { count: number; totalMs: number; minMs: number; maxMs: number }
+>();
 
 const normalizeMetricName = (name: string): string => {
   const normalized = name.trim();
