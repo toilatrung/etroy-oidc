@@ -169,13 +169,22 @@ docs/
 |- planning/
 |  |- master-execution-plan.md
 |  |- phases/
-|  |  \- phase-01-environment-bootstrap.md
+|  |  |- phase-01-environment-bootstrap.md
+|  |  \- phase-02-identity-core.md
+|  |- assignments/
+|  |  |- phase-01-sprint-01.md
+|  |  |- phase-01-sprint-02.md
+|  |  |- phase-01-sprint-03.md
+|  |  \- phase-02-sprint-04.md
 |  \- reports/
-|     \- phase-01-sprint-01-report.md
+|     |- phase-01-sprint-01-report.md
+|     |- phase-01-sprint-02-report.md
+|     \- phase-01-sprint-03-report.md
 \- governance/
    |- git-rules.md
    |- pr-template.md
-   \- review-checklist.md
+   |- review-checklist.md
+   \- anti-patterns.md
 ```
 
 ---

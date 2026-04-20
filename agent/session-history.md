@@ -265,3 +265,27 @@ It records meaningful state transitions and approved outcomes only.
 - Open items:
   - prepare Sprint 03 final PR with contract references and validation evidence
   - start Sprint 04 handoff (Phase 02 `users` module baseline)
+
+### 2026-04-20 / PHASE02-ACTIVATION-006
+
+- Completed:
+- marked Phase 01 as closed and Phase 02 as active in planning/context files
+- added Phase 02 planning file:
+  - `docs/planning/phases/phase-02-identity-core.md`
+- added Sprint 04 assignment:
+  - `docs/planning/assignments/phase-02-sprint-04.md`
+- updated source-of-truth navigation:
+  - `docs/source-of-truth-index.md`
+  - `docs/README.md`
+  - `docs/architecture/detailed-source-tree.md`
+- updated execution state:
+  - `docs/planning/master-execution-plan.md`
+  - `docs/planning/reports/phase-01-sprint-03-report.md`
+  - `agent/current-context.md`
+- Current state:
+- Phase 01: CLOSED
+- Active phase: Phase 02 - Identity Core
+- Active sprint: Sprint 04 - User Module
+- Boundary note:
+- Sprint 04 starts with `users` only; `auth` is Sprint 05.
+- Do not introduce token, session, verification, password-reset, or OIDC flow logic during Sprint 04.

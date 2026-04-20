@@ -10,13 +10,19 @@ It summarizes approved state and next actions without redefining architecture.
 - Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
 - Remote baseline synchronized and verified against `origin/main` (`851a4ec`) on 2026-04-15.
 - Phase 01 / Sprint 02 is closed.
-- Phase 01 / Sprint 03 is completed (Infrastructure Layer):
+- Phase 01 / Sprint 03 is completed and Phase 01 is closed (Environment and Infrastructure Foundation):
   - Task 09: centralized MongoDB connection singleton with fail-fast behavior
   - Task 10: centralized Redis client singleton with fail-fast behavior
   - Task 11: structured logger baseline (`pino`) with config-driven log level
   - Task 12: RSA key loading, JWKS generation, and hash/verify infrastructure utilities
   - Task 13: interface-based swappable mail abstraction with placeholder provider
   - Task 14: lightweight metrics hooks and reusable base error surface
+- Phase 02 / Sprint 04 is the active next execution target:
+  - `users` module baseline
+  - identity persistence and ownership
+  - email/username uniqueness
+  - profile update
+  - controlled password change
 
 ## III. Active Source of Truth
 
@@ -31,12 +37,16 @@ Primary references:
 - requirements contract
 - planning controls
 - governance controls
+- `docs/planning/phases/phase-02-identity-core.md`
+- `docs/planning/assignments/phase-02-sprint-04.md`
 
 ## IV. Current Phase and Sprint
 
-- Current phase: Phase 01 - Environment and Infrastructure Foundation
+- Current phase: Phase 02 - Identity Core
+- Current sprint: Sprint 04 - User Module
 - Sprint 02: CLOSED
 - Sprint 03: CLOSED - Infrastructure Layer
+- Phase 01: CLOSED
 
 ## V. Verified Baseline (2026-04-20)
 
@@ -60,9 +70,10 @@ Primary references:
 
 ## VII. Immediate Next Actions
 
-1. Prepare Sprint 03 final PR package with task-to-contract traceability and validation evidence.
-2. Maintain config boundary discipline (`src/config/config.ts`) across subsequent sprints.
-3. Start Sprint 04 planning/execution handoff for Phase 02 (`users` module baseline) per master execution plan.
+1. Execute Sprint 04 from `docs/planning/assignments/phase-02-sprint-04.md`.
+2. Implement `users` module only within approved ownership boundaries.
+3. Maintain Phase 01 runtime/config/infrastructure boundaries during Phase 02 work.
+4. Do not introduce `auth`, verification, password reset, token, session, or OIDC flow logic during Sprint 04 unless explicitly approved by source-of-truth updates.
 
 ## VIII. Notes for Next Session
 
@@ -70,3 +81,4 @@ Primary references:
 - `source-tree.md` remains the primary repository structure contract.
 - Keep infrastructure adapters free of business workflow logic.
 - Keep shared error primitives generic/cross-cutting and module-agnostic.
+- Phase 02 starts with `users`; `auth` belongs to Sprint 05.
