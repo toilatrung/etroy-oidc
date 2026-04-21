@@ -115,13 +115,13 @@ Sprint 04 implementation must include:
 - update controlled profile fields
 - change password through a controlled hashed-password mutation
 - email uniqueness enforcement
-- username uniqueness enforcement
 - controller-level user lifecycle APIs
 
 Sprint 04 implementation must exclude:
 
 - `auth` module changes
 - credential validation flow
+- alternate identifier support
 - token or JWT generation
 - session management
 - verification flow
