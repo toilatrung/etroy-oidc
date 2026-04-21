@@ -363,3 +363,23 @@ It records meaningful state transitions and approved outcomes only.
 - Open items:
   - review whether untracked assignment files `docs/planning/assignments/phase-02-sprint-06.md` and `docs/planning/assignments/phase-02-sprint-07.md` should be renamed or normalized under Phase 03
   - stage and commit Phase 03 documentation changes when reviewed
+
+### 2026-04-22 / PHASE03-ASSIGNMENT-CORRECTION-002
+
+- Completed:
+- corrected Sprint 06 and Sprint 07 assignment file placement/naming from Phase 02 to Phase 03:
+  - `docs/planning/assignments/phase-03-sprint-06.md`
+  - `docs/planning/assignments/phase-03-sprint-07.md`
+- restored Phase 03 source-of-truth documentation onto the assignment branch by merging `feature/phase03-account-lifecycle-docs`
+- removed the incorrect Phase 02 assignment filenames from the active branch state
+- Scope control:
+- documentation-only correction
+- no runtime code changed
+- no OIDC/session behavior introduced
+- Validation evidence:
+- `docs/planning/phases/phase-03-account-lifecycle.md` exists on the assignment branch
+- `docs/planning/assignments/phase-03-sprint-06.md` exists
+- `docs/planning/assignments/phase-03-sprint-07.md` exists
+- incorrect `phase-02-sprint-06.md` and `phase-02-sprint-07.md` paths are absent from the active branch state
+- Open items:
+- push corrected assignment branch to origin
