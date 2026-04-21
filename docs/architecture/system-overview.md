@@ -145,7 +145,7 @@ This domain owns OIDC protocol flow and token/session lifecycle.
 - email verification
 - password reset
 - password change
-- display-name and username update
+- display-name update
 
 ### 2. OIDC Capabilities
 
@@ -274,7 +274,7 @@ User
 ### 4. Unsafe Identity Mutation
 
 - password change without re-authentication controls
-- username updates without uniqueness and policy enforcement
+- identity updates without appropriate policy enforcement
 - missing audit trail for sensitive identity changes
 
 ### 5. Architectural Drift

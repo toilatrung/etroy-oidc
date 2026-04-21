@@ -93,7 +93,7 @@ System must:
 
 Users can login with:
 
-- email or username
+- email
 - password
 
 System must:
@@ -137,11 +137,9 @@ System must:
 Users can update:
 
 - display name
-- username
 
 System must:
 
-- enforce username uniqueness
 - update profile at identity source
 - avoid requiring clients to store identity copies
 
