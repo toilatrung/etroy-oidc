@@ -193,10 +193,17 @@ docs/
 
 ```text
 agent/
-├─ leader.md
-├─ dev.md
-├─ tester.md
-└─ context-log.md
+|- current-context.md
+|- session-history.md
+|- handoff-template.md
+|- context-log.md
+|- roles/
+|  |- leader.md
+|  |- dev.md
+|  \- tester.md
+\- prompts/
+   |- README.md
+   \- sprint-task-execution.md
 ```
 
 ---

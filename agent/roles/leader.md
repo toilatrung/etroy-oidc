@@ -39,11 +39,13 @@ Before directing implementation, approving scope, reviewing a PR, or declaring c
 10. current sprint assignment/report under `docs/planning/assignments/` or `docs/planning/reports/`
 11. governance documents under `docs/governance/`
 12. operational files under `agent/`
+13. reusable prompts under `agent/prompts/` when preparing agent execution
 
 Rules:
 
 - `docs/` is authoritative.
 - `agent/` is support only.
+- `agent/prompts/` is support only and must not redefine scope, architecture, or governance.
 - `source-tree.md` wins over `detailed-source-tree.md` on structure.
 - architecture and requirements contracts must be checked before planning convenience.
 - governance documents decide review and merge discipline.
@@ -60,6 +62,7 @@ For every decision, identify:
 - expected runnable baseline
 - required validation evidence
 - risks, blockers, and unresolved instability
+- applicable operational prompt, if one is used
 
 If any required item is missing from approved documents, the decision is blocked until the missing contract or scope clarification is documented.
 

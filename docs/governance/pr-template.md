@@ -1,206 +1,87 @@
-# eTroy OIDC — Mandatory Pull Request Contract
+# eTroy OIDC - Pull Request Template Governance
 
 ---
 
-## I. Pull Request Information
+## I. Purpose
 
-> Merge-blocking rule: PRs with placeholder or empty mandatory sections are non-compliant (AP-22/AP-24) and must not be approved.
+This document defines the governance rules for pull request content in eTroy OIDC.
 
-### Title
+The single active PR template file is:
 
-<!-- Recommended format:
-<type>(<scope>): <short summary> -->
+- `.github/pull_request_template.md`
 
-### Change Type
-
-- [ ] Feature
-- [ ] Fix
-- [ ] Refactor
-- [ ] Docs
-- [ ] Test
-- [ ] Chore
-- [ ] Build
-
-### Affected Module
-
-- [ ] auth
-- [ ] users
-- [ ] verification
-- [ ] password-reset
-- [ ] oidc
-- [ ] admin
-- [ ] audit
-- [ ] health
-- [ ] config
-- [ ] infrastructure
-- [ ] shared
-- [ ] docs
-- [ ] governance
+Do not duplicate the full template body in this document. If the PR template changes, update `.github/pull_request_template.md` directly and keep this governance file focused on review rules.
 
 ---
 
-## II. Context
+## II. Authority
 
-### Related Phase / Sprint / Task
+`docs/governance/pr-template.md` is the governance reference.
 
-<!-- Example:
-Phase 01 / Sprint 01 / Task 03 -->
+`.github/pull_request_template.md` is the executable GitHub template used when opening PRs.
 
-### Problem Statement
+If the two conflict:
 
-Describe the problem this PR addresses.
-
-### Objective
-
-Describe the intended outcome of this PR.
+1. apply `docs/source-of-truth-index.md`
+2. preserve the governance requirements in this document
+3. update `.github/pull_request_template.md` so the active template satisfies governance
 
 ---
 
-## III. Source of Truth References
+## III. Mandatory PR Content
 
-### Mandatory Traceability Inputs (must not be empty)
+Every meaningful PR must include:
 
-- Phase / Sprint / Task: `...`
-- Exact source-of-truth docs used: `...`
-- Contract clauses implemented: `...`
-- Why these references are sufficient for this change: `...`
-
-### Relevant Documents
-
-List all relevant documents used as implementation source:
-
-- [ ] `docs/architecture/system-overview.md`
-- [ ] `docs/architecture/module-boundaries.md`
-- [ ] `docs/architecture/source-tree.md`
-- [ ] `docs/architecture/detailed-source-tree.md`
-- [ ] `docs/requirements/srs-v1.md`
-- [ ] `docs/planning/master-execution-plan.md`
-- [ ] other: `...`
-
-### Contract Reference
-
-Describe the contract or design basis for this change.
-
-Do not leave this section blank. Generic statements like "aligned with docs" are non-compliant.
+- clear summary
+- problem and timing context
+- related phase, sprint, and task when applicable
+- primary module or layer
+- secondary modules or layers affected, if any
+- exact source-of-truth and contract references
+- included scope
+- explicitly excluded scope
+- key implementation points
+- boundary check
+- security check
+- validation evidence with exact commands and PASS, FAIL, or NOT RUN results
+- breaking change assessment
+- risk and rollback notes
+- reviewer focus
+- final checklist before review request
 
 ---
 
-## IV. Scope of Change
+## IV. Merge-Blocking Rules
 
-### Included in this PR
+Block merge if any of these conditions are present:
 
-List what is included.
-
-### Explicitly excluded from this PR
-
-List what is intentionally out of scope.
-
-This section is mandatory to prevent uncontrolled PR expansion.
-
----
-
-## V. Implementation Summary
-
-Describe what was changed at implementation level.
-
-Suggested structure:
-
-- files added
-- files modified
-- files removed
-- structural changes
-- logic changes
+- mandatory PR sections are blank, placeholder-only, contradictory, or non-reproducible
+- source-of-truth reference is missing
+- phase, sprint, or task reference is missing for planned work
+- contract basis is vague or generic
+- included or excluded scope is missing
+- validation evidence is missing for meaningful implementation
+- validation claims do not include exact commands and results
+- boundary violation exists
+- auth generates token or OIDC issuance logic
+- OIDC directly accesses user ownership data in the database
+- duplicate identity logic is introduced
+- raw refresh token storage is introduced
+- direct DB field exposure as claim bypasses mapper rules
+- business workflow is added to `infrastructure`
+- module-specific workflow is added to `shared`
+- security-sensitive behavior lacks review notes
+- breaking change exists without approval or versioning
+- unrelated code is included
 
 ---
 
-## VI. Architectural Alignment
+## V. Maintenance Rule
 
-### Boundary Check
+When governance requirements change:
 
-Confirm the following:
+1. update this file with the rule change
+2. update `.github/pull_request_template.md` only if the active PR form must change
+3. verify the template still captures all mandatory review information
 
-- [ ] This PR respects `module-boundaries.md`
-- [ ] This PR respects `source-tree.md`
-- [ ] This PR does not introduce duplicate logic
-- [ ] This PR does not bypass approved layers
-- [ ] This PR does not violate data ownership
-
-### Critical Rules Check
-
-- [ ] Auth does not generate token
-- [ ] OIDC does not directly query user ownership data in the database
-- [ ] Refresh token is not stored raw
-- [ ] Client identity is not duplicated outside identity source
-
----
-
-## VII. Validation Evidence
-
-### Validation Performed
-
-- [ ] Typecheck
-- [ ] Build
-- [ ] Unit test
-- [ ] Integration test
-- [ ] Manual validation
-- [ ] Docs review
-
-### Evidence
-
-Provide short evidence or command output summary.
-
-Example:
-
-- `tsc --noEmit` passed
-- local build passed
-- manual route check passed
-
-Minimum required evidence format:
-
-- command: `<exact command>`
-- result: `PASS` or `FAIL`
-- scope checked: `<what this command validated>`
-
-If evidence is omitted, non-reproducible, or contradictory, the PR is merge-blocked.
-
----
-
-## VIII. Risk Assessment
-
-### Risk Level
-
-- [ ] Low
-- [ ] Medium
-- [ ] High
-
-### Risk Description
-
-Describe the main risks of this change.
-
-### Rollback Impact
-
-Describe what would need to be reverted if this PR fails after merge.
-
----
-
-## IX. Reviewer Notes
-
-### Areas requiring careful review
-
-List any part reviewers should inspect closely.
-
-### Known limitations
-
-List any current limitations that are intentionally deferred.
-
----
-
-## X. Final Confirmation
-
-By opening this PR, the author confirms:
-
-- [ ] The change is traceable to approved context
-- [ ] The change stays within declared scope
-- [ ] The change respects architecture and source of truth
-- [ ] The validation evidence provided is accurate
-- [ ] Mandatory traceability and evidence sections are fully completed (no placeholders, no empty required fields)
+The project should maintain one full PR template body only: `.github/pull_request_template.md`.
