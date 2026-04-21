@@ -112,9 +112,11 @@ Principles:
 - `auth`
 - `verification`
 - `password-reset`
+- shared non-OIDC token lifecycle mechanism for verification and password reset
 - profile update use cases
 
 This domain owns user lifecycle and core identity mutations.
+The non-OIDC token lifecycle used by verification and password reset is separate from OIDC token issuance.
 
 ### 2. OIDC Domain (Core)
 
