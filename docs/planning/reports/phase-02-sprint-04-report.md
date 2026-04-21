@@ -6,8 +6,8 @@
 - Sprint: Sprint 04 - User Module
 - Objective: Establish `users` as the single source of truth for email-only identity, including identity persistence, controlled mutation, secure password hashing, and boundary-safe controller handlers.
 - Branch: `feature/users-sprint04-core`
-- PR: Pending
-- Status: Implementation complete; PR pending
+- PR: Ready to open
+- Status: Completed
 - Date: 2026-04-21
 
 ## II. Source-of-Truth Used
@@ -88,6 +88,7 @@ Authority notes:
 - `543115f docs(identity): enforce email-only identity contract`
 - `d9e1069 feat(users): implement sprint04 identity core`
 - `efa92f9 docs(agent): normalize email-only sprint guidance`
+- `1afae86 docs(planning): add sprint04 users report`
 
 ## IV. Validation Evidence
 
@@ -167,7 +168,8 @@ Manual validation was performed against the built output with an in-memory repos
 
 ## VI. Risks / Notes
 
-- PR remains pending; merge readiness depends on normal PR review and CI confirmation.
+- PR still needs to be opened from `feature/users-sprint04-core`.
+- Merge readiness depends on normal PR review and CI confirmation.
 - The email-only source-of-truth docs and users implementation must merge together, or the docs must merge first, to prevent a docs-code mismatch in `main`.
 - Live MongoDB runtime behavior was not exercised in this report; service behavior was validated with an in-memory repository and static/build validation passed.
 
@@ -177,14 +179,15 @@ Manual validation was performed against the built output with an in-memory repos
 - Local validation: Complete
 - Branch push: Complete
 - Remote branch: `origin/feature/users-sprint04-core`
-- PR Readiness: Ready
-- Merge Readiness: Pending PR review and CI
+- Sprint Status: Complete
+- PR Readiness: Complete
+- Merge Readiness: Ready for PR review and CI
 - Phase Status: Phase 02 remains active
 
 ## VIII. Next Action
 
-- Open a PR from `feature/users-sprint04-core`.
-- Include the validation evidence from this report in the PR template.
+- Open the PR from `feature/users-sprint04-core` if it has not already been opened.
+- Use the validation evidence from this report in the PR template.
 - Review especially:
   - email-only identity contract consistency
   - users module boundary compliance
