@@ -93,6 +93,7 @@ The following are non-authoritative and cannot override `docs/` contracts:
 - `agent/session-history.md`
 - `agent/handoff-template.md`
 - `agent/roles/*`
+- `agent/prompts/*`
 - ad-hoc notes, scratch docs, historical transcripts, or deprecated drafts
 
 Deprecated or historical materials are reference-only and must not override approved current documents.
