@@ -17,6 +17,10 @@ export interface UserProfile {
   avatar_url?: string;
 }
 
+export interface UserCredentialIdentity extends UserProfile {
+  passwordHash: string;
+}
+
 export interface CreateUserInput {
   email?: unknown;
   password?: unknown;
@@ -122,6 +126,15 @@ const toUserProfile = (user: UserEntity): UserProfile => {
   return profile;
 };
 
+const toUserCredentialIdentity = (user: UserEntity): UserCredentialIdentity => {
+  const identity: UserCredentialIdentity = {
+    ...toUserProfile(user),
+    passwordHash: user.password_hash,
+  };
+
+  return identity;
+};
+
 const mapRepositoryError = (error: unknown): never => {
   if (error instanceof DuplicateEmailError) {
     throw duplicateEmail();
@@ -188,6 +201,13 @@ export class UserService {
     }
 
     return toUserProfile(user);
+  }
+
+  async getCredentialIdentityByEmail(email: string): Promise<UserCredentialIdentity | null> {
+    const normalizedEmail = normalizeEmail(email);
+    const user = await this.userRepository.findByEmail(normalizedEmail);
+
+    return user === null ? null : toUserCredentialIdentity(user);
   }
 
   async updateProfile(sub: string, input: UpdateProfileInput = {}): Promise<UserProfile> {
