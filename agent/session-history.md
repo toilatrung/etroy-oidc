@@ -321,3 +321,45 @@ It records meaningful state transitions and approved outcomes only.
   - open PR from `feature/users-sprint04-core`
   - keep email-only docs and implementation in the same merge path
   - begin Sprint 05 Auth Module only after approved assignment/contract
+
+### 2026-04-22 / PHASE03-ACCOUNT-LIFECYCLE-DOCS-001
+
+- Completed:
+- normalized and extended source-of-truth documentation for Phase 03 - Account Lifecycle
+- introduced `modules/token-lifecycle` as a shared non-OIDC lifecycle token module for:
+  - `email_verification`
+  - `password_reset`
+- clarified that lifecycle tokens are not OIDC tokens, JWT issuance, or session logic
+- preserved `users` as the only owner of identity mutation
+- aligned Phase 03 planning around:
+  - Sprint 06 - Verification Module
+  - Sprint 07 - Password Reset Module
+- Scope control:
+- documentation-only change
+- no runtime code implemented
+- no Phase 01 or Phase 02 behavior changed
+- no OIDC token logic introduced
+- no new root folders introduced
+- Validation evidence:
+- `token-lifecycle` exists in `docs/architecture/module-boundaries.md`
+- `token-lifecycle` exists in `docs/architecture/source-tree.md`
+- `docs/architecture/system-overview.md` includes non-OIDC token lifecycle clarification
+- `docs/planning/phases/phase-03-account-lifecycle.md` exists and includes objective, scope, separation rules, sprint breakdown, ownership rules, token lifecycle rules, integration constraints, and definition of done
+- boundary validation confirmed:
+  - `verification` depends on `token-lifecycle`
+  - `password-reset` depends on `token-lifecycle`
+  - `token-lifecycle` cannot mutate identity
+  - only `users` can mutate identity
+- Source-of-truth documents changed:
+  - `docs/architecture/module-boundaries.md`
+  - `docs/architecture/source-tree.md`
+  - `docs/architecture/system-overview.md`
+  - `docs/planning/master-execution-plan.md`
+  - `docs/planning/phases/phase-03-account-lifecycle.md`
+  - `docs/source-of-truth-index.md`
+  - `docs/README.md`
+- Agent files changed:
+  - `agent/session-history.md`
+- Open items:
+  - review whether untracked assignment files `docs/planning/assignments/phase-02-sprint-06.md` and `docs/planning/assignments/phase-02-sprint-07.md` should be renamed or normalized under Phase 03
+  - stage and commit Phase 03 documentation changes when reviewed

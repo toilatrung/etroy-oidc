@@ -147,9 +147,8 @@ Objective:
 Scope:
 
 - email verification
-- verification token lifecycle
 - password reset
-- token lifecycle for verification and reset use cases
+- unified non-OIDC token lifecycle for verification and reset use cases
 
 Sprints:
 

@@ -31,6 +31,7 @@ It exists to prevent ambiguity, enforce contract-first execution, and stop archi
 - `docs/planning/master-execution-plan.md`
 - `docs/planning/phases/phase-01-environment-bootstrap.md`
 - `docs/planning/phases/phase-02-identity-core.md`
+- `docs/planning/phases/phase-03-account-lifecycle.md`
 - `docs/planning/assignments/phase-02-sprint-04.md`
 
 ### 4. Governance
@@ -54,11 +55,12 @@ Recommended reading order for humans and AI agents:
 8. `docs/planning/master-execution-plan.md`
 9. `docs/planning/phases/phase-01-environment-bootstrap.md`
 10. `docs/planning/phases/phase-02-identity-core.md`
-11. `docs/planning/assignments/phase-02-sprint-04.md`
-12. `docs/governance/git-rules.md`
-13. `docs/governance/pr-template.md`
-14. `docs/governance/review-checklist.md`
-15. `docs/governance/anti-patterns.md`
+11. `docs/planning/phases/phase-03-account-lifecycle.md`
+12. `docs/planning/assignments/phase-02-sprint-04.md`
+13. `docs/governance/git-rules.md`
+14. `docs/governance/pr-template.md`
+15. `docs/governance/review-checklist.md`
+16. `docs/governance/anti-patterns.md`
 
 ## V. Conflict Resolution Rules
 

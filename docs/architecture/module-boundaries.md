@@ -137,21 +137,23 @@ Primary role:
 
 Allowed:
 
-- create verification token
+- request email verification tokens through `token-lifecycle`
 - send verification email through mail abstraction
-- verify token
-- mark `email_verified`
+- verify email verification tokens through `token-lifecycle`
+- coordinate `email_verified` mutation through approved `users` contracts
 
 Forbidden:
 
-- token issuance
+- direct token persistence or raw token storage
 - password-reset ownership
 - bypassing `users` ownership for identity updates
+- issuing OIDC tokens
+- owning session logic
 
 Ownership:
 
-- verification token
-- verification state
+- email verification business flow
+- verification request and completion workflow
 
 ### 4. `modules/password-reset`
 
@@ -161,13 +163,14 @@ Primary role:
 
 Allowed:
 
-- create reset token
+- request password reset tokens through `token-lifecycle`
 - send reset email
-- validate reset token
+- validate password reset tokens through `token-lifecycle`
 - coordinate password change via `users`/`auth` contracts
 
 Forbidden:
 
+- direct token persistence or raw token storage
 - login token issuance
 - OIDC authorization ownership
 - OIDC session ownership
@@ -175,10 +178,49 @@ Forbidden:
 
 Ownership:
 
-- reset token
-- reset workflow state
+- password reset business flow
+- reset request and completion workflow
 
-### 5. `modules/oidc`
+### 5. `modules/token-lifecycle`
+
+Primary role:
+
+- shared non-OIDC token lifecycle mechanism for identity lifecycle flows
+
+Responsibilities:
+
+- secure token generation using high entropy
+- hashed token persistence only; raw tokens must never be stored
+- token verification through hash comparison
+- lifecycle management:
+  - expiration
+  - one-time usage
+  - revocation
+- support multiple token purposes:
+  - `email_verification`
+  - `password_reset`
+
+Forbidden:
+
+- implementing email verification or password reset business flows
+- mutating user identity directly
+- issuing OIDC tokens
+- issuing JWTs
+- managing sessions
+- accessing user data beyond an identity ID reference
+
+Mandatory rules:
+
+- `token-lifecycle` is separate from OIDC token issuance
+- `token-lifecycle` must not duplicate `oidc` access, refresh, or ID token behavior
+- `users` remains the only owner of identity data and identity mutation
+
+Ownership:
+
+- non-OIDC identity lifecycle token records
+- token purpose, hash, expiration, usage, and revocation state
+
+### 6. `modules/oidc`
 
 Primary role:
 
@@ -210,12 +252,12 @@ Mandatory rules:
 Ownership:
 
 - OIDC protocol flow
-- token lifecycle
+- OIDC token lifecycle
 - claims
 - client metadata
 - OIDC session
 
-### 6. `modules/admin`
+### 7. `modules/admin`
 
 Primary role:
 
@@ -238,7 +280,7 @@ Ownership:
 - administrative orchestration
 - admin-facing control flows
 
-### 7. `modules/audit`
+### 8. `modules/audit`
 
 Primary role:
 
@@ -259,7 +301,7 @@ Ownership:
 - audit records
 - audit event persistence
 
-### 8. `modules/health`
+### 9. `modules/health`
 
 Primary role:
 
@@ -283,7 +325,9 @@ Forbidden:
 
 - `auth` → `users`
 - `verification` → `users`
+- `verification` → `token-lifecycle`
 - `password-reset` → `users`
+- `password-reset` → `token-lifecycle`
 - `oidc` → `users` (through approved service/account contract)
 - `oidc` → `auth` (credential validation support only)
 - `admin` → `users`
@@ -309,6 +353,9 @@ Only allowed with explicit contract and no ownership violation:
 - `auth` → token generation
 - `auth` → session issuance
 - `users` → OIDC protocol ownership
+- `token-lifecycle` → direct identity mutation
+- `token-lifecycle` → OIDC token issuance
+- `oidc` → `token-lifecycle` for access, refresh, or ID token issuance
 - `client application` → local user identity as primary source
 - `admin` → direct raw cross-domain mutation without service contract
 - `verification` → password-reset ownership
@@ -350,20 +397,35 @@ Owner: `modules/verification`
 
 Includes:
 
-- verification token
-- verification state
+- verification request workflow state
+- verification completion workflow state
 
-### 4. Password Reset Data
+### 4. Password Reset Workflow Data
 
 Owner: `modules/password-reset`
 
 Includes:
 
-- reset token
-- reset expiry
 - reset workflow state
 
-### 5. Token Data
+### 5. Identity Lifecycle Token Data
+
+Owner: `modules/token-lifecycle`
+
+Includes:
+
+- token purpose (`email_verification`, `password_reset`)
+- token hash
+- token expiration
+- one-time usage state
+- revocation state
+- identity ID reference
+
+Mandatory security rule:
+
+- raw identity lifecycle tokens must never be persisted
+
+### 6. OIDC Token Data
 
 Owner: `modules/oidc`
 
@@ -378,12 +440,12 @@ Mandatory security rule:
 
 - refresh tokens must be hashed before persistence; raw refresh tokens must not be stored
 
-### 6. Session Data
+### 7. Session Data
 
 Owner: `modules/oidc`  
 Storage abstraction: `infrastructure/redis`
 
-### 7. Client Metadata
+### 8. Client Metadata
 
 Owner: `modules/oidc/clients`, or admin orchestration through `modules/admin` into `oidc`
 
@@ -509,6 +571,8 @@ Use this checklist for architecture contract validation:
 - `auth` does not generate tokens
 - `oidc` does not bypass `users` ownership for user data
 - refresh token persistence is hashed only
+- identity lifecycle token persistence is owned by `token-lifecycle` and hashed only
+- `verification` and `password-reset` do not mutate identity outside approved `users` contracts
 - no business policy leaked into `infrastructure` or `shared`
 - layer responsibilities from Section VII are respected
 - file placement aligns with `source-tree.md`
