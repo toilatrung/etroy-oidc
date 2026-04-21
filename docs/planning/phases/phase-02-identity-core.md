@@ -53,7 +53,7 @@ Scope:
 - user identity model
 - identity persistence
 - identity creation and retrieval
-- email and username uniqueness
+- email uniqueness
 - profile update
 - password change as a controlled identity mutation
 - controller-level APIs for user lifecycle operations
@@ -62,7 +62,7 @@ Contracts:
 
 - `users` is the only source of truth for identity
 - password must always be stored hashed
-- email and username uniqueness must be enforced by `users`
+- email uniqueness must be enforced by `users`
 - identity mutations must be controlled and validated
 - no other module may store or duplicate identity data
 - password change must use a controlled identity update flow
@@ -113,7 +113,7 @@ Responsibilities:
 - own identity data and persistence
 - create user identity records
 - retrieve identity records
-- enforce email and username uniqueness
+- enforce email uniqueness
 - update profile fields
 - change password through hashed password persistence
 - expose user lifecycle controller endpoints through the delivery layer
@@ -181,7 +181,7 @@ Phase 02 is complete when:
   - update profile
   - change password
 - user lifecycle controller endpoints are available for Sprint 04 scope
-- email and username uniqueness are enforced
+- email uniqueness is enforced
 - credential validation works through `auth`
 - `users` remains the only identity source
 - `auth` does not generate tokens

@@ -229,7 +229,6 @@ Task 15 - User Model; Task 16 - User Repository; Task 17 - User Service; Task 18
 - password hashing before persistence
 - password re-hashing during password change
 - email uniqueness enforcement
-- username uniqueness enforcement
 - controller-level user lifecycle endpoints
 - use existing database and crypto hash infrastructure
 
@@ -282,7 +281,6 @@ Task 15 - User Model; Task 16 - User Repository; Task 17 - User Service; Task 18
 [MANUAL_VALIDATION_CHECKS]
 - create user succeeds
 - duplicate email fails
-- duplicate username fails
 - stored password is hashed only
 - profile update mutates controlled fields only
 - password change re-hashes the new password
@@ -323,4 +321,3 @@ Final report:
 
 Stop if implementation requires undocumented architecture, forbidden dependency direction, or scope owned by another sprint/module.
 ```
-

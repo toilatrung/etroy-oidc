@@ -129,7 +129,7 @@ Scope:
 - `users` module
 - `auth` module (credential validation only)
 - password hashing
-- username/email uniqueness
+- email uniqueness
 - profile update
 - password change
 

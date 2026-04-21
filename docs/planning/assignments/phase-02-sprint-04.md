@@ -35,7 +35,7 @@ Sprint 04 establishes the identity lifecycle:
 Sprint 04 must enforce:
 
 - password hashing
-- email and username uniqueness
+- email uniqueness
 - strict module boundary separation
 
 Strictly forbidden:
@@ -113,14 +113,12 @@ Required fields:
 
 - `sub`
 - `email`
-- `username`
 - `password_hash`
 - `email_verified`
 
 Task rules:
 
 - enforce unique email
-- enforce unique username
 - store only `password_hash`
 - never persist plain password
 - no token, session, verification, or reset ownership
@@ -134,7 +132,6 @@ Required methods:
 - create user
 - find by id or `sub`
 - find by email
-- find by username
 - update user
 
 Task rules:
@@ -155,7 +152,7 @@ Required behavior:
 - change password
 - hash password before persistence
 - re-hash password during password change
-- reject duplicate email or username
+- reject duplicate email
 - allow only controlled profile fields to be updated
 
 Task rules:
@@ -245,7 +242,6 @@ Runtime validation:
 
 - create user -> success
 - duplicate email -> fail
-- duplicate username -> fail
 - password stored hashed
 - update profile -> controlled fields only
 - change password -> password re-hashed

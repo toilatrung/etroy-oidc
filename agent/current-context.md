@@ -20,7 +20,7 @@ It summarizes approved state and next actions without redefining architecture.
 - Phase 02 / Sprint 04 is the active next execution target:
   - `users` module baseline
   - identity persistence and ownership
-  - email/username uniqueness
+  - email uniqueness
   - profile update
   - controlled password change
 
