@@ -93,6 +93,7 @@ Load in this sequence:
 - `master-execution-plan.md` -> execution control model
 - `phase-01-environment-bootstrap.md` -> completed foundation phase breakdown
 - `phase-02-identity-core.md` -> current phase breakdown
+- `phase-03-account-lifecycle.md` -> account lifecycle phase breakdown
 - `phase-02-sprint-04.md` -> current sprint assignment
 - sprint reports under `docs/planning/reports/` -> sprint execution evidence
 - governance documents -> repository control and merge discipline

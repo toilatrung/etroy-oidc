@@ -309,6 +309,7 @@ modules/
 ├─ auth/
 ├─ verification/
 ├─ password-reset/
+├─ token-lifecycle/
 ├─ oidc/
 ├─ admin/
 ├─ audit/
