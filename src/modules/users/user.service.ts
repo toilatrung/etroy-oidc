@@ -210,6 +210,20 @@ export class UserService {
     return user === null ? null : toUserCredentialIdentity(user);
   }
 
+  async markEmailAsVerified(id: string): Promise<UserProfile> {
+    const normalizedId = requiredString(id, 'id');
+    const user = await this.userRepository.updateUser(
+      { id: normalizedId },
+      { email_verified: true },
+    );
+
+    if (user === null) {
+      throw userNotFound();
+    }
+
+    return toUserProfile(user);
+  }
+
   async updateProfile(sub: string, input: UpdateProfileInput = {}): Promise<UserProfile> {
     assertKnownFields(input, ['name', 'avatar_url']);
 
