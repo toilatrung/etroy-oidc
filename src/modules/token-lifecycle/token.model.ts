@@ -3,8 +3,11 @@ import mongoose, { type Model } from 'mongoose';
 const { model, models, Schema } = mongoose;
 
 export const TOKEN_PURPOSE_EMAIL_VERIFICATION = 'email_verification' as const;
+export const TOKEN_PURPOSE_PASSWORD_RESET = 'password_reset' as const;
 
-export type TokenPurpose = typeof TOKEN_PURPOSE_EMAIL_VERIFICATION;
+export type TokenPurpose =
+  | typeof TOKEN_PURPOSE_EMAIL_VERIFICATION
+  | typeof TOKEN_PURPOSE_PASSWORD_RESET;
 
 export interface TokenDocument {
   userId: string;
@@ -24,7 +27,7 @@ const tokenSchema = new Schema<TokenDocument>(
     purpose: {
       type: String,
       required: true,
-      enum: [TOKEN_PURPOSE_EMAIL_VERIFICATION],
+      enum: [TOKEN_PURPOSE_EMAIL_VERIFICATION, TOKEN_PURPOSE_PASSWORD_RESET],
     },
     tokenHash: {
       type: String,
