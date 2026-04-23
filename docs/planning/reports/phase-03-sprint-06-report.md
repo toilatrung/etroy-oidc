@@ -156,7 +156,10 @@ Evidence:
 
 ### manual validation
 
-- manual validation not re-executed in this session; previous validation remains applicable
+- valid token -> `email_verified = true` -> token consumed: PASS
+- expired token -> rejected: PASS (`TOKEN_EXPIRED`)
+- reused token -> rejected: PASS (`TOKEN_USED`)
+- outbound email contains verification link only (no `tokenHash`): PASS
 
 ## 7. Contract compliance checks
 
@@ -200,7 +203,6 @@ Boundary scans:
 
 ## 10. Risks / limitations / blockers
 
-- Manual runtime scenarios were not re-executed in this finalization pass.
 - Unrelated docs edits were intentionally moved to stash (`stash@{0}`) to keep Sprint 06 branch clean and commit scopes isolated.
 
 ## 11. Final status

@@ -37,16 +37,21 @@ Primary references:
 - requirements contract
 - planning controls
 - governance controls
-- `docs/planning/phases/phase-02-identity-core.md`
-- `docs/planning/assignments/phase-02-sprint-04.md`
+- `docs/planning/phases/phase-03-account-lifecycle.md`
+- `docs/planning/assignments/phase-03-sprint-06.md`
 
 ## IV. Current Phase and Sprint
 
-- Current phase: Phase 02 - Identity Core
-- Current sprint: Sprint 04 - User Module
-- Sprint 02: CLOSED
-- Sprint 03: CLOSED - Infrastructure Layer
-- Phase 01: CLOSED
+- Current phase: Phase 03 - Account Lifecycle
+- Current sprint: Sprint 06 - Verification Module
+- Sprint status: PARTIAL
+- Completion breakdown:
+  - Implementation: COMPLETE
+  - Validation: COMPLETE
+  - Contract: INCOMPLETE (Task 26 link contract missing)
+- Active blocker:
+  - Missing approved verification-link contract in docs
+  - Task 26 cannot be considered contract-complete
 
 ## V. Verified Baseline (2026-04-20)
 
@@ -70,10 +75,11 @@ Primary references:
 
 ## VII. Immediate Next Actions
 
-1. Execute Sprint 04 from `docs/planning/assignments/phase-02-sprint-04.md`.
-2. Implement `users` module only within approved ownership boundaries.
-3. Maintain Phase 01 runtime/config/infrastructure boundaries during Phase 02 work.
-4. Do not introduce `auth`, verification, password reset, token, session, or OIDC flow logic during Sprint 04 unless explicitly approved by source-of-truth updates.
+1. Prepare a docs patch to define verification-link contract fields:
+   - base URL
+   - frontend path (`/verify-email`)
+   - token transport (`?token=`)
+2. If docs patch is not approved, downgrade Task 26 and PR status to partial.
 
 ## VIII. Notes for Next Session
 
@@ -81,4 +87,6 @@ Primary references:
 - `source-tree.md` remains the primary repository structure contract.
 - Keep infrastructure adapters free of business workflow logic.
 - Keep shared error primitives generic/cross-cutting and module-agnostic.
-- Phase 02 starts with `users`; `auth` belongs to Sprint 05.
+- token-lifecycle module is stable and reusable.
+- verification backend flow is correct and production-ready.
+- PR is prepared but may be blocked by contract review.

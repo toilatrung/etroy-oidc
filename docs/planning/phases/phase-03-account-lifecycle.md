@@ -69,6 +69,12 @@ Contracts:
 - `verification` does not implement password reset behavior
 - `verification` does not issue OIDC tokens or manage sessions
 - only `users` may mutate the user identity record
+- verification link format: `/verify-email?token=<rawToken>`
+- verification link base URL source: config `APP_BASE_URL`
+- raw token is transported in URL query for verification
+- `tokenHash` is never exposed
+- token is one-time use
+- token expiration is enforced by `token-lifecycle`
 
 ### Sprint 07 - Password Reset Module
 
