@@ -8,21 +8,11 @@ It summarizes approved state and next actions without redefining architecture.
 ## II. Current Project State
 
 - Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
-- Remote baseline synchronized and verified against `origin/main` (`851a4ec`) on 2026-04-15.
-- Phase 01 / Sprint 02 is closed.
-- Phase 01 / Sprint 03 is completed and Phase 01 is closed (Environment and Infrastructure Foundation):
-  - Task 09: centralized MongoDB connection singleton with fail-fast behavior
-  - Task 10: centralized Redis client singleton with fail-fast behavior
-  - Task 11: structured logger baseline (`pino`) with config-driven log level
-  - Task 12: RSA key loading, JWKS generation, and hash/verify infrastructure utilities
-  - Task 13: interface-based swappable mail abstraction with placeholder provider
-  - Task 14: lightweight metrics hooks and reusable base error surface
-- Phase 02 / Sprint 04 is the active next execution target:
-  - `users` module baseline
-  - identity persistence and ownership
-  - email uniqueness
-  - profile update
-  - controlled password change
+- Current implementation focus: Phase 03 / Sprint 07 password-reset flow is implemented and validated.
+- Repository formatting baseline cleanup was executed and `format:check` now passes.
+- Final delivery strategy requires two separate PRs:
+  - PR 1: formatting baseline cleanup only (`chore/format-baseline-fix`)
+  - PR 2: Sprint 07 logic only (`feature/password-reset-sprint07-reset-flow`)
 
 ## III. Active Source of Truth
 
@@ -38,55 +28,53 @@ Primary references:
 - planning controls
 - governance controls
 - `docs/planning/phases/phase-03-account-lifecycle.md`
-- `docs/planning/assignments/phase-03-sprint-06.md`
+- `docs/planning/assignments/phase-03-sprint-07.md`
+- `docs/planning/reports/phase-03-sprint-07-report.md`
 
 ## IV. Current Phase and Sprint
 
 - Current phase: Phase 03 - Account Lifecycle
-- Current sprint: Sprint 06 - Verification Module
-- Sprint status: PARTIAL
+- Current sprint: Sprint 07 - Password Reset Module
+- Sprint status: COMPLETE (implementation and validation complete; PR split pending)
 - Completion breakdown:
   - Implementation: COMPLETE
   - Validation: COMPLETE
-  - Contract: INCOMPLETE (Task 26 link contract missing)
-- Active blocker:
-  - Missing approved verification-link contract in docs
-  - Task 26 cannot be considered contract-complete
+  - PR packaging: IN PROGRESS (split into format-only PR and logic-only PR)
 
-## V. Verified Baseline (2026-04-20)
+## V. Verified Baseline (2026-04-23)
 
 - Config contract is active and flat in `src/config/`: `schema.ts`, `env.ts`, `config.ts`.
-- Sprint 03 infrastructure files for Tasks 09-14 are present in `src/infrastructure/*` and `src/shared/errors/*`.
-- Logger dependency baseline includes `pino` in package manifests.
-- No direct `process.env` usage was found outside `src/config/`.
-- Final Sprint 03 validation chain passed:
+- Sprint 07 validation chain passed:
   - `npm.cmd run lint`
   - `npm.cmd run typecheck`
+  - `npm.cmd run format:check`
   - `npm.cmd run build`
   - `rg -n "process\\.env" src --glob "!src/config/**"` -> no matches
-  - `rg -n "console\\.log" src` -> no matches
+  - `rg -n "jwt|JWT" src/modules/password-reset` -> no matches
+  - `rg -n "session" src/modules/password-reset` -> no matches
+  - `rg -n "OIDC|oidc" src/modules/password-reset` -> no matches
+  - `rg -n "UserModel|user\\.repository|mongoose|findOne|findById|updateUser|create\\(" src/modules/password-reset` -> no matches
+  - `rg -n "changePassword\\(|consumeToken\\(|validateToken\\(" src/modules/password-reset/password-reset.service.ts` -> expected flow calls found
 
 ## VI. PR / Branch Traceability (Verified)
 
-- PR #4 `Feature/config sprint02 distribution`: closed, merged.
-- PR #5 `chore: remove test layer (vitest + test script)`: closed, merged.
-- PR #6 `fix(ci): clean workflow test references and fix formatting baseline`: closed, merged.
-- PR #7 `fix(ci): remove unit-test and integration-test jobs from quality gate`: closed, merged.
+- Formatting cleanup PR target branch: `chore/format-baseline-fix` (format-only changes).
+- Sprint 07 PR target branch: `feature/password-reset-sprint07-reset-flow` (logic + Sprint 07 evidence updates only).
+- Pre-existing unrelated docs edits must remain out of Sprint 07 PR unless directly required by Sprint 07 evidence.
 
 ## VII. Immediate Next Actions
 
-1. Prepare a docs patch to define verification-link contract fields:
-   - base URL
-   - frontend path (`/verify-email`)
-   - token transport (`?token=`)
-2. If docs patch is not approved, downgrade Task 26 and PR status to partial.
+1. Split current worktree into two PR-ready change sets by explicit file grouping.
+2. Open PR 1 for formatting baseline cleanup only.
+3. Open PR 2 for Sprint 07 implementation only with evidence-backed report artifacts.
 
 ## VIII. Notes for Next Session
 
 - Do not let `agent/` context override `docs/` contracts.
 - `source-tree.md` remains the primary repository structure contract.
-- Keep infrastructure adapters free of business workflow logic.
-- Keep shared error primitives generic/cross-cutting and module-agnostic.
-- token-lifecycle module is stable and reusable.
-- verification backend flow is correct and production-ready.
-- PR is prepared but may be blocked by contract review.
+- Sprint 07 non-regression rules to preserve:
+  - exact success payload `{ "status": "success" }`
+  - anti-enumeration behavior
+  - strict post-success token consumption
+  - `sub` identity reference through token-lifecycle
+  - users-owned password mutation only

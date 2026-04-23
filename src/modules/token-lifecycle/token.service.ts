@@ -3,7 +3,11 @@ import { randomBytes } from 'node:crypto';
 import { hashValue } from '../../infrastructure/crypto/index.js';
 import { BaseError } from '../../shared/errors/index.js';
 
-import { TOKEN_PURPOSE_EMAIL_VERIFICATION, type TokenPurpose } from './token.model.js';
+import {
+  TOKEN_PURPOSE_EMAIL_VERIFICATION,
+  TOKEN_PURPOSE_PASSWORD_RESET,
+  type TokenPurpose,
+} from './token.model.js';
 import { TokenRepository } from './token.repository.js';
 
 export interface GeneratedToken {
@@ -23,6 +27,7 @@ export interface ValidatedToken {
 
 const TOKEN_BYTE_LENGTH = 32;
 const EMAIL_VERIFICATION_TTL_MS = 24 * 60 * 60 * 1000;
+const PASSWORD_RESET_TTL_MS = 24 * 60 * 60 * 1000;
 const TOKEN_PATTERN = /^[A-Za-z0-9_-]{43,}$/u;
 
 const invalidInput = (message: string): BaseError =>
@@ -50,11 +55,20 @@ const tokenUsed = (): BaseError =>
   });
 
 const parsePurpose = (purpose: string): TokenPurpose => {
-  if (purpose !== TOKEN_PURPOSE_EMAIL_VERIFICATION) {
+  if (purpose !== TOKEN_PURPOSE_EMAIL_VERIFICATION && purpose !== TOKEN_PURPOSE_PASSWORD_RESET) {
     throw invalidInput('Unsupported token purpose.');
   }
 
   return purpose;
+};
+
+const getPurposeTtlMs = (purpose: TokenPurpose): number => {
+  switch (purpose) {
+    case TOKEN_PURPOSE_EMAIL_VERIFICATION:
+      return EMAIL_VERIFICATION_TTL_MS;
+    case TOKEN_PURPOSE_PASSWORD_RESET:
+      return PASSWORD_RESET_TTL_MS;
+  }
 };
 
 const normalizeRequiredString = (value: unknown, fieldName: string): string => {
@@ -87,7 +101,7 @@ export class TokenService {
 
     const rawToken = randomBytes(TOKEN_BYTE_LENGTH).toString('base64url');
     const nowMs = Date.now();
-    const expiresAt = new Date(nowMs + EMAIL_VERIFICATION_TTL_MS);
+    const expiresAt = new Date(nowMs + getPurposeTtlMs(parsedPurpose));
     const tokenHash = hashValue(rawToken);
     const token = await this.tokenRepository.createTokenRecord({
       userId: normalizedUserId,

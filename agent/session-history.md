@@ -393,3 +393,40 @@ It records meaningful state transitions and approved outcomes only.
   - docs/planning/phases/phase-03-account-lifecycle.md
   - docs/planning/assignments/phase-03-sprint-06.md
 - Open items: none.
+
+### 2026-04-23 / PHASE03-SPRINT07-SPLIT-004
+
+- Completed:
+  - verified current branch state for Sprint 07 and formatting baseline cleanup
+  - re-ran full validation chain:
+    - `npm.cmd run lint`
+    - `npm.cmd run typecheck`
+    - `npm.cmd run format:check`
+    - `npm.cmd run build`
+  - re-ran focused boundary scans for password-reset ownership and forbidden dependencies
+  - re-ran manual/runtime scenarios through local non-committed service-level harness with stubs:
+    - existing email request -> exact success payload PASS
+    - non-existing email request -> same exact success payload PASS
+    - valid token confirm -> password updated then token consumed PASS
+    - expired token -> rejected PASS
+    - reused token -> rejected PASS
+  - created Sprint 07 report artifact:
+    - `docs/planning/reports/phase-03-sprint-07-report.md`
+  - updated operational context files:
+    - `agent/current-context.md`
+    - `agent/session-history.md`
+- Approved:
+  - format baseline is clean (`format:check` PASS)
+  - PR strategy must remain split:
+    - PR 1 `chore/format-baseline-fix` -> formatting baseline cleanup only
+    - PR 2 `feature/password-reset-sprint07-reset-flow` -> Sprint 07 logic and directly related evidence only
+  - Sprint 07 non-regression rules remain mandatory:
+    - exact success payload `{ "status": "success" }`
+    - anti-enumeration behavior
+    - strict post-success token consumption
+    - `sub` identity reference through token-lifecycle
+    - users-owned password mutation only
+- Source-of-truth documents changed:
+  - `docs/planning/reports/phase-03-sprint-07-report.md`
+- Open items:
+  - split current worktree into two PR-ready change sets without mixing format-only and logic changes
