@@ -1,4 +1,4 @@
-# eTroy OIDC - Session History
+﻿# eTroy OIDC - Session History
 
 ## I. Purpose
 
@@ -383,3 +383,13 @@ It records meaningful state transitions and approved outcomes only.
 - incorrect `phase-02-sprint-06.md` and `phase-02-sprint-07.md` paths are absent from the active branch state
 - Open items:
 - push corrected assignment branch to origin
+
+### 2026-04-23 / PHASE03-SPRINT06-VERIFICATION-003
+
+- Completed: reran Sprint 06 manual validation scenarios with built output and injected fakes; updated Sprint 06 report manual validation section with explicit PASS results; added Sprint 06 verification-link contract bullets to phase and assignment docs; corrected Sprint 06 session-history block to template format.
+- Approved: Sprint 06 correction scope only; no implementation code changes; verification token is one-time use with expiration enforced by token-lifecycle; verification URL contract uses /verify-email?token=<rawToken> from APP_BASE_URL and never exposes tokenHash.
+- Source-of-truth documents changed:
+  - docs/planning/reports/phase-03-sprint-06-report.md
+  - docs/planning/phases/phase-03-account-lifecycle.md
+  - docs/planning/assignments/phase-03-sprint-06.md
+- Open items: none.

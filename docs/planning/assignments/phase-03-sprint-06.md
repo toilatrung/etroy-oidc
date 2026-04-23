@@ -94,7 +94,12 @@ Rules:
 
 - use infrastructure/mail
 - send verification link
-- include raw token (NOT hash)
+- verification link format: `/verify-email?token=<rawToken>`
+- verification link base URL source: config `APP_BASE_URL`
+- include raw token in URL query (NOT hash)
+- `tokenHash` is never exposed
+- token is one-time use
+- token expiration is enforced by `token-lifecycle`
 
 ---
 
