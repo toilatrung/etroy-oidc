@@ -108,8 +108,8 @@ Evidence:
 
 ### format
 
-- `npm.cmd run format:check`: PASS
-- reason: all files matched by configured format-check globs use Prettier style.
+- `npm.cmd run format:check`: FAIL
+- reason: repository-wide formatting drift remains (`Code style issues found in 56 files`); Sprint 07 PR scope intentionally excludes formatting-baseline files.
 
 ### build
 
@@ -177,10 +177,10 @@ Scenario results:
 ## 11. Final status
 
 - Sprint 07 implementation status: COMPLETE
-- Validation status: PASS
-- Formatting baseline status: CLEAN for configured `format:check` command
+- Validation status: PARTIAL PASS (`lint`, `typecheck`, `build` PASS; `format:check` FAIL)
+- Formatting baseline status: PENDING separate formatting-baseline cleanup PR finalization
 - Merge readiness: CONDITIONAL
-- condition: PR split must be enforced (format baseline separate from Sprint 07 logic).
+- condition: PR split must be enforced (format baseline separate from Sprint 07 logic), and formatting baseline PR must land before requiring repo-wide `format:check` PASS.
 
 ## 12. Handoff note for Sprint 08
 

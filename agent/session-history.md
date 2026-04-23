@@ -430,3 +430,35 @@ It records meaningful state transitions and approved outcomes only.
   - `docs/planning/reports/phase-03-sprint-07-report.md`
 - Open items:
   - split current worktree into two PR-ready change sets without mixing format-only and logic changes
+
+### 2026-04-23 / PHASE03-SPRINT07-PR-PREP-005
+
+- Completed:
+  - split work into two isolated commits with explicit path-based staging:
+    - `chore/format-baseline-fix` -> `e7903c7` (`chore(governance): normalize repository formatting baseline`)
+    - `feature/password-reset-sprint07-reset-flow` -> `459ebfc` (`feat(password-reset): implement Sprint 07 reset flow`)
+  - verified commit file scopes:
+    - PR 1 contains only format-baseline file set
+    - PR 2 contains only Sprint 07 logic/evidence file set
+  - re-ran validation and focused boundary scans on Sprint 07 branch
+- Approved:
+  - two-PR split strategy is enforced with no mixed-scope commit
+  - manual/runtime Sprint 07 evidence remains accepted from local non-committed service-level harness with stubs
+- Validation evidence (Sprint 07 branch):
+  - `npm.cmd run lint`: PASS
+  - `npm.cmd run typecheck`: PASS
+  - `npm.cmd run format:check`: FAIL (`Code style issues found in 56 files`; formatting-baseline cleanup remains separate)
+  - `npm.cmd run build`: PASS
+  - `rg -n "process\\.env" src --glob "!src/config/**"` -> no matches
+  - `rg -n "jwt|JWT" src/modules/password-reset` -> no matches
+  - `rg -n "session" src/modules/password-reset` -> no matches
+  - `rg -n "OIDC|oidc" src/modules/password-reset` -> no matches
+  - `rg -n "UserModel|user\\.repository|mongoose|findOne|findById|updateUser|create\\(" src/modules/password-reset` -> no matches
+  - `rg -n "changePassword\\(|consumeToken\\(|validateToken\\(" src/modules/password-reset/password-reset.service.ts` -> expected flow calls present
+- Source-of-truth documents changed:
+  - `docs/planning/reports/phase-03-sprint-07-report.md` (validation status correction)
+- Agent files changed:
+  - `agent/current-context.md`
+  - `agent/session-history.md`
+- Open items:
+  - push both branches to origin and open PR 1/PR 2 with governance template sections

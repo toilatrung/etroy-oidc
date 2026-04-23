@@ -9,7 +9,7 @@ It summarizes approved state and next actions without redefining architecture.
 
 - Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
 - Current implementation focus: Phase 03 / Sprint 07 password-reset flow is implemented and validated.
-- Repository formatting baseline cleanup was executed and `format:check` now passes.
+- Repository formatting baseline cleanup is isolated for separate PR review; `format:check` currently fails on the Sprint 07 branch until formatting-baseline cleanup is finalized.
 - Final delivery strategy requires two separate PRs:
   - PR 1: formatting baseline cleanup only (`chore/format-baseline-fix`)
   - PR 2: Sprint 07 logic only (`feature/password-reset-sprint07-reset-flow`)
@@ -35,16 +35,16 @@ Primary references:
 
 - Current phase: Phase 03 - Account Lifecycle
 - Current sprint: Sprint 07 - Password Reset Module
-- Sprint status: COMPLETE (implementation and validation complete; PR split pending)
+- Sprint status: COMPLETE (implementation complete; PR split committed, awaiting PR submission)
 - Completion breakdown:
   - Implementation: COMPLETE
-  - Validation: COMPLETE
-  - PR packaging: IN PROGRESS (split into format-only PR and logic-only PR)
+  - Validation: PARTIAL PASS (`format:check` blocked by formatting baseline drift)
+  - PR packaging: COMPLETE (split into format-only PR and logic-only PR)
 
 ## V. Verified Baseline (2026-04-23)
 
 - Config contract is active and flat in `src/config/`: `schema.ts`, `env.ts`, `config.ts`.
-- Sprint 07 validation chain passed:
+- Latest Sprint 07 branch validation:
   - `npm.cmd run lint`
   - `npm.cmd run typecheck`
   - `npm.cmd run format:check`
@@ -55,6 +55,11 @@ Primary references:
   - `rg -n "OIDC|oidc" src/modules/password-reset` -> no matches
   - `rg -n "UserModel|user\\.repository|mongoose|findOne|findById|updateUser|create\\(" src/modules/password-reset` -> no matches
   - `rg -n "changePassword\\(|consumeToken\\(|validateToken\\(" src/modules/password-reset/password-reset.service.ts` -> expected flow calls found
+- Result summary:
+  - `lint`: PASS
+  - `typecheck`: PASS
+  - `format:check`: FAIL (repository-wide formatting drift not included in Sprint 07 logic-only branch)
+  - `build`: PASS
 
 ## VI. PR / Branch Traceability (Verified)
 
@@ -64,9 +69,9 @@ Primary references:
 
 ## VII. Immediate Next Actions
 
-1. Split current worktree into two PR-ready change sets by explicit file grouping.
-2. Open PR 1 for formatting baseline cleanup only.
-3. Open PR 2 for Sprint 07 implementation only with evidence-backed report artifacts.
+1. Push `chore/format-baseline-fix` and open PR 1 (format-only scope).
+2. Push `feature/password-reset-sprint07-reset-flow` and open PR 2 (Sprint 07 logic/evidence scope).
+3. Merge or stack PR 1 before enforcing repo-wide `format:check` gate for PR 2.
 
 ## VIII. Notes for Next Session
 
