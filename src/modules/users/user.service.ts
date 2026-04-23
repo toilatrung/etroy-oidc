@@ -203,20 +203,6 @@ export class UserService {
     return toUserProfile(user);
   }
 
-  async markEmailVerifiedById(id: string): Promise<UserProfile> {
-    const normalizedId = requiredString(id, 'id');
-    const user = await this.userRepository.updateUser(
-      { id: normalizedId },
-      { email_verified: true },
-    );
-
-    if (user === null) {
-      throw userNotFound();
-    }
-
-    return toUserProfile(user);
-  }
-
   async getCredentialIdentityByEmail(email: string): Promise<UserCredentialIdentity | null> {
     const normalizedEmail = normalizeEmail(email);
     const user = await this.userRepository.findByEmail(normalizedEmail);

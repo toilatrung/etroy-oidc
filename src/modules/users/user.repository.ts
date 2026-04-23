@@ -24,7 +24,6 @@ export interface CreateUserRecordInput {
 
 export interface UpdateUserRecordInput {
   password_hash?: string;
-  email_verified?: boolean;
   name?: string;
   avatar_url?: string;
 }
