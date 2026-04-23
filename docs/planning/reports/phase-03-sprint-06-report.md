@@ -12,9 +12,10 @@
   - Task 26 - Mail Integration
 - Synchronization scope:
   - git/worktree synchronization check
-  - branch creation attempt for `feature/verification-sprint06`
+  - branch synchronization to `feature/verification-sprint06-email-verification`
   - repository formatting baseline correction
   - validation rerun
+  - commit structuring (implementation / formatting / report)
   - Sprint 06 report correction
 
 ## 2. Source-of-truth basis
@@ -66,7 +67,7 @@ Synchronization/format baseline updates (repository-wide formatter output):
 - Root files formatted: `.prettierrc.json`, `eslint.config.mjs`, `package-lock.json`, `package.json`, `README.md`, `tsconfig.json`
 - Source formatting applied across: `src/**/*.ts`
 
-Pre-existing docs changes preserved (not discarded):
+Pre-existing docs changes preserved in stash (not discarded):
 
 - `docs/planning/assignments/phase-03-sprint-06.md`
 - `docs/planning/phases/phase-03-account-lifecycle.md`
@@ -184,9 +185,10 @@ Boundary scans:
 ## 8. Included scope
 
 - git/worktree synchronization inspection
-- branch creation attempt and blocker recording
+- branch synchronization to target branch
 - repository-wide formatting baseline correction
 - full validation rerun with exact command set
+- commit structuring into 3 isolated commits
 - Sprint 06 report correction to match current synchronized state
 
 ## 9. Excluded scope
@@ -198,26 +200,18 @@ Boundary scans:
 
 ## 10. Risks / limitations / blockers
 
-- Branch switch blocker remains:
-  - attempted `git checkout -B feature/verification-sprint06`
-  - failed with `Unable to create .git/index.lock: Permission denied`
-  - synchronization continued safely on current branch without destructive operations
-- Safety checkpoint and commit-structuring blocker:
-  - `git checkout -b backup/pre-finalize-sprint06` failed: unable to create refs directory
-  - `git stash push -u -m "pre-finalize-sprint06-backup"` failed: could not write index
-  - `git add ...` also failed with `Unable to create .git/index.lock: Permission denied`
-  - separate commits (implementation / formatting / report) cannot be created until `.git` write permission is restored
-- Worktree contains mixed changes beyond Sprint 06 scope due repository-wide formatting normalization and pre-existing docs changes.
+- Manual runtime scenarios were not re-executed in this finalization pass.
+- Unrelated docs edits were intentionally moved to stash (`stash@{0}`) to keep Sprint 06 branch clean and commit scopes isolated.
 
 ## 11. Final status
 
 - Implementation status: IMPLEMENTATION COMPLETE
-- Merge readiness status: NOT MERGE READY
+- Merge readiness status: MERGE READY
 
 Reason:
 
 - Sprint 06 runtime implementation and validation are complete.
-- Branch/worktree hygiene is not yet merge-ready due branch-creation blocker and mixed dirty scope in current branch.
+- Branch/worktree hygiene is complete with three isolated commits and a clean worktree on `feature/verification-sprint06-email-verification`.
 
 ## 12. Handoff note for Sprint 07
 
