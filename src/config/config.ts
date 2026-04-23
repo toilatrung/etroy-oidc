@@ -4,6 +4,7 @@ export interface AppConfig {
   app: {
     environment: 'development' | 'test' | 'production';
     port: number;
+    baseUrl: string;
     isDevelopment: boolean;
     isTest: boolean;
     isProduction: boolean;
@@ -24,6 +25,7 @@ export const config: Readonly<AppConfig> = Object.freeze({
   app: Object.freeze({
     environment,
     port: validatedEnv.PORT,
+    baseUrl: validatedEnv.APP_BASE_URL,
     isDevelopment: environment === 'development',
     isTest: environment === 'test',
     isProduction: environment === 'production',
