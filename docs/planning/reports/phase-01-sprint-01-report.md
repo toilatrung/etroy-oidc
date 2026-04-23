@@ -27,11 +27,13 @@
 ## III. Work Completed
 
 ### Files Created
+
 - `eslint.config.mjs`
 - `.prettierrc.json`
 - `.prettierignore`
 
 ### Files Updated
+
 - `package.json`
 - `README.md`
 - `package-lock.json`
@@ -39,6 +41,7 @@
 - `docs/architecture/detailed-source-tree.md`
 
 ### Main Changes
+
 - Completed the repository baseline for a Node.js + ESM + private project, aligned with Sprint 01 objectives.
 - Established the TypeScript strict baseline and confirmed that `tsconfig.json` is aligned with the approved source structure.
 - Added the ESLint + Prettier baseline and aligned the basic quality-check scripts.
@@ -48,6 +51,7 @@
 ## IV. Validation Evidence
 
 ### Commands Run
+
 - `npm.cmd install --no-audit --no-fund`
 - `npm.cmd run lint`
 - `npm.cmd run typecheck`
@@ -60,12 +64,14 @@
 - `git rev-list --left-right --count origin/main...HEAD`
 
 ### Results
+
 - Installation succeeded after using `npm.cmd` instead of `npm` because PowerShell execution policy blocked `npm.ps1`.
 - `lint`, `typecheck`, and `format:check` all passed.
 - The required root structure and `src` structure for Sprint 01 were verified as present.
 - The closure branch was committed and pushed successfully; after the governance fix, the branch was one commit ahead of `main` before merge.
 
 ### Manual Checks
+
 - Verified that there was no `process.env` usage in `src` outside the configuration boundary.
 - Verified branch traceability, remote tracking, and clean working tree status.
 - Verified the `.github/` closure blocker and updated the relevant structure contracts.
@@ -73,6 +79,7 @@
 ## V. Scope Control
 
 ### Included
+
 - Repository baseline
 - TypeScript strict baseline
 - ESLint + Prettier baseline
@@ -80,11 +87,13 @@
 - Governance closure fix to formalize `.github/` in the repository structure contract
 
 ### Not Done Intentionally
+
 - No business logic implementation for `auth`, `users`, `verification`, `password-reset`, or `oidc`
 - No token lifecycle, session lifecycle, or OIDC endpoint implementation
 - No expansion into feature work beyond Tasks 01–04 of Sprint 01
 
 ### Scope Result
+
 - Within scope. Sprint 01 was completed according to its bootstrap foundation objective. The only additional item was the governance fix for `.github/`, which was a contract correction to restore source-tree compliance rather than an expansion into runtime or domain feature work.
 
 ## VI. Risks / Notes
@@ -108,14 +117,16 @@
 ## IX. Handoff
 
 ### What was completed
+
 - Completed the Sprint 01 bootstrap baseline for repository setup, TypeScript, lint/format, and structure verification.
 - Resolved the structural blocker related to `.github/` by updating `source-tree.md` and `detailed-source-tree.md`.
 - Completed branch-level governance closure and finalized the PR workflow through approval and merge into `main`.
 
 ### What remains open
+
 - Begin Sprint 02 - Config Distribution under the approved Phase 01 plan.
 - Address any remaining CI workflow alignment issues if they are still present.
 
 ### Recommended next step
-- Start Sprint 02 - Config Distribution based on the approved Phase 01 plan and maintain full traceability to source-of-truth documents, validation evidence, and PR-based governance.
 
+- Start Sprint 02 - Config Distribution based on the approved Phase 01 plan and maintain full traceability to source-of-truth documents, validation evidence, and PR-based governance.

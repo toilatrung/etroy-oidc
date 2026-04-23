@@ -27,4 +27,3 @@ Prompts may summarize workflow, but they must not:
 - override requirements
 - approve new structure
 - weaken governance checks
-

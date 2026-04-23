@@ -419,7 +419,7 @@ At contract level, the repository is divided into six main product areas:
 4. `scripts/` - operational scripts
 5. `keys/` - cryptographic materials
 6. `agent/` - lightweight AI context support
-These areas must remain clearly separated.
+   These areas must remain clearly separated.
 
 ---
 

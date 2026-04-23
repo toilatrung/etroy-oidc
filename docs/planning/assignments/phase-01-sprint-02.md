@@ -22,6 +22,7 @@
 - `docs/governance/review-checklist.md`
 
 **Conflict rules:**
+
 - `source-of-truth-index.md` wins first
 - `source-tree.md` wins over `detailed-source-tree.md`
 
@@ -38,6 +39,7 @@
 - **Branch:** `feature/config-sprint02-distribution`
 
 ### Related Tasks
+
 - Task 05 - Config Schema
 - Task 06 - Environment Loader
 - Task 07 - Config Validation
@@ -56,6 +58,7 @@
 ## 3. In Scope
 
 ### Sprint-level scope
+
 - implement complete config distribution baseline for the repository
 - make configuration loading explicit, typed, centralized, and fail-fast
 - ensure all future layers consume normalized config instead of raw `process.env`
@@ -63,30 +66,35 @@
 ### Task-level scope
 
 #### Task 05 - Config Schema
+
 - create `src/config/schema.ts`
 - define Zod schema for required and optional environment variables
 - define type-safe parsing contract for runtime configuration
 - model baseline fields required for current and near-next phases
 
 #### Task 06 - Environment Loader
+
 - create `src/config/env.ts`
 - use `dotenv` to load environment variables
 - ensure environment loading happens from one approved place only
 - avoid scattered or repeated environment bootstrap logic
 
 #### Task 07 - Config Validation
+
 - validate env values at startup
 - fail fast when required variables are missing or malformed
 - produce structured error output suitable for debugging
 - ensure secret values are not echoed unsafely in logs/errors
 
 #### Task 08 - Config Access Layer
+
 - create `src/config/config.ts`
 - export normalized, typed config object for application use
 - ensure application code uses config abstraction rather than direct environment reads
 - prepare config surface for future `app`, `infrastructure`, and `modules` usage
 
 ### Path alias baseline
+
 - enable path alias from Sprint 02 onward
 - align alias configuration with TypeScript setup and repository structure
 - keep alias naming consistent and minimal
@@ -107,18 +115,22 @@
 ## 5. Required Deliverables
 
 ### Core config files
+
 - `src/config/schema.ts`
 - `src/config/env.ts`
 - `src/config/config.ts`
 
 ### Supporting updates
+
 - update `tsconfig.json` to support path alias
 - update package/tooling config if alias resolution or startup requires it
 - update `src/index.ts` or approved startup entry wiring so config validation happens in runtime bootstrap
 - update `.env.example` to reflect current config contract
 
 ### Expected config coverage
+
 At minimum, baseline config should cover fields required for current foundation and upcoming infrastructure readiness, such as:
+
 - `NODE_ENV`
 - `PORT`
 - `MONGO_URI`
@@ -127,6 +139,7 @@ At minimum, baseline config should cover fields required for current foundation 
 - crypto/key path placeholders if needed for near-phase readiness
 
 ### Documentation / reporting outputs
+
 - implementation-ready PR using the repository PR template
 - Task Report after completion
 - concise handoff note for the next sprint/task if needed
@@ -149,22 +162,26 @@ At minimum, baseline config should cover fields required for current foundation 
 ### Expected file responsibility
 
 #### `src/config/schema.ts`
+
 - owns Zod schema definition only
 - defines shape, required/optional fields, and validation constraints
 - must not contain business logic
 
 #### `src/config/env.ts`
+
 - owns raw environment loading and parsing bridge
 - calls schema parse/safeParse flow against loaded input
 - produces validated env object or throws fail-fast startup error
 
 #### `src/config/config.ts`
+
 - owns normalized config export
 - maps validated env into application-facing config object
 - may normalize primitive values such as port number, booleans, environment mode, and nested groupings if useful
 - must remain explicit and readable
 
 ### Path alias guidance
+
 - alias must be enabled now and used consistently
 - alias naming should reflect architecture, not convenience hacks
 - alias should not encourage direct cross-module ownership bypass
@@ -191,6 +208,7 @@ At minimum, baseline config should cover fields required for current foundation 
 Dev must perform and record at minimum:
 
 ### Static validation
+
 - install succeeds
 - TypeScript config remains valid
 - path alias compiles/resolves correctly
@@ -198,6 +216,7 @@ Dev must perform and record at minimum:
 - format check passes
 
 ### Runtime validation
+
 - startup with valid env passes
 - startup with missing required env fails fast
 - startup with invalid typed env fails fast
@@ -205,6 +224,7 @@ Dev must perform and record at minimum:
 - failure path does not expose raw secret values
 
 ### Manual validation evidence
+
 - confirm no direct `process.env` usage exists outside `src/config/`
 - confirm file placement aligns with `source-tree.md`
 - confirm config flow is centralized and not duplicated
@@ -224,14 +244,17 @@ If separate startup checks are used, record them as well.
 ## 11. Commit and PR Rules
 
 ### Branch
+
 - `feature/config-sprint02-distribution`
 
 ### Commit format
+
 ```text
 <type>(<scope>): <message>
 ```
 
 ### Suggested commit examples
+
 - `build(config): add zod schema for runtime environment`
 - `feat(config): add centralized env loader and validation`
 - `refactor(config): separate schema env and normalized config export`
@@ -239,6 +262,7 @@ If separate startup checks are used, record them as well.
 - `build(shared): enable path alias baseline for sprint 02`
 
 ### PR handling
+
 - use the existing PR template from `.github`
 - PR must stay within Sprint 02 config scope
 - PR must include explicit included scope and excluded scope

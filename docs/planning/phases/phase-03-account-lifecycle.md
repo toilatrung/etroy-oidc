@@ -39,9 +39,9 @@ OIDC token issuance and OIDC session management remain out of scope for this pha
 
 ## II. Sprint Breakdown
 
-| Sprint | Scope |
-| --- | --- |
-| Sprint 06 | Verification Module |
+| Sprint    | Scope                 |
+| --------- | --------------------- |
+| Sprint 06 | Verification Module   |
 | Sprint 07 | Password Reset Module |
 
 ---
