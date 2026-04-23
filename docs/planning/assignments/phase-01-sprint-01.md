@@ -15,6 +15,7 @@ Dev
 Sprint-level implementation package
 
 **Related Atomic Tasks:**
+
 - Task 01 - Initialize Repository Baseline
 - Task 02 - TypeScript Baseline
 - Task 03 - Lint and Formatting Baseline
@@ -30,6 +31,7 @@ No scope expansion allowed
 ## II. Task Objective
 
 Thiết lập baseline kỹ thuật ban đầu cho repository eTroy OIDC để chuẩn bị cho các phase triển khai sau, bảo đảm:
+
 - project khởi tạo theo Node.js + ESM
 - có TypeScript strict baseline
 - có lint/format baseline nhất quán
@@ -44,6 +46,7 @@ Không được triển khai token lifecycle.
 ## III. Source-of-Truth Basis
 
 **Authoritative references:**
+
 - `docs/source-of-truth-index.md`
 - `docs/README.md`
 - `docs/architecture/system-overview.md`
@@ -59,6 +62,7 @@ Không được triển khai token lifecycle.
 Implementation must follow authority order.
 
 If any conflict appears:
+
 - `source-of-truth-index.md` wins
 - `source-tree.md` wins over `detailed-source-tree.md`
 
@@ -67,6 +71,7 @@ If any conflict appears:
 This sprint belongs to Phase 01 and exists only to create the environment bootstrap baseline.
 
 **Architectural constraints:**
+
 - repository structure must match approved source-tree
 - no business logic in infrastructure
 - no hidden domain logic in shared
@@ -83,6 +88,7 @@ It is not a feature sprint.
 ### 1. Repository Baseline
 
 Dev must:
+
 - initialize Node.js project
 - normalize `package.json` baseline
 - enable ESM mode
@@ -90,6 +96,7 @@ Dev must:
 - keep package manifest minimal and clean
 
 **Expected minimum:**
+
 - `package.json` exists
 - `"type": "module"`
 - `"private": true`
@@ -97,6 +104,7 @@ Dev must:
 ### 2. TypeScript Baseline
 
 Dev must:
+
 - install TypeScript baseline dependencies
 - create `tsconfig.json`
 - enable strict mode
@@ -104,17 +112,20 @@ Dev must:
 - avoid including unintended generated artifacts
 
 **Expected result:**
+
 - `tsconfig.json` is usable, strict, and aligned with `src/`
 
 ### 3. Lint and Formatting Baseline
 
 Dev must:
+
 - install ESLint and Prettier baseline
 - connect TypeScript lint parser/plugin as required
 - avoid contradictory lint/format rules
 - add minimal package scripts needed for baseline validation
 
 **Expected result:**
+
 - repository can run lint/format baseline consistently
 - no style-tool conflict is introduced
 
@@ -123,6 +134,7 @@ Dev must:
 Dev must create the approved root and `src` structure.
 
 **Required root-level structure:**
+
 - `src/`
 - `agent/`
 - `keys/`
@@ -136,6 +148,7 @@ Dev must create the approved root and `src` structure.
 - `README.md`
 
 **Required src structure:**
+
 - `src/app/`
 - `src/config/`
 - `src/infrastructure/`
@@ -154,6 +167,7 @@ Do not create ad-hoc directories outside approved structure.
 Deliverables that must exist after completion:
 
 ### 1. Root baseline
+
 - `package.json`
 - `tsconfig.json`
 - `.gitignore`
@@ -161,6 +175,7 @@ Deliverables that must exist after completion:
 - `README.md`
 
 ### 2. Approved directory skeleton
+
 - `src/`
 - `agent/`
 - `keys/`
@@ -168,6 +183,7 @@ Deliverables that must exist after completion:
 - `docs/`
 
 ### 3. Source skeleton
+
 - `src/app/`
 - `src/config/`
 - `src/infrastructure/`
@@ -178,6 +194,7 @@ Deliverables that must exist after completion:
 - `src/index.ts`
 
 ### 4. Tooling baseline
+
 - ESLint config
 - Prettier config
 - package scripts for baseline checks
@@ -185,6 +202,7 @@ Deliverables that must exist after completion:
 ## VII. Explicitly Out of Scope
 
 The following are forbidden in this assignment:
+
 - implementing auth logic
 - implementing users logic
 - implementing verification or password-reset flows
@@ -224,6 +242,7 @@ This assignment is accepted only when all conditions below are true:
 ## X. Validation Requirements
 
 Before opening PR, Dev must validate at minimum:
+
 - install succeeds
 - package manifest is valid
 - TypeScript baseline config is syntactically valid
@@ -232,6 +251,7 @@ Before opening PR, Dev must validate at minimum:
 - no unintended files are included
 
 **Suggested evidence:**
+
 - `npm install` completed successfully
 - TypeScript config check passed
 - lint command passed
@@ -241,6 +261,7 @@ Before opening PR, Dev must validate at minimum:
 ## XI. Branch and Commit Rules
 
 **Recommended branch naming:**
+
 - `feature/governance-sprint01-bootstrap`
 - `feature/infrastructure-sprint01-bootstrap`
 
@@ -251,6 +272,7 @@ Before opening PR, Dev must validate at minimum:
 ```
 
 **Example commits:**
+
 - `chore(governance): initialize repository baseline`
 - `build(config): add strict tsconfig baseline`
 - `chore(infrastructure): add source tree skeleton`
@@ -259,6 +281,7 @@ Before opening PR, Dev must validate at minimum:
 ## XII. Pull Request Requirements
 
 PR must include:
+
 - Phase / Sprint / Task mapping
 - objective of the change
 - affected areas
@@ -275,6 +298,7 @@ chore(governance): complete phase 01 sprint 01 environment bootstrap baseline
 ```
 
 **Affected areas example:**
+
 - governance
 - config
 - infrastructure
@@ -284,6 +308,7 @@ chore(governance): complete phase 01 sprint 01 environment bootstrap baseline
 ## XIII. Review Focus for Leader
 
 Leader will review against these points:
+
 - structure matches `source-tree.md`
 - no architecture drift is introduced
 - no task scope expansion beyond Sprint 01
@@ -293,6 +318,7 @@ Leader will review against these points:
 - PR remains small enough to review safely
 
 **Merge must be blocked if:**
+
 - structure is non-compliant
 - contract traceability is missing
 - scope silently expands
@@ -306,6 +332,7 @@ After implementation, Dev must submit a Task Report.
 **Task Report must contain:**
 
 ### 1. Task identity
+
 - Phase
 - Sprint
 - Task
@@ -313,38 +340,44 @@ After implementation, Dev must submit a Task Report.
 - PR title
 
 ### 2. Source basis used
+
 - list of source-of-truth documents actually applied
 
 ### 3. Work completed
+
 - files created
 - files updated
 - structural changes
 - scripts added
 
 ### 4. Validation evidence
+
 - commands executed
 - result summary
 - manual checks performed
 
 ### 5. Scope control statement
+
 - what was included
 - what was intentionally not done
 
 ### 6. Risks / notes
+
 - limitations
 - deferred items
 - concerns for next sprint
 
 ### 7. Handoff recommendation
+
 - what Sprint 02 can start from
 - any setup assumptions that must be preserved
 
 ## XV. Completion Statement
 
 This task is considered complete only when:
+
 - implementation is done
 - validation is done
 - PR is opened with full contract traceability
 - Task Report is submitted
 - Leader review passes
-

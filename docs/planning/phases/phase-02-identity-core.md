@@ -33,8 +33,8 @@ No infrastructure expansion is allowed unless explicitly approved.
 
 ## II. Sprint Breakdown
 
-| Sprint | Scope |
-| --- | --- |
+| Sprint    | Scope       |
+| --------- | ----------- |
 | Sprint 04 | User Module |
 | Sprint 05 | Auth Module |
 

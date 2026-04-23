@@ -276,18 +276,18 @@ System is acceptable when:
 
 ## VII. Traceability
 
-| Feature | Module |
-|---|---|
-| Registration | `auth` + `users` |
-| Login | `auth` |
-| Email verification | `verification` |
-| Password reset | `password-reset` |
-| Change password | `auth` + `users` |
-| Profile update | `users` |
-| OIDC flow | `oidc` |
-| Token lifecycle | `oidc` |
-| Client management | `admin` + `oidc` |
-| Audit | `audit` |
+| Feature            | Module           |
+| ------------------ | ---------------- |
+| Registration       | `auth` + `users` |
+| Login              | `auth`           |
+| Email verification | `verification`   |
+| Password reset     | `password-reset` |
+| Change password    | `auth` + `users` |
+| Profile update     | `users`          |
+| OIDC flow          | `oidc`           |
+| Token lifecycle    | `oidc`           |
+| Client management  | `admin` + `oidc` |
+| Audit              | `audit`          |
 
 ---
 
