@@ -1,1 +1,56 @@
-export {};
+import express, { type NextFunction, type Request, type Response } from 'express';
+
+import { config } from '../config/config.js';
+import { authorizeHandler } from '../modules/oidc/oidc.controller.js';
+import { BaseError } from '../shared/errors/index.js';
+
+interface ErrorResponseBody {
+  error: {
+    code: string;
+    message: string;
+  };
+}
+
+export const createServer = () => {
+  const app = express();
+
+  app.get('/authorize', authorizeHandler);
+
+  app.use(
+    (
+      error: unknown,
+      _request: Request,
+      response: Response<ErrorResponseBody>,
+      next: NextFunction,
+    ): void => {
+      if (BaseError.isBaseError(error)) {
+        response.status(error.statusCode).json({
+          error: {
+            code: error.code,
+            message: error.message,
+          },
+        });
+        return;
+      }
+
+      if (error instanceof Error) {
+        response.status(500).json({
+          error: {
+            code: 'INTERNAL_ERROR',
+            message: error.message,
+          },
+        });
+        return;
+      }
+
+      next(error);
+    },
+  );
+
+  return app;
+};
+
+export const startServer = () =>
+  createServer().listen(config.app.port, () => {
+    process.stdout.write(`Server listening on port ${config.app.port}\n`);
+  });

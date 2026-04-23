@@ -1,3 +1,3 @@
-import { config } from './config/config.js';
+import { startServer } from './app/server.js';
 
-void config;
+startServer();
