@@ -232,6 +232,8 @@ High-level scope:
 Mandatory precondition:
 
 - Sprint 10 must not begin JWT implementation until the JWT access-token contract is written and approved.
+- Sprint 10 implementation MUST follow: `docs/contracts/oidc/jwt-token-contract.md`
+- no contract -> no implementation
 
 JWT access-token contract must define:
 

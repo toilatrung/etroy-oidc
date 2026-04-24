@@ -424,6 +424,7 @@ Sprint 09 implements only the authorization-code exchange baseline. The access_t
 
 Sprint 10 must complete:
 
+- follow approved contract: `docs/contracts/oidc/jwt-token-contract.md`
 - JWT access_token formalization
 - ID Token
 - claims

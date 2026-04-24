@@ -8,9 +8,11 @@ It summarizes approved state and next actions without redefining architecture.
 ## II. Current Project State
 
 - Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
-- Active phase remains Phase 04 - OIDC Core.
-- Sprint 09 implementation focus is token exchange baseline only.
-- Sprint 10 now locks JWT access_token formalization scope (contract-first).
+- Active phase: Phase 04 - OIDC Core.
+- Sprint 09 status: completed.
+- Sprint 10 JWT contract created: `docs/contracts/oidc/jwt-token-contract.md`.
+- Sprint 10 status: NOT started.
+- Sprint 10 blocker: Sprint 10 is blocked until JWT contract is approved.
 
 ## III. Access Token Alignment Decision (2026-04-24)
 
@@ -74,11 +76,11 @@ Precondition:
 
 ## VI. Immediate Next Actions
 
-1. Keep Sprint 09 reported as baseline exchange only.
-2. Enforce no JWT/signing/claims/lifecycle leakage in Sprint 09 implementation and PR messaging.
-3. Finalize and approve Sprint 10 JWT access-token contract before coding Sprint 10 token output logic.
+1. Keep Sprint 09 reported as completed baseline exchange only.
+2. Approve `docs/contracts/oidc/jwt-token-contract.md`.
+3. Start Sprint 10 implementation only after contract approval.
 4. Preserve Phase 05 ownership boundaries for refresh/rotation/revoke/introspection/session/SSO.
 
 ## VII. Next Step
 
-Sprint 09 token is a baseline placeholder for flow validation. JWT access_token is locked to Sprint 10 and must not be implemented before contract approval.
+Sprint 10 is blocked until `docs/contracts/oidc/jwt-token-contract.md` is approved.

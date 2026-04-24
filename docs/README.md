@@ -95,6 +95,7 @@ Load in this sequence:
 - `phase-02-identity-core.md` -> current phase breakdown
 - `phase-03-account-lifecycle.md` -> account lifecycle phase breakdown
 - `phase-02-sprint-04.md` -> current sprint assignment
+- `docs/contracts/oidc/jwt-token-contract.md` -> JWT Token Contract (Phase 04 / Sprint 10)
 - sprint reports under `docs/planning/reports/` -> sprint execution evidence
 - governance documents -> repository control and merge discipline
 - `anti-patterns.md` -> merge-blocking anti-pattern reference aligned with architecture and governance
