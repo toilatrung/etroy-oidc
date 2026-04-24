@@ -68,7 +68,7 @@ Precondition:
 ## V. Updated Source-of-Truth Targets
 
 - `docs/planning/assignments/phase-04-sprint-09.md` (updated)
-- `docs/planning/assignments/phase-04-sprint-10.md` (added)
+- `docs/planning/assignments/phase-04-sprint-10.md` (update only if file exists in branch)
 - `docs/planning/phases/phase-04-oidc-core.md` (updated)
 - `docs/planning/reports/phase-04-sprint-09-report.md` (update required only if file exists in branch)
 
@@ -78,3 +78,7 @@ Precondition:
 2. Enforce no JWT/signing/claims/lifecycle leakage in Sprint 09 implementation and PR messaging.
 3. Finalize and approve Sprint 10 JWT access-token contract before coding Sprint 10 token output logic.
 4. Preserve Phase 05 ownership boundaries for refresh/rotation/revoke/introspection/session/SSO.
+
+## VII. Next Step
+
+Sprint 09 token is a baseline placeholder for flow validation. JWT access_token is locked to Sprint 10 and must not be implemented before contract approval.

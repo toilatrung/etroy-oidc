@@ -512,3 +512,24 @@ It records meaningful state transitions and approved outcomes only.
   - `agent/session-history.md`
 - Open items:
   - update `docs/planning/reports/phase-04-sprint-09-report.md` only in branches where the report file exists
+
+### 2026-04-24 / PHASE04-TOKEN-ALIGNMENT-EXISTING-FILES-003
+
+- Completed:
+  - applied Sprint 09 -> Sprint 10 access_token alignment only in existing allowed files
+  - reinforced required Next Step statement in `agent/current-context.md`
+  - confirmed Sprint 09 remains baseline placeholder only and Phase 05 lifecycle ownership remains unchanged
+- Approved:
+  - no new files created for this alignment pass
+  - no runtime code updated
+- Source-of-truth documents changed:
+  - `docs/planning/assignments/phase-04-sprint-09.md` (already aligned in branch; retained)
+  - `docs/planning/phases/phase-04-oidc-core.md` (already aligned in branch; retained)
+  - `docs/planning/reports/phase-04-sprint-09-report.md` (already aligned in branch; retained)
+- Agent files changed:
+  - `agent/current-context.md`
+  - `agent/session-history.md`
+- Skipped:
+  - `docs/planning/assignments/phase-04-sprint-10.md` -> SKIPPED - file not present
+- Open items:
+  - create/update Sprint 10 assignment only in branches where `phase-04-sprint-10.md` exists or is explicitly approved for creation
