@@ -1,7 +1,11 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
 
 import { config } from '../config/config.js';
-import { authorizeHandler } from '../modules/oidc/oidc.controller.js';
+import {
+  authorizeContinueHandler,
+  authorizeHandler,
+  tokenHandler,
+} from '../modules/oidc/oidc.controller.js';
 import { BaseError } from '../shared/errors/index.js';
 
 interface ErrorResponseBody {
@@ -13,8 +17,12 @@ interface ErrorResponseBody {
 
 export const createServer = () => {
   const app = express();
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
 
   app.get('/authorize', authorizeHandler);
+  app.post('/authorize/continue', authorizeContinueHandler);
+  app.post('/token', tokenHandler);
 
   app.use(
     (
