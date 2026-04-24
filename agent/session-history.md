@@ -462,3 +462,29 @@ It records meaningful state transitions and approved outcomes only.
   - `agent/session-history.md`
 - Open items:
   - push both branches to origin and open PR 1/PR 2 with governance template sections
+
+### 2026-04-24 / PHASE04-SPRINT08-OIDC-001
+
+- Completed:
+  - delivered Sprint 08 OIDC provider foundation and `/authorize` endpoint on `feature/oidc-sprint08-authorize-foundation`
+  - implemented config-backed client allowlist validation via `OIDC_CLIENTS_JSON`
+  - added authorization request validation for `response_type`, PKCE, `client_id`, and exact-match `redirect_uri`
+  - kept `oidc-provider` at factory/config level only and left `AuthBridge` as non-executed contract surface
+  - recorded Sprint 08 closure in `docs/planning/reports/phase-04-sprint-08-report.md`
+- Approved:
+  - Sprint 08 output is validated authorize request context only
+  - excluded scope remains excluded: `/token`, authorization code issuance, ID/access/refresh tokens, session/SSO, token-lifecycle usage, and direct DB access from `oidc`
+  - deterministic validation error handling is part of the Sprint 08 contract
+- Source-of-truth documents changed:
+  - `docs/planning/assignments/phase-04-sprint-08.md`
+  - `docs/planning/reports/phase-04-sprint-08-report.md`
+- Validation evidence:
+  - `npm.cmd run lint`: PASS
+  - `npm.cmd run typecheck`: PASS
+  - `npm.cmd run format:check`: PASS
+  - `npm.cmd run build`: PASS
+  - boundary validation: no `process.env` outside config, no token/session logic in `oidc`, no DB access from `oidc`
+  - runtime validation: valid authorize request, invalid PKCE, invalid client, and invalid `redirect_uri` scenarios all PASS
+- Open items:
+  - begin Sprint 09 `/token` endpoint and authorization code exchange work without expanding Phase 04 boundaries early
+  - confirm or restore `docs/planning/phases/phase-04-oidc-core.md`, which is cited by Sprint 08 docs but missing from the current workspace
