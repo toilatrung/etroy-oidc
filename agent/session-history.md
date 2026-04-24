@@ -488,3 +488,54 @@ It records meaningful state transitions and approved outcomes only.
 - Open items:
   - begin Sprint 09 `/token` endpoint and authorization code exchange work without expanding Phase 04 boundaries early
   - confirm or restore `docs/planning/phases/phase-04-oidc-core.md`, which is cited by Sprint 08 docs but missing from the current workspace
+
+### 2026-04-24 / PHASE04-SPRINT09-TOKEN-002
+
+- Completed:
+  - implemented Sprint 09 core flow on `feature/oidc-sprint09-token-exchange`:
+    - `POST /authorize/continue`
+    - `POST /token`
+    - authorization code issuance, hashed persistence, validation, expiration, one-time use, and atomic consume-on-success
+  - added OIDC-owned persistence files:
+    - `src/modules/oidc/authorization-code.model.ts`
+    - `src/modules/oidc/authorization-code.repository.ts`
+  - added baseline access-token abstraction:
+    - `src/modules/oidc/oidc.types.ts`
+    - `src/modules/oidc/access-token.provider.ts`
+  - enforced token neutrality: no JWT/signing/RSA/JWK/claims/payload structure/lifecycle semantics
+  - generated Sprint 09 report draft content with explicit validation and boundary evidence
+- Approved:
+  - Sprint 09 access token remains real but format-neutral and non-final
+  - `oidc` keeps ownership of auth-code exchange path; `auth` remains credential-validation only
+  - excluded scope remains excluded (ID token, claims, `/userinfo`, refresh/session/lifecycle hardening)
+- Validation evidence:
+  - `npm.cmd run lint`: PASS
+  - `npm.cmd run typecheck`: PASS
+  - `npm.cmd run build`: PASS
+  - `npm.cmd run format:check`: FAIL at implementation time due pre-existing repo formatting drift
+  - required boundary grep checks: PASS
+  - additional access-token neutrality guard grep: PASS
+  - runtime scenario harness for code exchange paths: PASS
+- Branch / state traceability:
+  - implementation branch: `feature/oidc-sprint09-token-exchange`
+  - temporary snapshot before formatting branch work:
+    - `stash@{0}: On feature/oidc-sprint09-token-exchange: wip-sprint09-before-format`
+- Open items:
+  - finalize Sprint 09 PR packaging after format-baseline PR separation
+
+### 2026-04-24 / FORMAT-BASELINE-NORMALIZATION-003
+
+- Completed:
+  - created dedicated format-only branch:
+    - `chore/format-baseline-fix`
+  - ran repository-wide formatting normalization:
+    - `npm.cmd run format`
+    - `npx eslint "src/**/*.ts" --fix`
+- Validation evidence:
+  - `npm.cmd run format:check`: PASS
+  - `npm.cmd run lint`: PASS
+- Approved:
+  - format-only change set remains isolated from Sprint 09 functional work
+  - PR split strategy remains mandatory (format-only PR and Sprint 09 feature PR)
+- Open items:
+  - re-apply Sprint 09 stash on feature branch and continue PR preparation
