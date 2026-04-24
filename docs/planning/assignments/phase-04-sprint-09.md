@@ -24,6 +24,10 @@ Implement the OIDC token-exchange baseline for Authorization Code Flow:
 - generate `access_token` baseline as a real token with minimal lifecycle only
 - return the minimum token response required by the approved Sprint 09 contract
 
+Mandatory clarification:
+
+- Sprint 09 access_token is a baseline placeholder used to validate the authorization-code exchange path. It is not a finalized OIDC access token and is not yet client-usable.
+
 Sprint 09 must enforce:
 
 - authorization code ownership stays in `oidc`
@@ -31,6 +35,8 @@ Sprint 09 must enforce:
 - authorization code must expire
 - authorization code must be consumed on successful use
 - `access_token` is real but not production lifecycle complete
+- Sprint 09 `access_token` is NOT JWT and is NOT a finalized client-consumable OIDC access token
+- Sprint 09 `access_token` has no claims contract, no signing semantics, and no lifecycle semantics
 - no direct user DB access from `oidc`
 - no hardcoded storage backend choice in this document
 
@@ -152,14 +158,18 @@ Use the term:
 
 `access_token` baseline MUST:
 
-- be a real token (`JWT` or opaque)
+- be a real token
 - include `access_token`
 - include `token_type`
 - include `expires_in`
 - have short TTL
+- remain baseline-only in Sprint 09
 
 `access_token` baseline MUST NOT include:
 
+- JWT finalization
+- claims contract finalization
+- signing / RSA / JWK usage
 - refresh token
 - rotation
 - revoke
@@ -170,12 +180,14 @@ Use the term:
 Mandatory statement:
 
 - This token is NOT production lifecycle complete.
+- This token is NOT yet a finalized client-consumable OIDC access token.
 
 Format clarification:
 
 - Sprint 09 MUST generate a real `access_token`, but the token format is not finalized in this sprint.
-- The access token MAY be `JWT` or opaque only if that stays consistent with approved architecture and future Phase 05 lifecycle design.
-- Sprint 09 MUST NOT introduce a token format that conflicts with Phase 05 lifecycle hardening, revocation, introspection, session, or SSO requirements.
+- Sprint 09 access_token is a baseline placeholder used to validate the authorization-code exchange path. It is not a finalized OIDC access token and is not yet client-usable.
+- Sprint 09 MUST NOT introduce JWT semantics, claims finalization, signing, key/JWKS coupling, or client-facing authorization semantics.
+- JWT access_token formalization is locked to Sprint 10 and must be implemented only after the Sprint 10 token/claims contract is approved.
 
 ---
 
@@ -193,6 +205,7 @@ Owns:
 
 Owns:
 
+- JWT access_token formalization
 - ID Token
 - claims
 - `/userinfo`
@@ -290,6 +303,9 @@ Rules:
 - no ID Token
 - no rotation / revoke / introspection
 - no session / SSO
+- no JWT access-token formalization
+- no claims contract finalization
+- no signing / RSA / JWK usage for access_token
 
 ---
 
@@ -404,9 +420,11 @@ Sprint 09 is complete when:
 ## XII. Handoff
 
 Sprint 09 produces a non-final token system.
+Sprint 09 implements only the authorization-code exchange baseline. The access_token is a placeholder and not yet a client-usable OIDC token. JWT-based access_token formalization is deferred to Sprint 10 and must only be implemented after contract approval.
 
 Sprint 10 must complete:
 
+- JWT access_token formalization
 - ID Token
 - claims
 - `/userinfo`

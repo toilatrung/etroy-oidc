@@ -488,3 +488,27 @@ It records meaningful state transitions and approved outcomes only.
 - Open items:
   - begin Sprint 09 `/token` endpoint and authorization code exchange work without expanding Phase 04 boundaries early
   - confirm or restore `docs/planning/phases/phase-04-oidc-core.md`, which is cited by Sprint 08 docs but missing from the current workspace
+
+### 2026-04-24 / PHASE04-TOKEN-ALIGNMENT-002
+
+- Completed:
+  - applied system-wide Sprint 09 / Sprint 10 access_token alignment decision in docs and agent context
+  - updated Sprint 09 assignment to explicitly mark access_token as baseline placeholder and non-client-usable
+  - created Sprint 10 assignment with locked JWT access_token formalization scope and contract-first gate
+  - updated Phase 04 phase plan to enforce JWT deferral to Sprint 10
+  - updated `agent/current-context.md` with boundary locks and contract gate
+- Approved:
+  - final access_token direction is JWT
+  - Sprint 09 remains authorization-code exchange baseline only
+  - Sprint 10 owns JWT access_token formalization + ID Token + claims + `/userinfo`
+  - Sprint 10 JWT implementation is blocked until contract approval
+  - Phase 05 retains lifecycle hardening ownership (refresh, rotation, revoke, introspection, session/SSO)
+- Source-of-truth documents changed:
+  - `docs/planning/assignments/phase-04-sprint-09.md`
+  - `docs/planning/assignments/phase-04-sprint-10.md`
+  - `docs/planning/phases/phase-04-oidc-core.md`
+- Agent files changed:
+  - `agent/current-context.md`
+  - `agent/session-history.md`
+- Open items:
+  - update `docs/planning/reports/phase-04-sprint-09-report.md` only in branches where the report file exists
