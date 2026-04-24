@@ -8,11 +8,10 @@ It summarizes approved state and next actions without redefining architecture.
 ## II. Current Project State
 
 - Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
-- Current implementation focus: Phase 03 / Sprint 07 password-reset flow is implemented and validated.
-- Repository formatting baseline cleanup is isolated for separate PR review; `format:check` currently fails on the Sprint 07 branch until formatting-baseline cleanup is finalized.
-- Final delivery strategy requires two separate PRs:
-  - PR 1: formatting baseline cleanup only (`chore/format-baseline-fix`)
-  - PR 2: Sprint 07 logic only (`feature/password-reset-sprint07-reset-flow`)
+- Most recently completed delivery: Phase 04 / Sprint 08 OIDC provider foundation and `/authorize` endpoint on `feature/oidc-sprint08-authorize-foundation`.
+- `/authorize` is wired and validates authorization request shape, PKCE (`S256`), `client_id`, and exact-match `redirect_uri`.
+- OIDC client validation is config-backed through `OIDC_CLIENTS_JSON`; Sprint 08 output stops at validated authorize request context only.
+- Repository formatting is normalized and `format:check` passes, but the branch contains a large formatting-only diff caused by prior repository drift.
 
 ## III. Active Source of Truth
 
@@ -27,59 +26,70 @@ Primary references:
 - requirements contract
 - planning controls
 - governance controls
-- `docs/planning/phases/phase-03-account-lifecycle.md`
-- `docs/planning/assignments/phase-03-sprint-07.md`
-- `docs/planning/reports/phase-03-sprint-07-report.md`
+- `docs/planning/assignments/phase-04-sprint-08.md`
+- `docs/planning/reports/phase-04-sprint-08-report.md`
 
 ## IV. Current Phase and Sprint
 
-- Current phase: Phase 03 - Account Lifecycle
-- Current sprint: Sprint 07 - Password Reset Module
-- Sprint status: COMPLETE (implementation complete; PR split committed, awaiting PR submission)
+- Current phase: Phase 04 - OIDC Core
+- Current sprint: Sprint 08 - Provider Foundation + Authorization Endpoint
+- Sprint status: COMPLETE
 - Completion breakdown:
   - Implementation: COMPLETE
-  - Validation: PARTIAL PASS (`format:check` blocked by formatting baseline drift)
-  - PR packaging: COMPLETE (split into format-only PR and logic-only PR)
+  - Validation: COMPLETE
+  - Handoff: COMPLETE (Sprint 09 identified as next delivery step)
 
-## V. Verified Baseline (2026-04-23)
+## V. Verified Baseline (2026-04-24)
 
 - Config contract is active and flat in `src/config/`: `schema.ts`, `env.ts`, `config.ts`.
-- Latest Sprint 07 branch validation:
+- Sprint 08 implementation baseline:
+  - `src/modules/oidc/oidc.provider.ts` provides provider/config factory surface only.
+  - `src/modules/oidc/oidc.service.ts` validates authorize requests and exposes non-executed `AuthBridge` contract surface.
+  - `src/modules/oidc/oidc.controller.ts` and `src/app/server.ts` expose `GET /authorize`.
+  - `.env.example`, `src/config/schema.ts`, and `src/config/config.ts` support `OIDC_CLIENTS_JSON`.
+- Latest Sprint 08 validation:
   - `npm.cmd run lint`
   - `npm.cmd run typecheck`
   - `npm.cmd run format:check`
   - `npm.cmd run build`
-  - `rg -n "process\\.env" src --glob "!src/config/**"` -> no matches
-  - `rg -n "jwt|JWT" src/modules/password-reset` -> no matches
-  - `rg -n "session" src/modules/password-reset` -> no matches
-  - `rg -n "OIDC|oidc" src/modules/password-reset` -> no matches
-  - `rg -n "UserModel|user\\.repository|mongoose|findOne|findById|updateUser|create\\(" src/modules/password-reset` -> no matches
-  - `rg -n "changePassword\\(|consumeToken\\(|validateToken\\(" src/modules/password-reset/password-reset.service.ts` -> expected flow calls found
+  - boundary checks:
+    - no `process.env` outside config
+    - no token/session logic in `oidc`
+    - no DB access from `oidc`
+  - runtime checks:
+    - valid authorize request -> PASS
+    - invalid PKCE -> PASS
+    - invalid client -> PASS
+    - invalid redirect URI -> PASS
 - Result summary:
   - `lint`: PASS
   - `typecheck`: PASS
-  - `format:check`: FAIL (repository-wide formatting drift not included in Sprint 07 logic-only branch)
+  - `format:check`: PASS
   - `build`: PASS
 
 ## VI. PR / Branch Traceability (Verified)
 
-- Formatting cleanup PR target branch: `chore/format-baseline-fix` (format-only changes).
-- Sprint 07 PR target branch: `feature/password-reset-sprint07-reset-flow` (logic + Sprint 07 evidence updates only).
-- Pre-existing unrelated docs edits must remain out of Sprint 07 PR unless directly required by Sprint 07 evidence.
+- Sprint 08 implementation branch recorded in the report: `feature/oidc-sprint08-authorize-foundation`.
+- Review and PR packaging should distinguish functional OIDC changes from repository-wide formatting normalization caused by prior drift.
+- Sprint 08 boundary state to preserve in review:
+  - `oidc-provider` is not mounted as callback middleware
+  - `AuthBridge` exists as contract surface only and is not executed
+  - no token, code-issuance, session, or direct DB logic is present in `oidc`
 
 ## VII. Immediate Next Actions
 
-1. Push `chore/format-baseline-fix` and open PR 1 (format-only scope).
-2. Push `feature/password-reset-sprint07-reset-flow` and open PR 2 (Sprint 07 logic/evidence scope).
-3. Merge or stack PR 1 before enforcing repo-wide `format:check` gate for PR 2.
+1. Prepare or open Sprint 08 PR from `feature/oidc-sprint08-authorize-foundation` with explicit boundary notes and validation evidence.
+2. Start Sprint 09 contract and implementation planning for `/token` endpoint and authorization code exchange.
+3. Preserve Phase 04 boundaries: no auth token generation, no direct DB access from `oidc`, no lifecycle/session leakage.
+4. Restore or create `docs/planning/phases/phase-04-oidc-core.md` if it remains an expected source-of-truth document.
 
 ## VIII. Notes for Next Session
 
 - Do not let `agent/` context override `docs/` contracts.
 - `source-tree.md` remains the primary repository structure contract.
-- Sprint 07 non-regression rules to preserve:
-  - exact success payload `{ "status": "success" }`
-  - anti-enumeration behavior
-  - strict post-success token consumption
-  - `sub` identity reference through token-lifecycle
-  - users-owned password mutation only
+- Sprint 08 non-regression rules to preserve:
+  - keep `/authorize` limited to request validation and boundary-safe delegation prep
+  - enforce PKCE `S256`
+  - keep exact-match `redirect_uri` validation
+  - do not mount `oidc-provider` request handling or execute `AuthBridge` before approved continuation scope
+- `docs/planning/phases/phase-04-oidc-core.md` is referenced by Sprint 08 docs but not present in the current workspace state.
