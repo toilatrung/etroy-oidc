@@ -6,10 +6,7 @@ import { randomBytes, createHash } from 'node:crypto';
 
 import { BaselineAccessTokenProvider } from './access-token.provider.js';
 import { AuthorizationCodeRepository } from './authorization-code.repository.js';
-import type {
-  AccessTokenProvider,
-  AuthorizationCodeEntity,
-} from './oidc.types.js';
+import type { AccessTokenProvider, AuthorizationCodeEntity } from './oidc.types.js';
 
 export interface AuthorizeRequestContext {
   accepted: true;

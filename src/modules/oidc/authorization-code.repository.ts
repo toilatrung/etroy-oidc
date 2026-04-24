@@ -1,9 +1,6 @@
 import mongoose, { type HydratedDocument } from 'mongoose';
 
-import type {
-  AuthorizationCodeEntity,
-  CreateAuthorizationCodeInput,
-} from './oidc.types.js';
+import type { AuthorizationCodeEntity, CreateAuthorizationCodeInput } from './oidc.types.js';
 import {
   AuthorizationCodeModel,
   type AuthorizationCodeDocument,
