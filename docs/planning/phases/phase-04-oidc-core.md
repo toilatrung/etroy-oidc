@@ -193,7 +193,11 @@ High-level scope:
 
 ### Deliverable Direction
 
-Sprint 09 should establish the OIDC-owned token endpoint exchange path, including authorization code repository handling and a non-final `access_token` baseline, while leaving ID Token, claims, and UserInfo output to Sprint 10 and lifecycle hardening to Phase 05.
+Sprint 09 should establish the OIDC-owned token endpoint exchange path, including authorization code repository handling and a non-final `access_token` baseline, while leaving JWT access_token formalization, ID Token, claims, and UserInfo output to Sprint 10 and lifecycle hardening to Phase 05.
+
+Mandatory clarification:
+
+- Sprint 09 access_token is a baseline placeholder used only to validate the authorization-code exchange path. It is not a finalized OIDC client-usable access token. JWT access_token formalization is locked to Sprint 10 and must not be implemented before the Sprint 10 contract is approved.
 
 ### Boundary Rules
 
@@ -201,7 +205,8 @@ Sprint 09 should establish the OIDC-owned token endpoint exchange path, includin
 - `oidc` must not reuse `token-lifecycle`
 - `oidc` must not query user persistence directly
 - Sprint 09 may issue a real baseline `access_token`, but it must not introduce refresh, revoke, rotation, introspection, session, or SSO behavior
-- ID Token, claims, and `/userinfo` remain Sprint 10 concerns
+- Sprint 09 must not introduce JWT access-token semantics, claims finalization, or signing/key behavior
+- JWT access_token formalization, ID Token, claims, and `/userinfo` remain Sprint 10 concerns
 - Phase 05 lifecycle behavior must not be introduced in Sprint 09
 - Refresh token rotation, revocation, introspection, and broader lifecycle management remain Phase 05 concerns.
 
@@ -211,20 +216,40 @@ Sprint 09 should establish the OIDC-owned token endpoint exchange path, includin
 
 ### Goal
 
-Complete the identity output surface for the OIDC core flow through signed ID Tokens, approved claim mapping, and baseline UserInfo response behavior.
+Complete the client-usable OIDC token and identity output surface by formalizing JWT access_token contract/implementation, signed ID Tokens, approved claims mapping, and baseline UserInfo response behavior.
 
 ### Scope
 
 High-level scope:
 
+- JWT access_token formalization (contract-first)
 - ID Token RSA signing
 - claims mapping
 - `/userinfo` baseline
 - scope-based claim output
+- client-usable OIDC token response semantics
+
+Mandatory precondition:
+
+- Sprint 10 must not begin JWT implementation until the JWT access-token contract is written and approved.
+
+JWT access-token contract must define:
+
+- signing algorithm
+- issuer (`iss`)
+- audience (`aud`)
+- subject (`sub`)
+- expiration (`exp`)
+- issued-at (`iat`)
+- scope representation
+- claim set boundary
+- key/JWKS usage
+- validation expectations for clients
+- relationship between access_token, ID Token, and `/userinfo`
 
 ### Deliverable Direction
 
-Sprint 10 should produce the OIDC identity output baseline by mapping authoritative user identity into approved claims and exposing those claims through ID Token and UserInfo behavior.
+Sprint 10 should produce the client-usable OIDC token and identity output baseline by mapping authoritative user identity into approved claims and exposing those claims through JWT access_token, ID Token, and UserInfo behavior.
 
 ### Boundary Rules
 
@@ -233,6 +258,7 @@ Sprint 10 should produce the OIDC identity output baseline by mapping authoritat
 - `oidc` must consume user identity only through approved `users` contracts
 - `users` must not own OIDC claim or token behavior
 - UserInfo must not become a direct user persistence projection
+- no Phase 05 lifecycle hardening in Sprint 10
 
 ---
 
@@ -259,6 +285,8 @@ Boundary checks:
 - `/authorize` works according to approved contract
 - `/token` works according to approved contract
 - PKCE enforced
+- Sprint 09 access_token is baseline-only and explicitly non-final
+- Sprint 10 JWT access-token contract is approved before implementation
 - ID Token signed
 - claims are mapped through approved mapper
 - `/userinfo` baseline returns mapped claims according to approved scopes

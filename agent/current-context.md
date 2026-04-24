@@ -8,88 +8,77 @@ It summarizes approved state and next actions without redefining architecture.
 ## II. Current Project State
 
 - Documentation authority model is active: `docs/` is authoritative, `agent/` is support only.
-- Most recently completed delivery: Phase 04 / Sprint 08 OIDC provider foundation and `/authorize` endpoint on `feature/oidc-sprint08-authorize-foundation`.
-- `/authorize` is wired and validates authorization request shape, PKCE (`S256`), `client_id`, and exact-match `redirect_uri`.
-- OIDC client validation is config-backed through `OIDC_CLIENTS_JSON`; Sprint 08 output stops at validated authorize request context only.
-- Repository formatting is normalized and `format:check` passes, but the branch contains a large formatting-only diff caused by prior repository drift.
+- Active phase remains Phase 04 - OIDC Core.
+- Sprint 09 implementation focus is token exchange baseline only.
+- Sprint 10 now locks JWT access_token formalization scope (contract-first).
 
-## III. Active Source of Truth
+## III. Access Token Alignment Decision (2026-04-24)
 
-Authoritative layer: `docs/`
-Operational support layer: `agent/` (non-authoritative)
+- Final access_token direction is JWT.
+- JWT access_token implementation is LOCKED to Sprint 10.
+- Sprint 09 MUST NOT implement JWT semantics.
 
-Primary references:
+Mandatory statement:
 
-- `docs/source-of-truth-index.md`
-- `docs/README.md`
-- architecture contracts
-- requirements contract
-- planning controls
-- governance controls
-- `docs/planning/assignments/phase-04-sprint-08.md`
-- `docs/planning/reports/phase-04-sprint-08-report.md`
+- Sprint 09 access_token is a baseline placeholder used only to validate the authorization-code exchange path. It is not a finalized OIDC client-usable access token. JWT access_token formalization is locked to Sprint 10 and must not be implemented before the Sprint 10 contract is approved.
 
-## IV. Current Phase and Sprint
+Required Sprint 09 interpretation:
 
-- Current phase: Phase 04 - OIDC Core
-- Current sprint: Sprint 08 - Provider Foundation + Authorization Endpoint
-- Sprint status: COMPLETE
-- Completion breakdown:
-  - Implementation: COMPLETE
-  - Validation: COMPLETE
-  - Handoff: COMPLETE (Sprint 09 identified as next delivery step)
+- token is baseline-only and non-final
+- token has no claims contract
+- token has no signing / RSA / JWK semantics
+- token has no lifecycle semantics
+- token is only used to validate the `/token` exchange path
 
-## V. Verified Baseline (2026-04-24)
+## IV. Sprint Boundary Locks
 
-- Config contract is active and flat in `src/config/`: `schema.ts`, `env.ts`, `config.ts`.
-- Sprint 08 implementation baseline:
-  - `src/modules/oidc/oidc.provider.ts` provides provider/config factory surface only.
-  - `src/modules/oidc/oidc.service.ts` validates authorize requests and exposes non-executed `AuthBridge` contract surface.
-  - `src/modules/oidc/oidc.controller.ts` and `src/app/server.ts` expose `GET /authorize`.
-  - `.env.example`, `src/config/schema.ts`, and `src/config/config.ts` support `OIDC_CLIENTS_JSON`.
-- Latest Sprint 08 validation:
-  - `npm.cmd run lint`
-  - `npm.cmd run typecheck`
-  - `npm.cmd run format:check`
-  - `npm.cmd run build`
-  - boundary checks:
-    - no `process.env` outside config
-    - no token/session logic in `oidc`
-    - no DB access from `oidc`
-  - runtime checks:
-    - valid authorize request -> PASS
-    - invalid PKCE -> PASS
-    - invalid client -> PASS
-    - invalid redirect URI -> PASS
-- Result summary:
-  - `lint`: PASS
-  - `typecheck`: PASS
-  - `format:check`: PASS
-  - `build`: PASS
+### Sprint 09
 
-## VI. PR / Branch Traceability (Verified)
+- Owns authorization-code exchange baseline only.
+- Must NOT introduce:
+  - JWT access_token behavior
+  - claims finalization
+  - signing / key usage
+  - client-final OIDC access-token semantics
+  - refresh/revoke/rotation/introspection/session/SSO
 
-- Sprint 08 implementation branch recorded in the report: `feature/oidc-sprint08-authorize-foundation`.
-- Review and PR packaging should distinguish functional OIDC changes from repository-wide formatting normalization caused by prior drift.
-- Sprint 08 boundary state to preserve in review:
-  - `oidc-provider` is not mounted as callback middleware
-  - `AuthBridge` exists as contract surface only and is not executed
-  - no token, code-issuance, session, or direct DB logic is present in `oidc`
+### Sprint 10
 
-## VII. Immediate Next Actions
+- Owns:
+  - JWT access_token formalization
+  - ID Token issuance
+  - claims mapping
+  - `/userinfo`
+  - scope-based claim output
+  - client-usable OIDC token response semantics
 
-1. Prepare or open Sprint 08 PR from `feature/oidc-sprint08-authorize-foundation` with explicit boundary notes and validation evidence.
-2. Start Sprint 09 contract and implementation planning for `/token` endpoint and authorization code exchange.
-3. Preserve Phase 04 boundaries: no auth token generation, no direct DB access from `oidc`, no lifecycle/session leakage.
-4. Restore or create `docs/planning/phases/phase-04-oidc-core.md` if it remains an expected source-of-truth document.
+Precondition:
 
-## VIII. Notes for Next Session
+- Sprint 10 MUST NOT begin JWT implementation until the JWT access-token contract is written and approved.
 
-- Do not let `agent/` context override `docs/` contracts.
-- `source-tree.md` remains the primary repository structure contract.
-- Sprint 08 non-regression rules to preserve:
-  - keep `/authorize` limited to request validation and boundary-safe delegation prep
-  - enforce PKCE `S256`
-  - keep exact-match `redirect_uri` validation
-  - do not mount `oidc-provider` request handling or execute `AuthBridge` before approved continuation scope
-- `docs/planning/phases/phase-04-oidc-core.md` is referenced by Sprint 08 docs but not present in the current workspace state.
+### Phase 05
+
+- Owns lifecycle hardening:
+  - refresh token lifecycle
+  - rotation
+  - revoke
+  - introspection
+  - session / SSO
+
+## V. Updated Source-of-Truth Targets
+
+- `docs/planning/assignments/phase-04-sprint-09.md` (updated)
+- `docs/planning/assignments/phase-04-sprint-10.md` (update only if file exists in branch)
+- `docs/planning/phases/phase-04-oidc-core.md` (updated)
+- `docs/planning/reports/phase-04-sprint-09-report.md` (update required only if file exists in branch)
+
+## VI. Immediate Next Actions
+
+1. Keep Sprint 09 reported as baseline exchange only.
+2. Enforce no JWT/signing/claims/lifecycle leakage in Sprint 09 implementation and PR messaging.
+3. Finalize and approve Sprint 10 JWT access-token contract before coding Sprint 10 token output logic.
+4. Preserve Phase 05 ownership boundaries for refresh/rotation/revoke/introspection/session/SSO.
+
+## VII. Next Step
+
+Sprint 09 token is a baseline placeholder for flow validation. JWT access_token is locked to Sprint 10 and must not be implemented before contract approval.
