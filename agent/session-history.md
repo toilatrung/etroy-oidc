@@ -533,3 +533,22 @@ It records meaningful state transitions and approved outcomes only.
   - `docs/planning/assignments/phase-04-sprint-10.md` -> SKIPPED - file not present
 - Open items:
   - create/update Sprint 10 assignment only in branches where `phase-04-sprint-10.md` exists or is explicitly approved for creation
+
+### 2026-04-24 / PHASE04-TOKEN-ALIGNMENT-STRICT-SCOPE-004
+
+- Completed:
+  - aligned wording in allowed existing files only for Sprint 09 -> Sprint 10 access_token boundary.
+  - enforced exact mandatory statement:
+    - Sprint 09 access_token is a baseline placeholder used only to validate the authorization-code exchange path. It is not a finalized OIDC client-usable access token. JWT access_token formalization is locked to Sprint 10 and must not be implemented before the Sprint 10 contract is approved.
+- Approved:
+  - Sprint 09 remains baseline exchange only and non-client-usable.
+  - Sprint 10 remains owner of JWT access_token formalization + ID Token + claims + `/userinfo`, blocked until approved contract.
+  - Phase 05 remains owner of refresh/revoke/rotation/introspection/session/SSO lifecycle hardening.
+- Source-of-truth documents changed:
+  - `docs/planning/phases/phase-04-oidc-core.md`
+  - `docs/planning/reports/phase-04-sprint-09-report.md`
+- Agent files changed:
+  - `agent/current-context.md`
+  - `agent/session-history.md`
+- Open items:
+  - keep `docs/planning/assignments/phase-04-sprint-09.md` unchanged during this strict-scope alignment pass.

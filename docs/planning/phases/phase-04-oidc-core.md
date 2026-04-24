@@ -197,7 +197,7 @@ Sprint 09 should establish the OIDC-owned token endpoint exchange path, includin
 
 Mandatory clarification:
 
-- Sprint 09 access_token is a baseline placeholder used to validate the authorization-code exchange path. It is not a finalized OIDC access token and is not yet client-usable.
+- Sprint 09 access_token is a baseline placeholder used only to validate the authorization-code exchange path. It is not a finalized OIDC client-usable access token. JWT access_token formalization is locked to Sprint 10 and must not be implemented before the Sprint 10 contract is approved.
 
 ### Boundary Rules
 
