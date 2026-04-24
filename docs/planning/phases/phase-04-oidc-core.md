@@ -182,20 +182,26 @@ Define the token endpoint core for exchanging a valid authorization code under t
 High-level scope:
 
 - `/token` endpoint
-- authorization code validation
+- authorization code issuance, repository-based persistence, and validation
 - PKCE verifier check
 - client validation required by token exchange
-- token response baseline required by the approved core flow
+- baseline `access_token` generation as a real token with minimal lifecycle only
+- token response baseline required by the approved core flow:
+  - `access_token`
+  - `token_type`
+  - `expires_in`
 
 ### Deliverable Direction
 
-Sprint 09 should establish the OIDC-owned token endpoint exchange path and prepare the token response integration surface for Sprint 10 identity output, without moving credential validation or lifecycle-token behavior into the wrong module.
+Sprint 09 should establish the OIDC-owned token endpoint exchange path, including authorization code repository handling and a non-final `access_token` baseline, while leaving ID Token, claims, and UserInfo output to Sprint 10 and lifecycle hardening to Phase 05.
 
 ### Boundary Rules
 
 - `auth` must not generate tokens
 - `oidc` must not reuse `token-lifecycle`
 - `oidc` must not query user persistence directly
+- Sprint 09 may issue a real baseline `access_token`, but it must not introduce refresh, revoke, rotation, introspection, session, or SSO behavior
+- ID Token, claims, and `/userinfo` remain Sprint 10 concerns
 - Phase 05 lifecycle behavior must not be introduced in Sprint 09
 - Refresh token rotation, revocation, introspection, and broader lifecycle management remain Phase 05 concerns.
 
