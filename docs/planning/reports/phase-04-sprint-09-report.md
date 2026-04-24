@@ -19,6 +19,7 @@
 - `docs/requirements/srs-v1.md`
 - `docs/planning/master-execution-plan.md`
 - `docs/planning/phases/phase-04-oidc-core.md`
+- `docs/contracts/oidc/jwt-token-contract.md`
 - `docs/planning/assignments/phase-04-sprint-09.md`
 - `docs/planning/assignments/phase-04-sprint-08.md`
 - `docs/planning/reports/phase-04-sprint-08-report.md`

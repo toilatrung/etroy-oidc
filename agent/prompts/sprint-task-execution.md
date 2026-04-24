@@ -24,10 +24,11 @@ Apply this authority chain before implementation:
 4. `docs/requirements/srs-v1.md` - required behavior
 5. `docs/planning/master-execution-plan.md` - execution lifecycle
 6. `docs/planning/phases/*` - phase scope
-7. `docs/planning/assignments/*` - sprint/task scope
-8. `docs/planning/reports/*` - historical evidence and handoff
-9. `docs/governance/*` - PR, review, and anti-pattern controls
-10. `agent/*` - non-authoritative operational context
+7. `docs/contracts/*` - implementation contracts that must be approved before coding
+8. `docs/planning/assignments/*` - sprint/task scope
+9. `docs/planning/reports/*` - historical evidence and handoff
+10. `docs/governance/*` - PR, review, and anti-pattern controls
+11. `agent/*` - non-authoritative operational context
 
 Conflict rules:
 
@@ -36,6 +37,7 @@ Conflict rules:
 - Requirements beat implementation preference.
 - `source-tree.md` beats `detailed-source-tree.md`.
 - No approved contract means no implementation.
+- Required sprint contracts must be read before any coding starts.
 
 ## Prompt Variables
 
@@ -97,14 +99,15 @@ Required reading order:
 7. `docs/requirements/srs-v1.md`
 8. `docs/planning/master-execution-plan.md`
 9. [CURRENT_PHASE_DOC_PATH]
-10. [CURRENT_ASSIGNMENT_DOC_PATH]
-11. [LATEST_RELEVANT_REPORT_PATHS]
-12. `docs/governance/git-rules.md`
-13. `docs/governance/pr-template.md`
-14. `docs/governance/review-checklist.md`
-15. `docs/governance/anti-patterns.md`
-16. `agent/current-context.md`
-17. [ROLE_GUIDANCE_PATH]
+10. required sprint contract documents (must include `docs/contracts/oidc/jwt-token-contract.md` for Phase 04 / Sprint 10)
+11. [CURRENT_ASSIGNMENT_DOC_PATH]
+12. [LATEST_RELEVANT_REPORT_PATHS]
+13. `docs/governance/git-rules.md`
+14. `docs/governance/pr-template.md`
+15. `docs/governance/review-checklist.md`
+16. `docs/governance/anti-patterns.md`
+17. `agent/current-context.md`
+18. [ROLE_GUIDANCE_PATH]
 
 Before coding, produce an implementation packet:
 - source-of-truth documents used
@@ -168,6 +171,7 @@ Manual validation:
 
 Stop before coding if:
 - a required contract is missing
+- a required contract is not approved
 - documents conflict and cannot be resolved by authority order
 - behavior belongs to another sprint or module
 - a new structure is needed but not approved

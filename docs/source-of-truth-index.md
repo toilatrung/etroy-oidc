@@ -26,7 +26,11 @@ It exists to prevent ambiguity, enforce contract-first execution, and stop archi
 
 - `docs/requirements/srs-v1.md`
 
-### 3. Planning
+### 3. Contracts
+
+- `docs/contracts/oidc/jwt-token-contract.md`
+
+### 4. Planning
 
 - `docs/planning/master-execution-plan.md`
 - `docs/planning/phases/phase-01-environment-bootstrap.md`
@@ -34,12 +38,16 @@ It exists to prevent ambiguity, enforce contract-first execution, and stop archi
 - `docs/planning/phases/phase-03-account-lifecycle.md`
 - `docs/planning/assignments/phase-02-sprint-04.md`
 
-### 4. Governance
+### 5. Governance
 
 - `docs/governance/git-rules.md`
 - `docs/governance/pr-template.md`
 - `docs/governance/review-checklist.md`
 - `docs/governance/anti-patterns.md`
+
+## Contracts
+
+- `docs/contracts/oidc/jwt-token-contract.md`
 
 ## IV. Reading Order
 
@@ -56,11 +64,12 @@ Recommended reading order for humans and AI agents:
 9. `docs/planning/phases/phase-01-environment-bootstrap.md`
 10. `docs/planning/phases/phase-02-identity-core.md`
 11. `docs/planning/phases/phase-03-account-lifecycle.md`
-12. `docs/planning/assignments/phase-02-sprint-04.md`
-13. `docs/governance/git-rules.md`
-14. `docs/governance/pr-template.md`
-15. `docs/governance/review-checklist.md`
-16. `docs/governance/anti-patterns.md`
+12. `docs/contracts/oidc/jwt-token-contract.md`
+13. `docs/planning/assignments/phase-02-sprint-04.md`
+14. `docs/governance/git-rules.md`
+15. `docs/governance/pr-template.md`
+16. `docs/governance/review-checklist.md`
+17. `docs/governance/anti-patterns.md`
 
 ## V. Conflict Resolution Rules
 

@@ -552,3 +552,14 @@ It records meaningful state transitions and approved outcomes only.
   - `agent/session-history.md`
 - Open items:
   - keep `docs/planning/assignments/phase-04-sprint-09.md` unchanged during this strict-scope alignment pass.
+
+### 2026-04-24 / PHASE04-JWT-CONTRACT-CREATED-005
+
+- Action: created JWT token contract.
+- Impact:
+  - enables Sprint 10.
+  - defines token/claims boundary.
+- Next steps:
+  - align docs.
+  - approve contract.
+  - start Sprint 10.
