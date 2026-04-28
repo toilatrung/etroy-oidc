@@ -6,6 +6,7 @@ import {
   authorizeHandler,
   tokenHandler,
 } from '../modules/oidc/oidc.controller.js';
+import { userInfoHandler } from '../modules/oidc/userinfo.controller.js';
 import { BaseError } from '../shared/errors/index.js';
 
 interface ErrorResponseBody {
@@ -23,6 +24,7 @@ export const createServer = () => {
   app.get('/authorize', authorizeHandler);
   app.post('/authorize/continue', authorizeContinueHandler);
   app.post('/token', tokenHandler);
+  app.get('/userinfo', userInfoHandler);
 
   app.use(
     (
