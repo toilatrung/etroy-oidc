@@ -6,6 +6,7 @@ export interface AuthorizationCodeDocument {
   subject: string;
   clientId: string;
   redirectUri: string;
+  scope: string;
   codeHash: string;
   codeChallenge: string;
   codeChallengeMethod: 'S256';
@@ -26,6 +27,11 @@ const authorizationCodeSchema = new Schema<AuthorizationCodeDocument>(
       trim: true,
     },
     redirectUri: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    scope: {
       type: String,
       required: true,
       trim: true,

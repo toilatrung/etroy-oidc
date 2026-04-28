@@ -1,19 +1,37 @@
-import { randomBytes } from 'node:crypto';
+import { config } from '../../config/config.js';
+import { signJwtRs256 } from '../../infrastructure/crypto/index.js';
 
-import type { AccessTokenIssueResult, AccessTokenProvider } from './oidc.types.js';
+import type {
+  AccessTokenIssueInput,
+  AccessTokenIssueResult,
+  AccessTokenProvider,
+} from './oidc.types.js';
 
-const DEFAULT_ACCESS_TOKEN_TTL_SECONDS = 300;
-const ACCESS_TOKEN_BYTE_LENGTH = 32;
+const DEFAULT_ACCESS_TOKEN_TTL_SECONDS = 900;
 
-export class BaselineAccessTokenProvider implements AccessTokenProvider {
+const toEpochSeconds = (value: Date): number => Math.floor(value.getTime() / 1000);
+
+export class JwtAccessTokenProvider implements AccessTokenProvider {
   constructor(
+    private readonly issuer: string = config.app.baseUrl,
     private readonly expiresInSeconds: number = DEFAULT_ACCESS_TOKEN_TTL_SECONDS,
-    private readonly byteLength: number = ACCESS_TOKEN_BYTE_LENGTH,
+    private readonly getNow: () => Date = () => new Date(),
   ) {}
 
-  issueAccessToken(): AccessTokenIssueResult {
+  issueAccessToken(input: AccessTokenIssueInput): AccessTokenIssueResult {
+    const issuedAt = toEpochSeconds(this.getNow());
+    const expiresAt = issuedAt + this.expiresInSeconds;
+    const accessToken = signJwtRs256({
+      iss: this.issuer,
+      sub: input.subject,
+      aud: input.audience,
+      iat: issuedAt,
+      exp: expiresAt,
+      scope: input.scope,
+    });
+
     return {
-      accessToken: randomBytes(this.byteLength).toString('base64url'),
+      accessToken,
       tokenType: 'Bearer',
       expiresIn: this.expiresInSeconds,
     };
