@@ -2,11 +2,19 @@ import { config, type OidcClient } from '../../config/config.js';
 import { hashValue } from '../../infrastructure/crypto/index.js';
 import { BaseError } from '../../shared/errors/index.js';
 import { authService, type AuthenticatedIdentity } from '../auth/auth.service.js';
+import { userService, type UserService } from '../users/user.service.js';
 import { randomBytes, createHash } from 'node:crypto';
 
-import { BaselineAccessTokenProvider } from './access-token.provider.js';
+import { toOidcUserIdentity } from './claims.mapper.js';
+import { JwtAccessTokenProvider } from './access-token.provider.js';
 import { AuthorizationCodeRepository } from './authorization-code.repository.js';
-import type { AccessTokenProvider, AuthorizationCodeEntity } from './oidc.types.js';
+import { JwtIdTokenProvider } from './id-token.provider.js';
+import type {
+  AccessTokenProvider,
+  AuthorizationCodeEntity,
+  IdTokenProvider,
+  OidcUserIdentity,
+} from './oidc.types.js';
 
 export interface AuthorizeRequestContext {
   accepted: true;
@@ -47,6 +55,7 @@ export interface TokenExchangeResponse {
   access_token: string;
   token_type: 'Bearer';
   expires_in: number;
+  id_token: string;
 }
 
 const invalidInput = (message: string): BaseError =>
@@ -182,12 +191,32 @@ const ensurePkceVerifierMatches = (
   }
 };
 
+type UserIdentityReader = Pick<UserService, 'getUserBySub'>;
+
+const resolveOidcUserIdentity = async (
+  users: UserIdentityReader,
+  subject: string,
+): Promise<OidcUserIdentity> => {
+  try {
+    const profile = await users.getUserBySub(subject);
+    return toOidcUserIdentity(profile);
+  } catch (error: unknown) {
+    if (BaseError.isBaseError(error) && error.code === 'USER_NOT_FOUND') {
+      throw invalidGrant();
+    }
+
+    throw error;
+  }
+};
+
 export class OidcService {
   constructor(
     private readonly clients: readonly OidcClient[] = config.oidc.clients,
     private readonly authBridge: AuthBridge = defaultAuthBridge,
     private readonly authorizationCodeRepository: AuthorizationCodeRepository = new AuthorizationCodeRepository(),
-    private readonly accessTokenProvider: AccessTokenProvider = new BaselineAccessTokenProvider(),
+    private readonly users: UserIdentityReader = userService,
+    private readonly accessTokenProvider: AccessTokenProvider = new JwtAccessTokenProvider(),
+    private readonly idTokenProvider: IdTokenProvider = new JwtIdTokenProvider(),
     private readonly getNow: () => Date = () => new Date(),
   ) {}
 
@@ -287,11 +316,23 @@ export class OidcService {
       throw invalidGrant();
     }
 
-    const issuedAccessToken = this.accessTokenProvider.issueAccessToken();
+    const userIdentity = await resolveOidcUserIdentity(this.users, authorizationCode.subject);
+    const issuedAccessToken = this.accessTokenProvider.issueAccessToken({
+      subject: userIdentity.sub,
+      audience: clientId,
+      scope: authorizationCode.scope,
+    });
+    const issuedIdToken = this.idTokenProvider.issueIdToken({
+      audience: clientId,
+      scope: authorizationCode.scope,
+      user: userIdentity,
+    });
+
     return {
       access_token: issuedAccessToken.accessToken,
       token_type: issuedAccessToken.tokenType,
       expires_in: issuedAccessToken.expiresIn,
+      id_token: issuedIdToken.idToken,
     };
   }
 
@@ -308,6 +349,7 @@ export class OidcService {
       subject,
       clientId: context.client.clientId,
       redirectUri: context.redirectUri,
+      scope: context.scope,
       codeHash,
       codeChallenge: context.codeChallenge,
       codeChallengeMethod: context.codeChallengeMethod,
