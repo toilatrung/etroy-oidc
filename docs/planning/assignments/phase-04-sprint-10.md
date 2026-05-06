@@ -5,8 +5,12 @@
 - Phase: Phase 04 - OIDC Core
 - Sprint: Sprint 10 - ID Token + Claims + UserInfo
 - Objective: Finalize client-usable OIDC token layer using approved JWT contract
-- Status: Planned
+- Status: CLOSED
 - Owner module: `src/modules/oidc`
+
+Execution status:
+
+- Sprint 10 has been implemented and validated. Previously open runtime validation gaps for scoped `/userinfo` claims and invalid JWT rejection were closed by Tester Postman evidence.
 
 ---
 

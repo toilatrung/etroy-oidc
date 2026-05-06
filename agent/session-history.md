@@ -563,3 +563,29 @@ It records meaningful state transitions and approved outcomes only.
   - align docs.
   - approve contract.
   - start Sprint 10.
+
+### 2026-05-06 / PHASE04-CLOSURE-DOC-SYNC-001
+
+- Completed:
+  - synchronized documentation state after Phase 04 implementation through Sprint 08, Sprint 09, and Sprint 10
+  - marked Phase 04 as CLOSED
+  - updated Sprint 10 status to CLOSED after Tester Postman evidence closed prior runtime validation gaps
+  - recorded repo-wide format baseline drift as deferred repository-wide cleanup, not a Phase 04 blocker
+- Approved:
+  - Phase 04 is closed
+  - Sprint 08 authorize validation baseline remains closed
+  - Sprint 09 token endpoint and authorization-code exchange baseline remains closed
+  - Sprint 10 JWT access token, ID Token, claims mapper, and /userinfo scope is closed
+  - Phase 05 owns refresh token lifecycle, rotation, revoke, introspection, session management, SSO, and logout hardening
+- Source-of-truth documents changed:
+  - docs/source-of-truth-index.md
+  - docs/planning/master-execution-plan.md
+  - docs/planning/phases/phase-04-oidc-core.md
+  - docs/planning/assignments/phase-04-sprint-10.md
+  - docs/planning/reports/phase-04-sprint-10-report.md
+- Agent files changed:
+  - agent/current-context.md
+  - agent/session-history.md
+- Open items:
+  - begin Phase 05 planning and implementation
+  - handle repo-wide formatting baseline cleanup later as a separate repository-wide cleanup item

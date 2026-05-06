@@ -92,9 +92,10 @@ Load in this sequence:
 - `srs-v1.md` -> requirements contract
 - `master-execution-plan.md` -> execution control model
 - `phase-01-environment-bootstrap.md` -> completed foundation phase breakdown
-- `phase-02-identity-core.md` -> current phase breakdown
+- `phase-02-identity-core.md` -> identity core phase breakdown
 - `phase-03-account-lifecycle.md` -> account lifecycle phase breakdown
-- `phase-02-sprint-04.md` -> current sprint assignment
+- `phase-04-oidc-core.md` -> OIDC core phase breakdown
+- `phase-02-sprint-04.md` -> historical sprint assignment
 - `docs/contracts/oidc/jwt-token-contract.md` -> JWT Token Contract (Phase 04 / Sprint 10)
 - sprint reports under `docs/planning/reports/` -> sprint execution evidence
 - governance documents -> repository control and merge discipline

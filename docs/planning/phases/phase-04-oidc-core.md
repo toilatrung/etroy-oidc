@@ -14,6 +14,16 @@ Implement the OpenID Connect provider core required to start the Authorization C
 
 Phase 04 turns the approved identity and account-lifecycle foundation into the initial OIDC provider flow. It does not change Phase 03 lifecycle-token behavior and does not introduce Phase 05 token/session lifecycle management.
 
+### Status
+
+- Status: CLOSED
+- Implementation range: Sprint 08 - Sprint 10
+- Closure basis:
+  - Sprint 08 authorize validation completed.
+  - Sprint 09 token endpoint and authorization-code exchange baseline completed.
+  - Sprint 10 JWT access token, ID Token, claims mapper, and `/userinfo` completed.
+  - Tester Postman evidence closed the previously open Sprint 10 runtime validation gaps.
+
 ---
 
 ## II. Contract Basis

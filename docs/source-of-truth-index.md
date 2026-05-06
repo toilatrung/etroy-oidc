@@ -36,7 +36,7 @@ It exists to prevent ambiguity, enforce contract-first execution, and stop archi
 - `docs/planning/phases/phase-01-environment-bootstrap.md`
 - `docs/planning/phases/phase-02-identity-core.md`
 - `docs/planning/phases/phase-03-account-lifecycle.md`
-- `docs/planning/assignments/phase-02-sprint-04.md`
+- `docs/planning/phases/phase-04-oidc-core.md`
 
 ### 5. Governance
 
@@ -44,10 +44,6 @@ It exists to prevent ambiguity, enforce contract-first execution, and stop archi
 - `docs/governance/pr-template.md`
 - `docs/governance/review-checklist.md`
 - `docs/governance/anti-patterns.md`
-
-## Contracts
-
-- `docs/contracts/oidc/jwt-token-contract.md`
 
 ## IV. Reading Order
 
@@ -64,12 +60,16 @@ Recommended reading order for humans and AI agents:
 9. `docs/planning/phases/phase-01-environment-bootstrap.md`
 10. `docs/planning/phases/phase-02-identity-core.md`
 11. `docs/planning/phases/phase-03-account-lifecycle.md`
-12. `docs/contracts/oidc/jwt-token-contract.md`
-13. `docs/planning/assignments/phase-02-sprint-04.md`
-14. `docs/governance/git-rules.md`
-15. `docs/governance/pr-template.md`
-16. `docs/governance/review-checklist.md`
-17. `docs/governance/anti-patterns.md`
+12. `docs/planning/phases/phase-04-oidc-core.md`
+13. `docs/contracts/oidc/jwt-token-contract.md`
+14. Relevant sprint assignment under `docs/planning/assignments/`, selected from the execution prompt or current task context
+15. Relevant sprint report under `docs/planning/reports/`, when reviewing completed work or continuing from prior implementation
+16. `docs/governance/git-rules.md`
+17. `docs/governance/pr-template.md`
+18. `docs/governance/review-checklist.md`
+19. `docs/governance/anti-patterns.md`
+
+Sprint assignment and report documents are task-context documents. They must not be hard-coded as fixed reading-order entries in this index.
 
 ## V. Conflict Resolution Rules
 
