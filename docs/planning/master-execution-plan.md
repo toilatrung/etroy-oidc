@@ -168,7 +168,9 @@ Scope:
 - PKCE validation
 - Authorization Code Flow
 - ID Token RSA signing
+- JWT access token formalization
 - claims mapping (`claims.mapper`)
+- UserInfo endpoint (`/userinfo`) baseline
 
 ### Phase 05 - Token and Session Management
 
@@ -178,12 +180,14 @@ Objective:
 
 Scope:
 
-- access token management
+- access token lifecycle management
 - refresh token management (hashed only)
 - token rotation
 - token revoke
+- introspection if approved by Phase 05 planning
 - session management
 - SSO behavior
+- logout hardening if approved by Phase 05 planning
 
 ### Phase 06 - Platform and Governance Hardening
 
@@ -364,17 +368,14 @@ It is the operational control layer that keeps implementation aligned with appro
 - Architecture: completed
 - Requirements: completed
 - Execution Plan: active and controlling
-- Phase 01 - Environment and Infrastructure Foundation: completed
-- Active phase: Phase 02 - Identity Core
-- Active sprint: Sprint 04 - User Module
+- Phase 01 - Environment and Infrastructure Foundation: CLOSED
+- Phase 02 - Identity Core: CLOSED
+- Phase 03 - Account Lifecycle: CLOSED
+- Phase 04 - OIDC Core: CLOSED
+- Current next phase: Phase 05 - Token and Session Management
 
 ---
 
 ## Next Step
 
-Proceed with:
-
-- `docs/planning/phases/phase-02-identity-core.md`
-- `docs/planning/assignments/phase-02-sprint-04.md`
-
-Start controlled Sprint 04 implementation for the `users` module while preserving Phase 01 runtime, configuration, and infrastructure boundaries.
+Proceed with Phase 05 planning and implementation for secure token and session lifecycle management while preserving Phase 04 boundaries and source-of-truth governance.
