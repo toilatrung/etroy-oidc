@@ -5,8 +5,12 @@
 - Phase: Phase 04 - OIDC Core
 - Sprint: Sprint 10 - ID Token + Claims + UserInfo
 - Objective: Finalize client-usable OIDC token layer using approved JWT contract
-- Status: Planned
+- Status: CLOSED
 - Owner module: `src/modules/oidc`
+
+Execution status:
+
+Sprint 10 has been implemented and validated. Previously open runtime validation gaps for scoped /userinfo claims and invalid JWT rejection were closed by Tester Postman evidence.
 
 ---
 
@@ -69,7 +73,7 @@ Constraint:
 
 Required:
 
-```
+```text
 src/modules/oidc/
   access-token.provider.ts
   id-token.provider.ts
@@ -179,7 +183,7 @@ Must NOT:
 
 ### Static
 
-```
+```text
 npm.cmd run lint
 npm.cmd run typecheck
 npm.cmd run format:check
@@ -188,7 +192,7 @@ npm.cmd run build
 
 ### Boundary
 
-```
+```text
 rg -n "UserModel" src/modules/oidc
 rg -n "token-lifecycle" src/modules/oidc
 rg -n "refresh|session|revoke" src/modules/oidc
@@ -211,6 +215,7 @@ rg -n "jwt|token" src/modules/auth
 - /userinfo works
 - no boundary violation
 - validation passes
+- tester Postman evidence closed scoped claims and invalid JWT rejection runtime validation
 
 ---
 
