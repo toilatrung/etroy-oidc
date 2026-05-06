@@ -2,7 +2,21 @@
 
 ---
 
-## I. Overview
+## I. Status
+
+- Status: CLOSED
+- Implementation range: Sprint 08 - Sprint 10
+
+Closure basis:
+
+- Sprint 08 authorize validation completed.
+- Sprint 09 token endpoint and authorization-code exchange baseline completed.
+- Sprint 10 JWT access token, ID Token, claims mapper, and /userinfo completed.
+- Tester Postman evidence closed the previously open Sprint 10 runtime validation gaps.
+
+---
+
+## II. Overview
 
 ### Objective
 
@@ -16,7 +30,7 @@ Phase 04 turns the approved identity and account-lifecycle foundation into the i
 
 ---
 
-## II. Contract Basis
+## III. Contract Basis
 
 Phase 04 execution remains governed by:
 
@@ -34,7 +48,7 @@ Rules:
 
 ---
 
-## III. Scope
+## IV. Scope
 
 ### Included
 
@@ -61,7 +75,7 @@ Rules:
 
 ---
 
-## IV. Boundary Separation
+## V. Boundary Separation
 
 ### Phase 03 separation
 
@@ -77,7 +91,7 @@ Rules:
 
 ---
 
-## V. Module Ownership
+## VI. Module Ownership
 
 ### oidc
 
@@ -100,8 +114,6 @@ Must NOT:
 - reuse Phase 03 `token-lifecycle`
 - implement Phase 05 token/session lifecycle management prematurely
 
----
-
 ### auth
 
 Owns:
@@ -113,8 +125,6 @@ Must NOT:
 
 - generate access tokens, refresh tokens, ID tokens, authorization codes, or sessions
 - own OIDC protocol behavior
-
----
 
 ### users
 
@@ -131,7 +141,7 @@ Must NOT:
 
 ---
 
-## VI. Phase Breakdown
+## VII. Phase Breakdown
 
 | Sprint | Scope |
 | --- | --- |
@@ -141,7 +151,7 @@ Must NOT:
 
 ---
 
-## VII. Sprint 08 - Provider Foundation + Authorization Endpoint
+## VIII. Sprint 08 - Provider Foundation + Authorization Endpoint
 
 ### Goal
 
@@ -149,18 +159,12 @@ Establish the OIDC provider foundation and expose the authorization endpoint bou
 
 ### Scope
 
-High-level scope:
-
 - provider bootstrap
 - `/authorize` endpoint surface
 - authorization request validation
 - PKCE challenge handling
 - client and redirect URI validation required by `/authorize`
 - handoff to `auth` for credential validation only
-
-### Deliverable Direction
-
-Sprint 08 should leave the codebase ready to accept and validate authorization requests through the OIDC module, with credential verification delegated to `auth` and user identity access limited to approved `users` contracts.
 
 ### Boundary Rules
 
@@ -171,15 +175,13 @@ Sprint 08 should leave the codebase ready to accept and validate authorization r
 
 ---
 
-## VIII. Sprint 09 - Token Endpoint + Authorization Code Exchange
+## IX. Sprint 09 - Token Endpoint + Authorization Code Exchange
 
 ### Goal
 
 Define the token endpoint core for exchanging a valid authorization code under the approved Authorization Code Flow + PKCE contract.
 
 ### Scope
-
-High-level scope:
 
 - `/token` endpoint
 - authorization code issuance, repository-based persistence, and validation
@@ -190,10 +192,6 @@ High-level scope:
   - `access_token`
   - `token_type`
   - `expires_in`
-
-### Deliverable Direction
-
-Sprint 09 should establish the OIDC-owned token endpoint exchange path, including authorization code repository handling and a non-final `access_token` baseline, while leaving JWT access_token formalization, ID Token, claims, and UserInfo output to Sprint 10 and lifecycle hardening to Phase 05.
 
 Mandatory clarification:
 
@@ -208,19 +206,16 @@ Mandatory clarification:
 - Sprint 09 must not introduce JWT access-token semantics, claims finalization, or signing/key behavior
 - JWT access_token formalization, ID Token, claims, and `/userinfo` remain Sprint 10 concerns
 - Phase 05 lifecycle behavior must not be introduced in Sprint 09
-- Refresh token rotation, revocation, introspection, and broader lifecycle management remain Phase 05 concerns.
 
 ---
 
-## IX. Sprint 10 - ID Token + Claims + UserInfo
+## X. Sprint 10 - ID Token + Claims + UserInfo
 
 ### Goal
 
 Complete the client-usable OIDC token and identity output surface by formalizing JWT access_token contract/implementation, signed ID Tokens, approved claims mapping, and baseline UserInfo response behavior.
 
 ### Scope
-
-High-level scope:
 
 - JWT access_token formalization (contract-first)
 - ID Token RSA signing
@@ -231,27 +226,8 @@ High-level scope:
 
 Mandatory precondition:
 
-- Sprint 10 must not begin JWT implementation until the JWT access-token contract is written and approved.
 - Sprint 10 implementation MUST follow: `docs/contracts/oidc/jwt-token-contract.md`
 - no contract -> no implementation
-
-JWT access-token contract must define:
-
-- signing algorithm
-- issuer (`iss`)
-- audience (`aud`)
-- subject (`sub`)
-- expiration (`exp`)
-- issued-at (`iat`)
-- scope representation
-- claim set boundary
-- key/JWKS usage
-- validation expectations for clients
-- relationship between access_token, ID Token, and `/userinfo`
-
-### Deliverable Direction
-
-Sprint 10 should produce the client-usable OIDC token and identity output baseline by mapping authoritative user identity into approved claims and exposing those claims through JWT access_token, ID Token, and UserInfo behavior.
 
 ### Boundary Rules
 
@@ -264,13 +240,14 @@ Sprint 10 should produce the client-usable OIDC token and identity output baseli
 
 ---
 
-## X. Validation
+## XI. Validation
 
 Required validation posture:
 
 - standard repository validation
 - contract traceability
 - boundary review
+- tester runtime evidence
 
 Boundary checks:
 
@@ -282,7 +259,7 @@ Boundary checks:
 
 ---
 
-## XI. Definition of Done
+## XII. Definition of Done
 
 - `/authorize` works according to approved contract
 - `/token` works according to approved contract
@@ -294,10 +271,11 @@ Boundary checks:
 - `/userinfo` baseline returns mapped claims according to approved scopes
 - `users`, `auth`, and `oidc` ownership remains separated
 - no boundary violations
+- tester evidence has closed Phase 04 runtime validation gaps
 
 ---
 
-## XII. Handoff to Phase 05
+## XIII. Handoff to Phase 05
 
 Phase 04 produces the OIDC core flow baseline.
 
@@ -307,5 +285,7 @@ Phase 05 remains responsible for secure token and session lifecycle expansion, i
 - refresh token lifecycle management
 - rotation
 - revocation
+- introspection if approved by Phase 05 planning
 - session management
 - SSO behavior
+- logout hardening if approved by Phase 05 planning
