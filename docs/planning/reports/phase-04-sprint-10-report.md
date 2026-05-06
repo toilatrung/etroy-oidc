@@ -4,7 +4,7 @@
 
 - Phase: Phase 04 - OIDC Core
 - Sprint: Sprint 10 - ID Token + Claims + UserInfo
-- Status: READY WITH CONDITIONS
+- Status: CLOSED
 - Branch: feature/oidc-sprint10-jwt-claims-userinfo
 - Owner module: src/modules/oidc
 
@@ -108,38 +108,51 @@
 - Scope impact:
   - No user DB access violation found.
 
-## V. Remaining Issues / Limitations
+## V. Post-report Validation Update
+
+Tester completed additional Postman evidence validation after the initial report.
+
+Closed items:
+
+- Scoped /userinfo claims validation: PASS
+- Invalid or tampered JWT rejection: PASS
+
+The previous Sprint 10 runtime evidence gap is now closed.
+
+## VI. Remaining Issues / Limitations
 
 ### Repo-wide format:check failure
 - Status:
-  - Still present.
+  - Deferred repository-wide cleanup.
 - Reason not fixed:
   - Failure is due pre-existing repo-wide formatting baseline drift outside Sprint 10 scope.
 - Impact:
-  - npm.cmd run format:check remains FAIL globally.
+  - npm.cmd run format:check remains FAIL globally if executed against the current known baseline.
   - Scoped Sprint 10 Prettier check is PASS.
 - Planned resolution:
   - Handle baseline normalization in a separate formatting-only PR.
+- Closure note:
+  - Repo-wide format baseline drift remains a known deferred repository-wide cleanup item and is not a Phase 04 closure blocker.
 
 ### Runtime validation evidence
 - Status:
-  - PARTIAL / NEEDS STRONGER EVIDENCE
+  - PASS / CLOSED
 - Reason:
-  - Full integrated server-run proof for all JWT/UserInfo scenarios has not been fully captured.
+  - Tester completed additional Postman evidence for scoped /userinfo claims and invalid/tampered JWT rejection.
 - Impact:
-  - PR can be prepared, but reviewer should focus on runtime evidence completeness.
-- Planned resolution:
-  - Complete or document runtime/manual validation before final merge readiness.
+  - Sprint 10 runtime evidence gap is closed.
 
-## VI. Validation Results
+## VII. Validation Results
 
 - npm.cmd run lint: PASS
 - npm.cmd run typecheck: PASS
 - npm.cmd run build: PASS
-- npm.cmd run format:check: FAIL - pre-existing repo-wide formatting baseline drift
+- npm.cmd run format:check: FAIL - pre-existing repo-wide formatting baseline drift; deferred repository-wide cleanup, not a Phase 04 closure blocker
 - Scoped Sprint 10 Prettier check: PASS
+- Tester Postman evidence for scoped /userinfo claims: PASS
+- Tester Postman evidence for invalid/tampered JWT rejection: PASS
 
-## VII. Boundary and Security Verification
+## VIII. Boundary and Security Verification
 
 - oidc -> users boundary: PASS
 - auth token generation rule: PASS
@@ -155,7 +168,7 @@ rg -n "UserModel|user\\.repository|findById|findOne" src/modules/oidc:
 FAIL by broad grep pattern, but manual review PASS.
 Reason: authorization-code.repository.ts uses findOne/findOneAndUpdate only against AuthorizationCodeModel, which is OIDC-owned persistence.
 
-## VIII. Scope Compliance
+## IX. Scope Compliance
 
 - Only Sprint 10 implementation/report files are intended for this branch.
 - No dependency changes.
@@ -166,18 +179,22 @@ Reason: authorization-code.repository.ts uses findOne/findOneAndUpdate only agai
 - No direct user DB access from oidc.
 - No token generation in auth.
 
-## IX. PR Readiness
+## X. Sprint Closure
 
-Status: READY WITH CONDITIONS
+Sprint status: CLOSED
 
-Conditions:
-- Runtime validation evidence should be strengthened before final merge readiness.
-- Repo-wide format:check failure must remain documented as pre-existing baseline drift.
-- Formatting baseline should be handled in a separate PR if required.
+Closure basis:
 
-## X. Next Steps
+- JWT access_token implementation completed.
+- ID Token implementation completed.
+- Claims mapper completed.
+- /userinfo endpoint completed.
+- Token response finalization completed.
+- Tester Postman evidence closed prior runtime validation gaps.
+- Repo-wide format baseline drift is deferred and is not a Sprint 10 or Phase 04 closure blocker.
 
-- Complete runtime validation evidence.
-- Create Sprint 10 PR after confirming file scope.
-- Optionally create separate formatting-baseline PR.
-- Keep Sprint 10 PR isolated from repo-wide formatting or dependency changes.
+## XI. Next Steps
+
+- Handoff to Phase 05 planning and implementation.
+- Keep Phase 05 scope isolated from Phase 04 closure.
+- Handle repo-wide formatting baseline cleanup later as a separate repository-wide cleanup item.
