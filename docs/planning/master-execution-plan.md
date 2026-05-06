@@ -170,6 +170,12 @@ Scope:
 - ID Token RSA signing
 - claims mapping (`claims.mapper`)
 
+Sprints:
+
+- Sprint 08 - Provider Foundation + Authorization Endpoint
+- Sprint 09 - Token Endpoint + Authorization Code Exchange
+- Sprint 10 - ID Token + Claims + UserInfo
+
 ### Phase 05 - Token and Session Management
 
 Objective:
@@ -186,6 +192,10 @@ Scope:
 - session management
 - SSO behavior
 - logout hardening if approved by Phase 05 planning
+
+Sprints:
+
+- Sprint 11+ - Token and Session Lifecycle Sprints
 
 ### Phase 06 - Platform and Governance Hardening
 
@@ -204,8 +214,8 @@ Scope:
 
 Sprints:
 
-- Sprint 08 - Logging and Audit
-- governance extension tasks
+- Later Sprint - Logging and Audit
+- Later Sprint - Governance Extension Tasks
 
 ---
 
